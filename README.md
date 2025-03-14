@@ -1,8 +1,8 @@
-# Robust Symmetry Detection with Riemannian Langevin Dynamics
+# BlenderGym: Benchmarking Foundational Model Systems for Graphics Editing
 
-This is the repository that contains source code for the [Riemannian Langevin Dynamics website](https://blendergym.github.io).
+This is the repository that contains source code for the [BlenderGym: Benchmarking Foundational Model Systems for Graphics Editing](https://blendergym.github.io).
 
-If you find our symmetry detection useful for your work please cite:
+If you find BlenderGym useful for your work please cite:
 ```
 @inproceedings{je2024robust,
   title={Robust Symmetry Detection via Riemannian Langevin Dynamics},
