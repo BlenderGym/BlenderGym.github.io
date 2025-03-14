@@ -53,14 +53,14 @@
           <h1 class="title is-1 publication-title">BlenderGym: Benchmarking Foundational Model Systems for Graphics Editing</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://richard-guyunqi.github.io/">Yunqi Gu</a><sup>1</sup><sup>*</sup>,
+              <a href="https://richard-guyunqi.github.io/">Yunqi Gu</a><sup>1</sup>,
             </span>
-              <a href="https://ianhuang.ai/">Ian Huang</a><sup>1</sup><sup>*</sup>,
+              <a href="https://ianhuang.ai/">Ian Huang</a><sup>1</sup>,
             </span>     
-              <a href="https://jihyeonje.com/">Jihyeon Je</a><sup>1</sup><sup>*</sup>,
+              <a href="https://jihyeonje.com/">Jihyeon Je</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="https://www.guandaoyang.com/">Guandao Yang</a><sup>1</sup><sup>*</sup>,
+              <a href="https://www.guandaoyang.com/">Guandao Yang</a><sup>1</sup>,
             </span>
             <span class="author-block">
               <a href="https://geometry.stanford.edu/member/guibas/">Leonidas Guibas</a><sup>1</sup>
@@ -69,9 +69,6 @@
 
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>Stanford University</span>
-          </div>
-          <div class="is-size-6" style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-            <span><sup>*</sup>Equal contribution</span>
           </div>
 
 
@@ -118,10 +115,9 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <img src="./static/images/saconference24-125-teaser.jpg" alt="Teaser Image" style="width:100%;">
+      <img src="./static/images/tea.pdf" alt="Teaser Image" style="width:100%;">
       <h2 class="subtitle has-text-centered">
-        In this work, we present a new perspective of understanding symmetries, which leads to the adoption of Riemannian Langevin dynamics to symmetry detection.
-      </h2>
+        BlenderGym, a 3D graphics benchmark that tasks VLMs with 3D scene reconstruction through code editing. BlenderGym consists of 245 handcrafted start-goal scene pairs across five key graphics editing tasks: object placement, lighting adjustment, procedural material editing, blend shape manipulation, and procedural geometry editing.      </h2>
     </div>
   </div>
 </section>
@@ -190,7 +186,7 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          3D graphics editing is a crucial component in applications like movie production and game design, yet it remains a time-consuming process that demands highly specialized domain expertise. Automating the process is challenging because graphical editing requires performing a variety of tasks, each requiring distinct skill sets. Recently, vision-language models (VLMs) have emerged as a powerful framework for automating the editing process, but their development and evaluation are bottlenecked by the lack of a comprehensive benchmark that requires human-level perception and presents real-world editing complexity. 
+          3D graphics editing is a crucial component in applications like movie production and game design, yet it remains a time-consuming process that demands highly specialized domain expertise. Automating the process is challenging because graphical editing requires performing a variety of tasks, each requiring distinct skill sets. Recently, vision-language models (VLMs) have emerged as a powerful framework for automating the editing process, but their development and evaluation are bottlenecked by the lack of a comprehensive benchmark that requires human-level perception and presents real-world editing complexity. In this work, we present \(\textbf{BlenderGym}\) , a comprehensive VLM system benchmark for 3D graphics editing. BlenderGym evaluates VLM systems through code-based 3D reconstruction tasks. We evaluate closed- and open-source VLM systems and observe that even the state-of-the-art VLM system struggles with tasks relatively easy for human Blender users. Enabled by BlenderGym, we study how inference scaling techniques impact VLM's performance on graphics editing tasks. Notably, our findings reveal that the verifier used to guide the scaling of generation can itself be improved through inference scaling, complementing recent insights on inference scaling of LLM generation in coding and math tasks. We further show that inference compute is not uniformly effective and can be optimized by strategically distributing it between generation and verification. 
         </div>
       </div>
     </div>
@@ -327,9 +323,7 @@
       <div class="column is-full">
         <h2 class="title is-6">Acknowledgements</h2>
         <div class="content has-text-justified" style="font-size:13px">
-          This work was supported by ARL grant W911NF-21-2-0104, Vannevar Bush Faculty Fellowship, and Azrieli Foundation Early Career Faculty Fellowship. We would also like to thank Eric Chan, Marcel Rød, Lucia Zheng, Chenglei Si, Zoe Wefers, George Nakayama, and Maolin Gao for all the helpful discussions and feedback. 
-      </div>
-    </div>
+            We acknowledge the support of ARL grant W911NF-21-2-0104 and a Vannevar Bush Faculty Fellowship. Additionally, We would like to thank Yangjun Ruan, Haiwen (Haven) Feng, Jordan Juravsky, and all our reviewers for feedback on paper revisions.    </div>
   </section>
   <section class="section no-spacing" id="Bibtex">
     <div class="container is-max-desktop content">
