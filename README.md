@@ -1,6 +1,6 @@
 # Robust Symmetry Detection with Riemannian Langevin Dynamics
 
-This is the repository that contains source code for the [Riemannian Langevin Dynamics website](https://symmetry-langevin.github.io).
+This is the repository that contains source code for the [Riemannian Langevin Dynamics website](https://blendergym.github.io).
 
 If you find our symmetry detection useful for your work please cite:
 ```
