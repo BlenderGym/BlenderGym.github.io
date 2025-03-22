@@ -142,10 +142,267 @@
           <div class="column is-full">
             <h2 class="title is-3">Overview (# Introduce each tasks)</h2>    
             <div class="content has-text-justified">
-            Introduction of the benchmark -- dataflow, data instance, etc.     
+              We aim to enable comprehensive comparison and analysis of VLM systems on 3D graphics editing tasks, which is currently bottlenecked by (1) the incomprehensive coverage of task settings with current evaluation approaches and (2) the absence of robust metrics due to unscalability of human evaluation and unreliability of AI-judge. 
+              To overcome these two challenges, we introduce BlenderGym—the first VLM systems benchmark tailored to 3D graphics. BlenderGym features in (1) the comprehensive coverage of essential graphics editing tasks with support for a wide range of VLM systems, (2) quantitative evaluation with image and 3D metrics, eliminating the need for human or AI-based evaluations and (3) support for inference time scaling experiments on graphics editing tasks.
+              BlenderGym consists of 245 hand-crafted Blender scenes across 5 key graphics editing tasks: procedural geometry editing, lighting adjustments, procedural material design, blend shape manipulation, and object placement (45/30/30/65/30 instances respectively). Each instance in BlenderGym presents a reconstruction task from a start scene to a goal scene, where the start scene serves as the original input for the VLM system, and the goal scene represents the desired output state that the VLM system is tasked with reconstructing. Each start-goal instance includes a base Blender file of the scene setup, a pair of Python scripts that generate the start and goal scene, rendered images for both scenes, and language description of the differences between the two scenes. 
             </div>
           </div>
         </div>
+        <table border="1" cellpadding="10" cellspacing="0">
+          <caption>Quantitative evaluation of VLM system edits. The magnitude of photometric loss(PL) and negative-clip(N-CLIP) is scaled to $10^{-3}$ for blend shape and placement tasks, and to $10^{-2}$ for the remaining tasks. We report unscaled Chamfer Distance(CD). Values marked with ``-'' indicate that the VLM system was unable to generate any executable code script in more than $75\%$ of the instances for that task.</caption>
+          <thead>
+            <tr>
+              <th></th>
+              <th colspan="3">Blend Shape</th>
+              <th colspan="3">Placement</th>
+              <th colspan="3">Geometry</th>
+              <th colspan="2">Lighting</th>
+              <th colspan="2">Material</th>
+            </tr>
+            <tr>
+              <th>Model</th>
+              <th>PL &#8595;</th>
+              <th>N-CLIP &#8595;</th>
+              <th>CD &#8595;</th>
+              <th>PL &#8595;</th>
+              <th>N-CLIP &#8595;</th>
+              <th>CD &#8595;</th>
+              <th>PL &#8595;</th>
+              <th>N-CLIP &#8595;</th>
+              <th>CD &#8595;</th>
+              <th>PL &#8595;</th>
+              <th>N-CLIP &#8595;</th>
+              <th>PL &#8595;</th>
+              <th>N-CLIP &#8595;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GPT-4o</td>
+              <td><strong>9.140</strong></td>
+              <td><strong>20.47</strong></td>
+              <td><strong>0.904</strong></td>
+              <td>11.89</td>
+              <td><strong>30.38</strong></td>
+              <td>11.22</td>
+              <td><strong>6.747</strong></td>
+              <td>8.561</td>
+              <td>1.192</td>
+              <td><strong>2.410</strong></td>
+              <td><strong>2.398</strong></td>
+              <td><strong>3.653</strong></td>
+              <td>8.942</td>
+            </tr>
+            <tr>
+              <td>Claude-3.5-Sonnet</td>
+              <td>12.79</td>
+              <td>27.96</td>
+              <td>1.962</td>
+              <td>13.19</td>
+              <td>51.76</td>
+              <td>11.29</td>
+              <td>10.81</td>
+              <td>13.04</td>
+              <td>1.452</td>
+              <td>2.897</td>
+              <td>4.049</td>
+              <td>5.769</td>
+              <td>11.44</td>
+            </tr>
+            <tr>
+              <td>GPT-4-Turbo</td>
+              <td>15.21</td>
+              <td>26.15</td>
+              <td>1.927</td>
+              <td>12.21</td>
+              <td>37.57</td>
+              <td>12.80</td>
+              <td>8.160</td>
+              <td>10.92</td>
+              <td><strong>1.120</strong></td>
+              <td>2.723</td>
+              <td>3.912</td>
+              <td>5.424</td>
+              <td><strong>8.812</strong></td>
+            </tr>
+            <tr>
+              <td>Claude-3-Haiku</td>
+              <td>13.62</td>
+              <td>29.72</td>
+              <td>2.563</td>
+              <td>14.78</td>
+              <td>44.10</td>
+              <td>12.13</td>
+              <td>10.15</td>
+              <td>12.51</td>
+              <td>1.362</td>
+              <td>3.712</td>
+              <td>4.824</td>
+              <td>5.960</td>
+              <td>11.61</td>
+            </tr>
+            <tr>
+              <td>Gemini-1.5-flash</td>
+              <td>23.18</td>
+              <td>30.47</td>
+              <td>2.412</td>
+              <td><strong>10.94</strong></td>
+              <td>45.34</td>
+              <td><strong>8.324</strong></td>
+              <td>9.443</td>
+              <td>10.49</td>
+              <td>1.323</td>
+              <td>3.514</td>
+              <td>5.688</td>
+              <td>6.364</td>
+              <td>10.42</td>
+            </tr>
+            <tr>
+              <td>Qwen2-vl-7b</td>
+              <td>16.78</td>
+              <td>29.22</td>
+              <td>2.123</td>
+              <td>15.31</td>
+              <td>41.12</td>
+              <td>14.21</td>
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+              <td>2.985</td>
+              <td><strong>2.225</strong></td>
+              <td>--</td>
+              <td>--</td>
+            </tr>
+            <tr>
+              <td>Qwen-Llama</td>
+              <td>14.32</td>
+              <td>28.23</td>
+              <td>2.012</td>
+              <td>14.65</td>
+              <td>34.93</td>
+              <td>12.41</td>
+              <td>13.97</td>
+              <td>14.13</td>
+              <td>1.673</td>
+              <td>3.173</td>
+              <td>3.998</td>
+              <td>--</td>
+              <td>--</td>
+            </tr>
+            <tr>
+              <td>Phi-3.5-vision</td>
+              <td>12.51</td>
+              <td>24.14</td>
+              <td>2.012</td>
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+              <td>3.127</td>
+              <td>6.012</td>
+              <td>--</td>
+              <td>--</td>
+            </tr>
+            <tr>
+              <td>Phi-Llama</td>
+              <td>12.13</td>
+              <td>24.77</td>
+              <td>1.826</td>
+              <td>14.61</td>
+              <td>35.61</td>
+              <td>12.61</td>
+              <td>9.818</td>
+              <td>11.92</td>
+              <td>1.471</td>
+              <td>3.621</td>
+              <td>6.895</td>
+              <td>--</td>
+              <td>--</td>
+            </tr>
+            <tr>
+              <td>MiniCPM-V-2.6</td>
+              <td>13.86</td>
+              <td>29.92</td>
+              <td>1.997</td>
+              <td>11.99</td>
+              <td>31.69</td>
+              <td>12.62</td>
+              <td>7.127</td>
+              <td><strong>8.542</strong></td>
+              <td>1.229</td>
+              <td>3.829</td>
+              <td>6.124</td>
+              <td>--</td>
+              <td>--</td>
+            </tr>
+            <tr>
+              <td>MiniCPM-Llama</td>
+              <td>13.76</td>
+              <td>27.21</td>
+              <td>1.882</td>
+              <td>12.74</td>
+              <td>31.72</td>
+              <td>15.81</td>
+              <td>9.561</td>
+              <td>11.47</td>
+              <td>1.569</td>
+              <td>3.725</td>
+              <td>6.090</td>
+              <td>7.152</td>
+              <td>12.14</td>
+            </tr>
+            <tr>
+              <td>InternVL2-8b</td>
+              <td>12.69</td>
+              <td>29.09</td>
+              <td>1.920</td>
+              <td>14.71</td>
+              <td>35.92</td>
+              <td>17.22</td>
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+              <td>3.920</td>
+              <td>6.825</td>
+              <td>--</td>
+              <td>--</td>
+            </tr>
+            <tr>
+              <td>Intern-Llama</td>
+              <td>11.80</td>
+              <td>23.83</td>
+              <td>1.861</td>
+              <td>16.15</td>
+              <td>37.23</td>
+              <td>18.22</td>
+              <td>13.70</td>
+              <td>14.44</td>
+              <td>1.578</td>
+              <td>3.825</td>
+              <td>6.152</td>
+              <td>--</td>
+              <td>--</td>
+            </tr>
+            <tr>
+              <td><strong>Human</strong></td>
+              <td><strong>0.934</strong></td>
+              <td><strong>9.12</strong></td>
+              <td><strong>0.399</strong></td>
+              <td><strong>0.423</strong></td>
+              <td><strong>13.34</strong></td>
+              <td><strong>1.532</strong></td>
+              <td><strong>1.269</strong></td>
+              <td><strong>2.434</strong></td>
+              <td><strong>0.334</strong></td>
+              <td><strong>1.239</strong></td>
+              <td><strong>2.932</strong></td>
+              <td><strong>0.629</strong></td>
+              <td><strong>3.043</strong></td>
+            </tr>
+          </tbody>
+        </table>        
         <figure>
           <div class="columns is-centered" style="align-items: center;">
             <!-- First Image Column, smaller width -->
@@ -182,8 +439,10 @@
           <div class="column is-full">
             <h2 class="title is-3">Verifier Scaling</h2>
             <div class="content has-text-justified">
-              Results for verifier scaling. 
-               </div>
+              To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier that guides the generation by selecting desirable edits and pruning suboptimal ones. 
+              We find that similar to generation, VLM verifiers used for guiding generation also benefit from inference scaling, and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
+              With that knowledge, we further explore the question of distributing inference compute between generation and verification. We find that (1) the distribution of inference compute significantly impacts performance, and that (2) the optimal compute ratio between generation and verification varies with the amount of total compute — more total compute benefits from a higher share of verification.
+              </div>
           </div>
         </div>
         <br>
