@@ -164,9 +164,9 @@
               </div>
             </div>
 
-              <div style="display: flex; justify-content: center;">
-                <table border="1" cellpadding="10" cellspacing="0">
-                  <thead>
+            <div style="display: flex; justify-content: center; padding: 20px; background-color: #f8f8f8;">
+              <table border="1" cellpadding="20" cellspacing="0" style="border-collapse: collapse; width: 95%; font-family: Arial, sans-serif; background-color: #ffffff; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                <thead style="background-color: #e9e9e9; font-size: 18px; text-align: center; color: #333;">
                     <tr>
                       <th></th>
                       <th colspan="3">Blend Shape</th>
@@ -176,6 +176,7 @@
                       <th colspan="2">Material</th>
                     </tr>
                     <tr>
+                      <th style="background-color: #cccccc;">Model</th>
                       <th>Model</th>
                       <th>PL &#8595;</th>
                       <th>N-CLIP &#8595;</th>
@@ -192,8 +193,8 @@
                       <th>N-CLIP &#8595;</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
+                  <tbody style="font-size: 16px; text-align: center;">
+                    <tr style="background-color: #b1eaff;">
                       <td>GPT-4o</td>
                       <td><strong>9.140</strong></td>
                       <td><strong>20.47</strong></td>
@@ -209,7 +210,7 @@
                       <td><strong>3.653</strong></td>
                       <td>8.942</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1eaff;">
                       <td>Claude-3.5-Sonnet</td>
                       <td>12.79</td>
                       <td>27.96</td>
@@ -225,7 +226,7 @@
                       <td>5.769</td>
                       <td>11.44</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1eaff;">
                       <td>GPT-4-Turbo</td>
                       <td>15.21</td>
                       <td>26.15</td>
@@ -241,7 +242,7 @@
                       <td>5.424</td>
                       <td><strong>8.812</strong></td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1eaff;">
                       <td>Claude-3-Haiku</td>
                       <td>13.62</td>
                       <td>29.72</td>
@@ -257,7 +258,7 @@
                       <td>5.960</td>
                       <td>11.61</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1eaff;">
                       <td>Gemini-1.5-flash</td>
                       <td>23.18</td>
                       <td>30.47</td>
@@ -273,7 +274,7 @@
                       <td>6.364</td>
                       <td>10.42</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1ffb7;">
                       <td>Qwen2-vl-7b</td>
                       <td>16.78</td>
                       <td>29.22</td>
@@ -289,7 +290,7 @@
                       <td>--</td>
                       <td>--</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1ffb7;">
                       <td>Qwen-Llama</td>
                       <td>14.32</td>
                       <td>28.23</td>
@@ -305,7 +306,7 @@
                       <td>--</td>
                       <td>--</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1ffb7;">
                       <td>Phi-3.5-vision</td>
                       <td>12.51</td>
                       <td>24.14</td>
@@ -321,7 +322,7 @@
                       <td>--</td>
                       <td>--</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1ffb7;">
                       <td>Phi-Llama</td>
                       <td>12.13</td>
                       <td>24.77</td>
@@ -337,7 +338,7 @@
                       <td>--</td>
                       <td>--</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1ffb7;">
                       <td>MiniCPM-V-2.6</td>
                       <td>13.86</td>
                       <td>29.92</td>
@@ -353,7 +354,7 @@
                       <td>--</td>
                       <td>--</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1ffb7;">
                       <td>MiniCPM-Llama</td>
                       <td>13.76</td>
                       <td>27.21</td>
@@ -369,7 +370,7 @@
                       <td>7.152</td>
                       <td>12.14</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1ffb7;">
                       <td>InternVL2-8b</td>
                       <td>12.69</td>
                       <td>29.09</td>
@@ -385,7 +386,7 @@
                       <td>--</td>
                       <td>--</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #b1ffb7;">
                       <td>Intern-Llama</td>
                       <td>11.80</td>
                       <td>23.83</td>
@@ -401,7 +402,7 @@
                       <td>--</td>
                       <td>--</td>
                     </tr>
-                    <tr>
+                    <tr style="background-color: #ffeab1;">
                       <td><strong>Human</strong></td>
                       <td><strong>0.934</strong></td>
                       <td><strong>9.12</strong></td>
@@ -418,7 +419,6 @@
                       <td><strong>3.043</strong></td>
                     </tr>
                   </tbody>
-                  
                   <caption style="font-size: 16px; text-align: center; caption-side: bottom;">Quantitative evaluation of VLM system edits. The magnitude of photometric loss(PL) and negative-clip(N-CLIP) is scaled to $10^{-3}$ for blend shape and placement tasks, and to $10^{-2}$ for the remaining tasks. We report unscaled Chamfer Distance(CD). Values marked with ``-'' indicate that the VLM system was unable to generate any executable code script in more than $75\%$ of the instances for that task.</caption>
                 </table>        
               </div>
