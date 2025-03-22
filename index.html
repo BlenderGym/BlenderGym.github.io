@@ -140,17 +140,17 @@
         <!-- Abstract. -->
         <div class="columns is-centered has-text-centered">
           <div class="column is-full">
-            <h2 class="title is-3">Overview</h2>    
+            <h2 class="title is-3">Overview</h2>  
+            <div class="hero-body">
+              <img src="./static/images/overview.png" alt="Overview Image" style="width:100%;">
+              <h2 class="subtitle has-text-centered">
+                Examples of task instances and VLM system output edits. We present start scene, goal scene, human user edit, and VLM system edits side by side with their corresponding metric values.
+            </div>  
             <div class="content has-text-justified">
               We aim to enable comprehensive comparison and analysis of VLM systems on 3D graphics editing tasks, which is currently bottlenecked by (1) the incomprehensive coverage of task settings with current evaluation approaches and (2) the absence of robust metrics due to unscalability of human evaluation and unreliability of AI-judge. 
               To overcome these two challenges, we introduce BlenderGym—the first VLM systems benchmark tailored to 3D graphics. BlenderGym features in (1) the comprehensive coverage of essential graphics editing tasks with support for a wide range of VLM systems, (2) quantitative evaluation with image and 3D metrics, eliminating the need for human or AI-based evaluations and (3) support for inference time scaling experiments on graphics editing tasks.
               BlenderGym consists of 245 hand-crafted Blender scenes across 5 key graphics editing tasks: procedural geometry editing, lighting adjustments, procedural material design, blend shape manipulation, and object placement (45/30/30/65/30 instances respectively). Each instance in BlenderGym presents a reconstruction task from a start scene to a goal scene, where the start scene serves as the original input for the VLM system, and the goal scene represents the desired output state that the VLM system is tasked with reconstructing. Each start-goal instance includes a base Blender file of the scene setup, a pair of Python scripts that generate the start and goal scene, rendered images for both scenes, and language description of the differences between the two scenes. 
             </div>
-            <div class="hero-body">
-              <img src="./static/images/overview.png" alt="Overview Image" style="width:100%;">
-              <h2 class="subtitle has-text-centered">
-                Examples of task instances and VLM system output edits. We present start scene, goal scene, human user edit, and VLM system edits side by side with their corresponding metric values.
-              </div>
           </div>
         </div>
         <!--/ Abstract. -->
