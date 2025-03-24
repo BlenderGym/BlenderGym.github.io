@@ -320,6 +320,27 @@
   </div>
 </section>
 
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Verifier Scaling</h2>
+        <div class="content has-text-justified">
+          <p>
+          To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier that guides the generation by selecting desirable edits and pruning suboptimal ones. 
+          </p>
+          <p>
+          We find that similar to generation, VLM verifiers used for guiding generation also benefit from inference scaling, and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
+          </p>
+          <p>
+          With that knowledge, we further explore the question of distributing inference compute between generation and verification. We find that (1) the distribution of inference compute significantly impacts performance, and that (2) the optimal compute ratio between generation and verification varies with the amount of total compute — more total compute benefits from a higher share of verification.
+          </p>
+        </div>
+    </div>
+  </div>
+  <br>
+</section>
 
 <section class="section no-spacing">
   <div class="container is-max-desktop">
