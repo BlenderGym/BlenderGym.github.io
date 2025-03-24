@@ -420,17 +420,11 @@
                   </tbody>
                   <caption style="font-size: 16px; text-align: center; caption-side: bottom;">Quantitative evaluation of VLM system edits. The magnitude of photometric loss(PL) and negative-clip(N-CLIP) is scaled to $10^{-3}$ for blend shape and placement tasks, and to $10^{-2}$ for the remaining tasks. We report unscaled Chamfer Distance(CD). Values marked with ``-'' indicate that the VLM system was unable to generate any executable code script in more than $75\%$ of the instances for that task.</caption>
                 </table>         -->
-                <h2 class="title is-3" id="leaderboard_test">Leaderboard on MathVista (test)</h2>
                 <div class="content">
-                  <p class="mt-3">Accuracy scores on the <b>test</b> subset (5,141 examples with <b>private</b> ground truth) of <img src="static/images/mathvista.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
-                    <span class="mathvista">MathVista</span>.
-                  </p>
-        
-                  <table class="js-sort-table" id="results">
-                    <tr>
+                  <table class="js-sort-table" id="results" style="width: 100%; border-collapse: collapse; text-align: center;">
+                    <!-- <tr>
                         <td class="js-sort-number"><strong>#</strong></td>
                         <td class="js-sort-number"><strong>Model</strong></td>
-                        <td class="js-sort-number"><strong>Method</strong></td>
                         <td class="js-sort-number"><strong>Source</strong></td>
                         <td class="js-sort-number"><strong>Date</strong></td>
                         <td class="js-sort-number"><strong><u>ALL</u></strong></td>
@@ -446,11 +440,45 @@
                         <td class="js-sort-number"><strong>NUM</strong></td>
                         <td class="js-sort-number"><strong>SCI</strong></td>
                         <td class="js-sort-number"><strong>STA</strong></td>
-                    </tr>
+                    </tr> -->
+                    <tr>
+                      <td rowspan="2"><strong>#</strong></td>
+                      <td rowspan="2"><strong>Model</strong></td>
+                      <td rowspan="2"><strong>Source</strong></td>
+                      <td rowspan="2"><strong>Date</strong></td>
+                      <td colspan="3"><strong>Blend Shape</strong></td>
+                      <td colspan="3"><strong>Placement</strong></td>
+                      <td colspan="3"><strong>Geometry</strong></td>
+                      <td colspan="2"><strong>Lighting</strong></td>
+                      <td colspan="2"><strong>Material</strong></td>
+                  </tr>
+                  <tr>
+                      <!-- Blend Shape -->
+                      <td><strong>PL</strong></td>
+                      <td><strong>N-CLIP</strong></td>
+                      <td><strong>CD</strong></td>
+                  
+                      <!-- Placement -->
+                      <td><strong>PL</strong></td>
+                      <td><strong>N-CLIP</strong></td>
+                      <td><strong>CD</strong></td>
+                  
+                      <!-- Geometry -->
+                      <td><strong>PL</strong></td>
+                      <td><strong>N-CLIP</strong></td>
+                      <td><strong>CD</strong></td>
+                  
+                      <!-- Lighting -->
+                      <td><strong>PL</strong></td>
+                      <td><strong>N-CLIP</strong></td>
+                  
+                      <!-- Material -->
+                      <td><strong>PL</strong></td>
+                      <td><strong>N-CLIP</strong></td>
+                  </tr>                  
                     <tr>
                       <td>1</td>
-                      <td><b class="best-score-text">InternVL2-Pro 🥇</b></td>
-                      <td>LMM 🖼️</td>
+                      <td><b class="best-score-text">InternVL2-8B 🥇</b></td>
                       <td><a href="https://github.com/OpenGVLab/InternVL" class="ext-link" style="font-size: 16px;">Link</a></td>
                       <td>2024-09-04</td>
                       <td><b class="best-score-text">65.84</b></td>
@@ -470,7 +498,6 @@
                     <tr>
                       <td>2</td>
                       <td><b class="best-score-text">InternVL2-8B-MPO 🥈</b></td>
-                      <td>LMM 🖼️</td>
                       <td><a href="https://internvl.github.io/blog/2024-11-14-InternVL-2.0-MPO/" class="ext-link" style="font-size: 16px;">Link</a></td>
                       <td>2024-11-14</td>
                       <td><b class="best-score-text">65.65</b></td>
@@ -487,219 +514,8 @@
                       <td>64.9</td> <!-- SCI (scientific reasoning) -->
                       <td>77.1</td> <!-- STA (statistical reasoning) -->                                
                     </tr>
-                      <td>3</td>
-                      <td><b class="best-score-text">InternVL-Chat-V1.2-Plus 🥉</b></td>
-                      <td>LMM 🖼️</td>
-                      <td><a href="https://arxiv.org/abs/2312.14238" class="ext-link" style="font-size: 16px;">Link</a></td>
-                      <td>2024-02-22</td>
-                      <td><b class="best-score-text">60.18</b></td>
-                      <td>52.2</td>
-                      <td>56.2</td>
-                      <td>78.3</td>
-                      <td>61.6</td>
-                      <td>55.5</td>
-                      <td>56.0</td>
-                      <td>64.4</td>
-                      <td>57.6</td>
-                      <td>21.6</td>
-                      <td>46.1</td>
-                      <td>60.0</td>
-                      <td>60.1</td>                                
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td><b class="">InternLM-XComposer2-VL-7B</b></td>
-                      <td>LMM 🖼️</td>
-                      <td><a href="https://github.com/InternLM/InternLM-XComposer" class="ext-link" style="font-size: 16px;">Link</a></td>
-                      <td>2024-01-22</td>
-                      <td><b class="">57.93</b></td>
-                      <td>53.9</td>
-                      <td>56.4</td>
-                      <td>77.1</td>
-                      <td>58.4</td>
-                      <td>43.2</td>
-                      <td>54.8</td>
-                      <td>57.6</td>
-                      <td>58.0</td>
-                      <td>16.5</td>
-                      <td>47.6</td>
-                      <td>59.1</td>
-                      <td>62.5</td>                                  
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td><b class="">Qwen-VL-Plus</b></td>
-                      <td>LMM 🖼️</td>
-                      <td><a href="https://github.com/QwenLM/Qwen-VL" class="ext-link" style="font-size: 16px;">Link</a></td>
-                      <td>2023-12-26</td>
-                      <td><b class="">44.33</b></td>
-                      <td>55.9</td>
-                      <td>34.7</td>
-                      <td>29.7</td>
-                      <td>58.8</td>
-                      <td>42.4</td>
-                      <td>40.7</td>
-                      <td>35.4</td>
-                      <td>36.6</td>
-                      <td>21.6</td>
-                      <td>30.4</td>
-                      <td>55.9</td>
-                      <td>56.3</td>                                  
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td><b class="">SPHINX-MoE</b></td>
-                      <td>MoE 🤖</td>
-                      <td><a href="https://github.com/Alpha-VLLM/LLaMA2-Accessory/tree/main/SPHINX" class="ext-link" style="font-size: 16px;">Link</a></td>
-                      <td>2024-01-13</td>
-                      <td><b class="">42.68</b></td>
-                      <td>50.3</td>
-                      <td>29.7</td>
-                      <td>40.9</td>
-                      <td>49.3</td>
-                      <td>43.3</td>
-                      <td>33.9</td>
-                      <td>43.0</td>
-                      <td>29.1</td>
-                      <td>14.4</td>
-                      <td>26.3</td>
-                      <td>46.9</td>     
-                      <td>51.2</td>                            
-                    </tr>
-                    <tr>
-                      <td>7</td>
-                      <td><b class="">MiniCPM-V-2 (2.8B)</b></td>
-                      <td>LMM 🖼️</td>
-                      <td><a href="https://github.com/OpenBMB/MiniCPM-V" class="ext-link" style="font-size: 16px;">Link</a></td>
-                      <td>2024-04-14</td>
-                      <!-- "ALL": 39.89,
-                      "FQA": 51.7,
-                      "GPS": 27.4,
-                      "MWP": 39.8,
-                      "TQA": 42.5,
-                      "VQA": 34.7,
-                      "ALG": 31.3,
-                      "ARI": 34.4,
-                      "GEO": 30.7,
-                      "LOG": 13.4,
-                      "NUM": 33.5,
-                      "SCI": 38.5,
-                      "STA": 50.0 -->
-                      <td><b class="">39.89</b></td>
-                      <td>51.7</td>
-                      <td>27.4</td>
-                      <td>39.8</td>
-                      <td>42.5</td>
-                      <td>34.7</td>
-                      <td>31.3</td>
-                      <td>34.4</td>
-                      <td>30.7</td>
-                      <td>13.4</td>
-                      <td>33.5</td>
-                      <td>38.5</td>
-                      <td>50.0</td>                                  
-                    </tr>
-                    <tr>
-                      <td>8</td>
-                      <td><b class="">PoT GPT-4 (Caption+OCR)</b></td>
-                      <td>Tool 🛠️</td>
-                      <td><a href="https://arxiv.org/abs/2310.02255" class="ext-link" style="font-size: 16px;">Link</a></td>
-                      <td>2023-10-03</td>
-                      <td><b class="">31.74</b></td>
-                      <td>27.6</td>
-                      <td>37.4</td>
-                      <td>23.9</td>
-                      <td>43.0</td>
-                      <td>30.3</td>
-                      <td>37.1</td>
-                      <td>27.9</td>
-                      <td>37.5</td>
-                      <td>22.7</td>
-                      <td>15.8</td>
-                      <td>44.5</td>
-                      <td>31.9</td>                                  
-                    </tr>
-                    <tr>
-                      <td>9</td>
-                      <td><b>CoT GPT4 (Caption+OCR)</b></td>
-                      <td>Tool 🛠️</td>
-                      <td><a href="https://arxiv.org/abs/2310.02255" class="ext-link" style="font-size: 16px;">Link</a></td>
-                      <td>2023-10-03</td>
-                      <td><b>30.50</b></td>
-                      <td>27.2</td>
-                      <td>35.9</td>
-                      <td>21.3</td>
-                      <td>43.1</td>
-                      <td>28.2</td>
-                      <td>35.7</td>
-                      <td>25.2</td>
-                      <td>35.8</td>
-                      <td>24.7</td>
-                      <td>15.4</td>
-                      <td>47.3</td>
-                      <td>31.3</td>                               
-                    </tr>
-                    <tr>
-                      <td>10</td>
-                      <td><b>LLaVA (LLaMA-2-13B)</b></td>
-                      <td>LMM 🖼️</td>
-                      <td><a href="https://arxiv.org/abs/2310.02255" class="ext-link" style="font-size: 16px;">Link</a></td>
-                      <td>2023-10-03</td>
-                      <td><b>25.40</b></td>
-                      <td>22.9</td>
-                      <td>24.6</td>
-                      <td>18.1</td>
-                      <td>35.8</td>
-                      <td>29.7</td>
-                      <td>26.9</td>
-                      <td>22.5</td>
-                      <td>24.4</td>
-                      <td>19.1</td>
-                      <td>19.1</td>
-                      <td>34.7</td>
-                      <td>21.6</td>                                 
-                    </tr>
-                    <tr>
-                      <td>*</td>
-                      <td><b>Random Chance</b></td>
-                      <td>-</td>
-                      <td><a href="https://arxiv.org/abs/2310.02255" class="ext-link" style="font-size: 16px;">Link</a></td>
-                      <td>2023-10-03</td>
-                      <td><b>17.86</b></td>
-                      <td>15.5</td>
-                      <td>24.1</td>
-                      <td>4.5</td>
-                      <td>23.4</td>
-                      <td>24.3</td>
-                      <td>25.8</td>
-                      <td>13.8</td>
-                      <td>22.7</td>
-                      <td>13.4</td>
-                      <td>8.8</td>
-                      <td>15.8</td>
-                      <td>14.3</td>                                                  
-                    </tr>                                                      
+                                                  
                 </table>
-        
-                  <b>Human Performance*:</b> Average human performance from AMT annotators who have high school diplomas or above.
-                  <br>
-                  <b>Method types:</b> <b>MoE 🤖:</b> Mixture of Experts, <b>LMM 🖼️:</b> Large Multimodal Model, <b>Tool 🛠️:</b> Tool-augmented Large Language Model.
-                  <br>
-                  <b>Task types:</b> <b>FQA:</b> figure QA,
-                  <b>GPS:</b> geometry problem solving,
-                  <b>MWP:</b> math word problem,
-                  <b>TQA:</b> textbook QA,
-                  <b>VQA:</b> visual QA.
-                  <br>
-                  <b>Math reasoning types:</b> 
-                  <b>ALG:</b> algebraic,
-                  <b>ARI:</b> arithmetic,
-                  <b>GEO:</b> geometry,
-                  <b>LOG:</b> logical ,
-                  <b>NUM:</b> numeric,
-                  <b>SCI:</b> scientific,
-                  <b>STA:</b> statistical.
-                  <br>
                   <br>
                   <div>
                   <p>🚨 To submit your results to the leaderboard, please send to <a href="mailto:lupantech@gmail.com">this email</a> with your result json files.</p>
