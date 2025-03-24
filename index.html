@@ -164,86 +164,92 @@
               </div>
             </div>
             
-            <div style="overflow-x: auto;">
-              <table class="js-sort-table" id="results" style="table-layout: auto; border-collapse: collapse; text-align: center; width: auto;">
-                <thead>
-                  <tr>
-                    <td rowspan="2"><strong>#</strong></td>
-                    <td rowspan="2"><strong>Model</strong></td>
-                    <td rowspan="2"><strong>Source</strong></td>
-                    <td rowspan="2"><strong>Date</strong></td>
-                    <td colspan="3"><strong>Blend Shape</strong></td>
-                    <td colspan="3"><strong>Placement</strong></td>
-                    <td colspan="3"><strong>Geometry</strong></td>
-                    <td colspan="2"><strong>Lighting</strong></td>
-                    <td colspan="2"><strong>Material</strong></td>
+            <div style="display: flex; justify-content: center; padding: 20px; background-color: #f8f8f8;">
+              <div style="overflow-x: auto;">
+                <table class="js-sort-table" id="results" style="width: 100%; border-collapse: collapse; text-align: center;">
+                    <tr>
+                      <td rowspan="2"><strong>#</strong></td>
+                      <td rowspan="2"><strong>Model</strong></td>
+                      <td rowspan="2"><strong>Source</strong></td>
+                      <td rowspan="2"><strong>Date</strong></td>
+                      <td colspan="3"><strong>Blend Shape</strong></td>
+                      <td colspan="3"><strong>Placement</strong></td>
+                      <td colspan="3"><strong>Geometry</strong></td>
+                      <td colspan="2"><strong>Lighting</strong></td>
+                      <td colspan="2"><strong>Material</strong></td>
                   </tr>
                   <tr>
-                    <td><strong>PL</strong></td>
-                    <td><strong>N-CLIP</strong></td>
-                    <td><strong>CD</strong></td>
-            
-                    <td><strong>PL</strong></td>
-                    <td><strong>N-CLIP</strong></td>
-                    <td><strong>CD</strong></td>
-            
-                    <td><strong>PL</strong></td>
-                    <td><strong>N-CLIP</strong></td>
-                    <td><strong>CD</strong></td>
-            
-                    <td><strong>PL</strong></td>
-                    <td><strong>N-CLIP</strong></td>
-            
-                    <td><strong>PL</strong></td>
-                    <td><strong>N-CLIP</strong></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td style="white-space: nowrap;">
-                      <b class="best-score-text">InternVL2-8B asdfljagfa🥇</b>
-                    </td>
-                    <td><a href="https://github.com/OpenGVLab/InternVL" class="ext-link" style="font-size: 16px;">Link</a></td>
-                    <td>2024-09-04</td>
-                    <td><b class="best-score-text">65.84</b></td>
-                    <td>65.0</td>
-                    <td>64.0</td>
-                    <td>75.4</td>
-                    <td>72.4</td>
-                    <td>52.3</td>
-                    <td>67.4</td>
-                    <td>63.1</td>
-                    <td>65.0</td>
-                    <td>30.4</td>
-                    <td>44.5</td>
-                    <td>67.0</td>
-                    <td>72.5</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td style="max-width: 120px; word-wrap: break-word; white-space: normal;">
-                      <b class="best-score-text">InternVL2-8B-MPO 🥈</b>
-                    </td>
-                    <td><a href="https://internvl.github.io/blog/2024-11-14-InternVL-2.0-MPO/" class="ext-link" style="font-size: 16px;">Link</a></td>
-                    <td>2024-11-14</td>
-                    <td><b class="best-score-text">65.65</b></td>
-                    <td>67.4</td>
-                    <td>68.0</td>
-                    <td>73.0</td>
-                    <td>65.3</td>
-                    <td>51.5</td>
-                    <td>66.7</td>
-                    <td>60.6</td>
-                    <td>68.5</td>
-                    <td>19.1</td>
-                    <td>43.1</td>
-                    <td>64.9</td>
-                    <td>77.1</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>            
+                      <!-- Blend Shape -->
+                      <td><strong>PL</strong></td>
+                      <td><strong>N-CLIP</strong></td>
+                      <td><strong>CD</strong></td>
+                  
+                      <!-- Placement -->
+                      <td><strong>PL</strong></td>
+                      <td><strong>N-CLIP</strong></td>
+                      <td><strong>CD</strong></td>
+                  
+                      <!-- Geometry -->
+                      <td><strong>PL</strong></td>
+                      <td><strong>N-CLIP</strong></td>
+                      <td><strong>CD</strong></td>
+                  
+                      <!-- Lighting -->
+                      <td><strong>PL</strong></td>
+                      <td><strong>N-CLIP</strong></td>
+                  
+                      <!-- Material -->
+                      <td><strong>PL</strong></td>
+                      <td><strong>N-CLIP</strong></td>
+                  </tr>                  
+                    <tr>
+                      <td>1</td>
+                      <td><b class="best-score-text">InternVL2-8B 🥇</b></td>
+                      <td><a href="https://github.com/OpenGVLab/InternVL" class="ext-link" style="font-size: 16px;">Link</a></td>
+                      <td>2024-09-04</td>
+                      <td><b class="best-score-text">65.84</b></td>
+                      <td>65.0</td>
+                      <td>64.0</td>
+                      <td>75.4</td>
+                      <td>72.4</td>
+                      <td>52.3</td>
+                      <td>67.4</td>
+                      <td>63.1</td>
+                      <td>65.0</td>
+                      <td>30.4</td>
+                      <td>44.5</td>
+                      <td>67.0</td>
+                      <td>72.5</td>                                
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td><b class="best-score-text">InternVL2-8B-MPO 🥈</b></td>
+                      <td><a href="https://internvl.github.io/blog/2024-11-14-InternVL-2.0-MPO/" class="ext-link" style="font-size: 16px;">Link</a></td>
+                      <td>2024-11-14</td>
+                      <td><b class="best-score-text">65.65</b></td>
+                      <td>67.4</td> <!-- FQA (figure question answering) -->
+                      <td>68.0</td> <!-- GPS (geometry problem solving) -->
+                      <td>73.0</td> <!-- MWP (math word problem) -->
+                      <td>65.3</td> <!-- TQA (textbook question answering) -->
+                      <td>51.5</td> <!-- VQA (visual question answering) -->
+                      <td>66.7/td> <!-- ALG (algebraic reasoning) -->
+                      <td>60.6</td> <!-- ARI (arithmetic reasoning) -->
+                      <td>68.5</td> <!-- GEO (geometry reasoning) -->
+                      <td>19.1</td> <!-- LOG (logical reasoning) -->
+                      <td>43.1</td> <!-- NUM (numeric commonsense) -->
+                      <td>64.9</td> <!-- SCI (scientific reasoning) -->
+                      <td>77.1</td> <!-- STA (statistical reasoning) -->                                
+                    </tr>
+                                                  
+                </table>
+                  <br>
+                  <div>
+                  <p>🚨 To submit your results to the leaderboard, please send to <a href="mailto:lupantech@gmail.com">this email</a> with your result json files.</p>
+                  <p>🚨 For more submission details, please refer to <a href="https://github.com/lupantech/MathVista?tab=readme-ov-file#-leaderboard-">this link</a> and <a href="https://github.com/lupantech/MathVista?tab=readme-ov-file#-evaluations-on-mathvista">this link</a>.
+                  </p>
+                  </div>
+                </div>
+              </div>
             </div>
             
             <br>
