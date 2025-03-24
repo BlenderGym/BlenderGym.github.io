@@ -167,15 +167,29 @@
             <div style="display: flex; justify-content: center; padding: 20px; background-color: #f8f8f8;">
               <div style="overflow-x: auto;">
                 <style>
+                  /* Grid lines for the whole table */
                   table, th, td {
-                    border: .5px solid #ccc;
+                    border: 1px solid #ccc;
+                    border-collapse: collapse;
+                    text-align: center;
                   }
                 
-                  table {
-                    border-collapse: collapse;
+                  /* Alternating row background colors */
+                  table tr:nth-child(odd) {
+                    background-color: #ffffff; /* white */
+                  }
+                
+                  table tr:nth-child(even) {
+                    background-color: #f2f2f2; /* light grey */
+                  }
+                
+                  /* Prevent word-breaking and allow auto expansion */
+                  td {
+                    white-space: nowrap;
                   }
                 </style>
-                <table class="js-sort-table" id="results" style="width: 100%; border-collapse: collapse; text-align: center;">
+                
+                <table class="js-sort-table" id="results" style="width: 100%; max-width: 1400px; border-collapse: collapse; text-align: center;">
                     <tr>
                       <td rowspan="2"><strong>#</strong></td>
                       <td rowspan="2"><strong>Model</strong></td>
