@@ -261,27 +261,7 @@
         <h2 class="title is-3" id="leaderboard_test">Leaderboard</h2>
         <div class="content">
 
-          <table class="js-sort-table" id="results">
-            <!-- <tr>
-                <td class="js-sort-number"><strong>#</strong></td>
-                <td class="js-sort-number"><strong>Model</strong></td>
-                <td class="js-sort-number"><strong>Method</strong></td>
-                <td class="js-sort-number"><strong>Source</strong></td>
-                <td class="js-sort-number"><strong>Date</strong></td>
-                <td class="js-sort-number"><strong><u>ALL</u></strong></td>
-                <td class="js-sort-number"><strong>FQA</strong></td>
-                <td class="js-sort-number"><strong>GPS</strong></td>
-                <td class="js-sort-number"><strong>MWP</strong></td>
-                <td class="js-sort-number"><strong>TQA</strong></td>
-                <td class="js-sort-number"><strong>VQA</strong></td>
-                <td class="js-sort-number"><strong>ALG</strong></td>
-                <td class="js-sort-number"><strong>ARI</strong></td>
-                <td class="js-sort-number"><strong>GEO</strong></td>
-                <td class="js-sort-number"><strong>LOG</strong></td>
-                <td class="js-sort-number"><strong>NUM</strong></td>
-                <td class="js-sort-number"><strong>SCI</strong></td>
-                <td class="js-sort-number"><strong>STA</strong></td>
-            </tr> -->
+        <table class="js-sort-table" id="results">
           <tr>
               <td rowspan="2"><strong>#</strong></td>
               <td rowspan="2"><strong>Model</strong></td>
@@ -337,6 +317,410 @@
               <td>72.5</td>                                
             </tr>                                               
         </table>
+
+        <table class="js-sort-table" id="results">
+          <tr>
+              <td rowspan="2"><strong>#</strong></td>
+              <td rowspan="2"><strong>Model</strong></td>
+              <td rowspan="2"><strong>Source</strong></td>
+              <td rowspan="2"><strong>Date</strong></td>
+              <td colspan="3"><strong>Blend Shape</strong></td>
+              <td colspan="3"><strong>Placement</strong></td>
+              <td colspan="3"><strong>Geometry</strong></td>
+              <td colspan="2"><strong>Lighting</strong></td>
+              <td colspan="2"><strong>Material</strong></td>
+          </tr>
+          <tr>
+              <!-- Blend Shape -->
+              <td><strong>PL</strong></td>
+              <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
+              <td><strong>CD</strong></td>
+      
+              <!-- Placement -->
+              <td><strong>PL</strong></td>
+              <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
+              <td><strong>CD</strong></td>
+      
+              <!-- Geometry -->
+              <td><strong>PL</strong></td>
+              <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
+              <td><strong>CD</strong></td>
+      
+              <!-- Lighting -->
+              <td><strong>PL</strong></td>
+              <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
+      
+              <!-- Material -->
+              <td><strong>PL</strong></td>
+              <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
+          </tr>
+      
+          <!-- 1. GPT-4o -->
+          <tr>
+              <td>1</td>
+              <td>GPT-4o</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>9.140</td>
+              <td>20.47</td>
+              <td>0.904</td>
+              <!-- Placement -->
+              <td>11.89</td>
+              <td>30.38</td>
+              <td>11.22</td>
+              <!-- Geometry -->
+              <td>6.747</td>
+              <td>8.561</td>
+              <td>1.192</td>
+              <!-- Lighting -->
+              <td>2.410</td>
+              <td>2.398</td>
+              <!-- Material -->
+              <td>3.653</td>
+              <td>8.942</td>
+          </tr>
+      
+          <!-- 2. Claude-3.5-Sonnet -->
+          <tr>
+              <td>2</td>
+              <td>Claude-3.5-Sonnet</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>12.79</td>
+              <td>27.96</td>
+              <td>1.962</td>
+              <!-- Placement -->
+              <td>13.19</td>
+              <td>51.76</td>
+              <td>11.29</td>
+              <!-- Geometry -->
+              <td>10.81</td>
+              <td>13.04</td>
+              <td>1.452</td>
+              <!-- Lighting -->
+              <td>2.897</td>
+              <td>4.049</td>
+              <!-- Material -->
+              <td>5.769</td>
+              <td>11.44</td>
+          </tr>
+      
+          <!-- 3. GPT-4-Turbo -->
+          <tr>
+              <td>3</td>
+              <td>GPT-4-Turbo</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>15.21</td>
+              <td>26.15</td>
+              <td>1.927</td>
+              <!-- Placement -->
+              <td>12.21</td>
+              <td>37.57</td>
+              <td>12.80</td>
+              <!-- Geometry -->
+              <td>8.160</td>
+              <td>10.92</td>
+              <td>1.120</td>
+              <!-- Lighting -->
+              <td>2.723</td>
+              <td>3.912</td>
+              <!-- Material -->
+              <td>5.424</td>
+              <td>8.812</td>
+          </tr>
+      
+          <!-- 4. Claude-3-Haiku -->
+          <tr>
+              <td>4</td>
+              <td>Claude-3-Haiku</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>13.62</td>
+              <td>29.72</td>
+              <td>2.563</td>
+              <!-- Placement -->
+              <td>14.78</td>
+              <td>44.10</td>
+              <td>12.13</td>
+              <!-- Geometry -->
+              <td>10.15</td>
+              <td>12.51</td>
+              <td>1.362</td>
+              <!-- Lighting -->
+              <td>3.712</td>
+              <td>4.824</td>
+              <!-- Material -->
+              <td>5.960</td>
+              <td>11.61</td>
+          </tr>
+      
+          <!-- 5. Gemini-1.5-flash -->
+          <tr>
+              <td>5</td>
+              <td>Gemini-1.5-flash</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>23.18</td>
+              <td>30.47</td>
+              <td>2.412</td>
+              <!-- Placement -->
+              <td>10.94</td>
+              <td>45.34</td>
+              <td>8.324</td>
+              <!-- Geometry -->
+              <td>9.443</td>
+              <td>10.49</td>
+              <td>1.323</td>
+              <!-- Lighting -->
+              <td>3.514</td>
+              <td>5.688</td>
+              <!-- Material -->
+              <td>6.364</td>
+              <td>10.42</td>
+          </tr>
+      
+          <!-- 6. Qwen2-vl-7b -->
+          <tr>
+              <td>6</td>
+              <td>Qwen2-vl-7b</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>16.78</td>
+              <td>29.22</td>
+              <td>2.123</td>
+              <!-- Placement -->
+              <td>15.31</td>
+              <td>41.12</td>
+              <td>14.21</td>
+              <!-- Geometry -->
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+              <!-- Lighting -->
+              <td>2.985</td>
+              <td>2.225</td>
+              <!-- Material -->
+              <td>--</td>
+              <td>--</td>
+          </tr>
+      
+          <!-- 7. Qwen-Llama -->
+          <tr>
+              <td>7</td>
+              <td>Qwen-Llama</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>14.32</td>
+              <td>28.23</td>
+              <td>2.012</td>
+              <!-- Placement -->
+              <td>14.65</td>
+              <td>34.93</td>
+              <td>12.41</td>
+              <!-- Geometry -->
+              <td>13.97</td>
+              <td>14.13</td>
+              <td>1.673</td>
+              <!-- Lighting -->
+              <td>3.173</td>
+              <td>3.998</td>
+              <!-- Material -->
+              <td>--</td>
+              <td>--</td>
+          </tr>
+      
+          <!-- 8. Phi-3.5-vision -->
+          <tr>
+              <td>8</td>
+              <td>Phi-3.5-vision</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>12.51</td>
+              <td>24.14</td>
+              <td>2.012</td>
+              <!-- Placement -->
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+              <!-- Geometry -->
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+              <!-- Lighting -->
+              <td>3.127</td>
+              <td>6.012</td>
+              <!-- Material -->
+              <td>--</td>
+              <td>--</td>
+          </tr>
+      
+          <!-- 9. Phi-Llama -->
+          <tr>
+              <td>9</td>
+              <td>Phi-Llama</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>12.13</td>
+              <td>24.77</td>
+              <td>1.826</td>
+              <!-- Placement -->
+              <td>14.61</td>
+              <td>35.61</td>
+              <td>12.61</td>
+              <!-- Geometry -->
+              <td>9.818</td>
+              <td>11.92</td>
+              <td>1.471</td>
+              <!-- Lighting -->
+              <td>3.621</td>
+              <td>6.895</td>
+              <!-- Material -->
+              <td>--</td>
+              <td>--</td>
+          </tr>
+      
+          <!-- 10. MiniCPM-V-2.6 -->
+          <tr>
+              <td>10</td>
+              <td>MiniCPM-V-2.6</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>13.86</td>
+              <td>29.92</td>
+              <td>1.997</td>
+              <!-- Placement -->
+              <td>11.99</td>
+              <td>31.69</td>
+              <td>12.62</td>
+              <!-- Geometry -->
+              <td>7.127</td>
+              <td>8.542</td>
+              <td>1.229</td>
+              <!-- Lighting -->
+              <td>3.829</td>
+              <td>6.124</td>
+              <!-- Material -->
+              <td>--</td>
+              <td>--</td>
+          </tr>
+      
+          <!-- 11. MiniCPM-Llama -->
+          <tr>
+              <td>11</td>
+              <td>MiniCPM-Llama</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>13.76</td>
+              <td>27.21</td>
+              <td>1.882</td>
+              <!-- Placement -->
+              <td>12.74</td>
+              <td>31.72</td>
+              <td>15.81</td>
+              <!-- Geometry -->
+              <td>9.561</td>
+              <td>11.47</td>
+              <td>1.569</td>
+              <!-- Lighting -->
+              <td>3.725</td>
+              <td>6.090</td>
+              <!-- Material -->
+              <td>7.152</td>
+              <td>12.14</td>
+          </tr>
+      
+          <!-- 12. InternVL2-8b -->
+          <tr>
+              <td>12</td>
+              <td>InternVL2-8b</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>12.69</td>
+              <td>29.09</td>
+              <td>1.920</td>
+              <!-- Placement -->
+              <td>14.71</td>
+              <td>35.92</td>
+              <td>17.22</td>
+              <!-- Geometry -->
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+              <!-- Lighting -->
+              <td>3.920</td>
+              <td>6.825</td>
+              <!-- Material -->
+              <td>--</td>
+              <td>--</td>
+          </tr>
+      
+          <!-- 13. Intern-Llama -->
+          <tr>
+              <td>13</td>
+              <td>Intern-Llama</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>11.80</td>
+              <td>23.83</td>
+              <td>1.861</td>
+              <!-- Placement -->
+              <td>16.15</td>
+              <td>37.23</td>
+              <td>18.22</td>
+              <!-- Geometry -->
+              <td>13.70</td>
+              <td>14.44</td>
+              <td>1.578</td>
+              <!-- Lighting -->
+              <td>3.825</td>
+              <td>6.152</td>
+              <!-- Material -->
+              <td>--</td>
+              <td>--</td>
+          </tr>
+      
+          <!-- 14. Human -->
+          <tr>
+              <td>14</td>
+              <td>Human</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <!-- Blend Shape -->
+              <td>0.934</td>
+              <td>9.12</td>
+              <td>0.399</td>
+              <!-- Placement -->
+              <td>0.423</td>
+              <td>13.34</td>
+              <td>1.532</td>
+              <!-- Geometry -->
+              <td>1.269</td>
+              <td>2.434</td>
+              <td>0.334</td>
+              <!-- Lighting -->
+              <td>1.239</td>
+              <td>2.932</td>
+              <!-- Material -->
+              <td>0.629</td>
+              <td>3.043</td>
+          </tr>
+      </table>
+      
+        
           <br>
           <div>
           <p>🚨 To submit your results to the leaderboard, please send to <a href="mailto:lupantech@gmail.com">this email</a> with your result json files.</p>
