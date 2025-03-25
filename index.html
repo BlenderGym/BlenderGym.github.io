@@ -149,22 +149,22 @@
           </h2>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://richard-guyunqi.github.io/">Yunqi Gu</a><sup>1</sup>,
+              <a href="https://richard-guyunqi.github.io/">Yunqi Gu</a>,
             </span>
-              <a href="https://ianhuang.ai/">Ian Huang</a><sup>1</sup>,
+              <a href="https://ianhuang.ai/">Ian Huang</a>,
             </span>     
-              <a href="https://jihyeonje.com/">Jihyeon Je</a><sup>1</sup>,
+              <a href="https://jihyeonje.com/">Jihyeon Je</a>,
             </span>
             <span class="author-block">
-              <a href="https://www.guandaoyang.com/">Guandao Yang</a><sup>1</sup>,
+              <a href="https://www.guandaoyang.com/">Guandao Yang</a>,
             </span>
             <span class="author-block">
-              <a href="https://geometry.stanford.edu/member/guibas/">Leonidas Guibas</a><sup>1</sup>
+              <a href="https://geometry.stanford.edu/member/guibas/">Leonidas Guibas</a>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>Stanford University</span><br>
+            <span class="author-block">Stanford University</span><br>
             <span class="paper-block"><b>CVPR 2025</b></span>
           </div>
         
@@ -876,41 +876,18 @@
           <p>
           To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier that guides the generation by selecting desirable edits and pruning suboptimal ones. 
           </p>
+          <figure class="image">
+            <img src="./static/images/veri_scaling.png" 
+                 alt="Verifier scaling figure"
+                 style="width: 100%; height: auto; object-fit: contain;">
 
-          <figure>
-            <div class="columns is-centered" style="align-items: center">
-              <!-- First Image Column -->
-              <div class="column is-half" style="margin-top: 0;">
-                <figure class="image">
-                  <img src="./static/images/veri_scaling.png" 
-                       alt="Verifier scaling figure"
-                       style="width: 250%; height: auto; object-fit: contain;">
-                  <figcaption style="font-size: 13px; text-align: center;">
-                    Verifier scaling results with InternVL2-8B, Claude3.5 Sonnet, and GPT4o. 
-                    Increasing verifier queries brings the selected edit closer to the goal. 
-                    VLMs used as verifiers to guide generation could also benefit from 
-                    inference scaling.
-                  </figcaption>
-                </figure>
-              </div>
-          
-              <!-- Second Image Column -->
-              <div class="column is-half" style="margin-top: 0;">
-                <figure class="image">
-                  <img src="./static/images/allocation_compute.png"
-                       alt="Allocation of compute figure"
-                       style="width: 150%; height: auto; object-fit: contain;">
-                  <figcaption style="font-size: 13px; text-align: center;">
-                    The impact of compute allocation on VLM system performance.
-                    We set VeriRatios to 0.33, 0.62, and 0.73. We observe that when more 
-                    compute is available, a higher share of verification yields 
-                    greater benefits.
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-          </figure>
-          
+            <figcaption style="font-size: 13px; text-align: center;">
+              Verifier scaling results with InternVL2-8B, Claude3.5 Sonnet, and GPT4o. 
+              Increasing verifier queries brings the selected edit closer to the goal. 
+              VLMs used as verifiers to guide generation could also benefit from 
+              inference scaling.
+            </figcaption>
+
 
           <p>
           We find that similar to generation, VLM verifiers used for guiding generation also benefit from inference scaling, and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
@@ -918,6 +895,17 @@
           <p>
           With that knowledge, we further explore the question of distributing inference compute between generation and verification. We find that (1) the distribution of inference compute significantly impacts performance, and that (2) the optimal compute ratio between generation and verification varies with the amount of total compute — more total compute benefits from a higher share of verification.
           </p>
+          <figure class="image">
+            <img src="./static/images/allocation_all.png"
+                 alt="Allocation of compute figure"
+                 style="width: 80%; height: auto; object-fit: contain;">
+            <figcaption style="font-size: 13px; text-align: center;">
+              The impact of compute allocation on VLM system performance.
+              We set VeriRatios to 0.33, 0.62, and 0.73. We observe that when more 
+              compute is available, a higher share of verification yields 
+              greater benefits.
+            </figcaption>
+          </figure>
         </div>
     </div>
   </div>
