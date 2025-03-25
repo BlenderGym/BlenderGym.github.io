@@ -874,36 +874,45 @@
         <h2 class="title is-3">Inference Scaling for Verifier</h2>
         <div class="content has-text-justified">
           <p>
-          To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier that guides the generation by selecting desirable edits and pruning suboptimal ones. 
+            To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier 
+            that guides the generation by selecting desirable edits and pruning suboptimal ones.
           </p>
-          <div style="display: flex; justify-content: center; align-items: center;">
-            <figure class="image" style="width: 100%; text-align: center;">
+          <!-- First Figure (80% width, centered) -->
+          <div style="text-align: center;">
+            <figure style="width:80%; margin:0 auto;">
               <img src="./static/images/veri_scaling.png" 
                    alt="Verifier scaling figure"
-                   style="width: 100%; height: auto; object-fit: contain;">
-              <figcaption style="font-size: 13px; text-align: center;">
+                   style="width:100%; height:auto; object-fit:contain;">
+              <figcaption style="font-size:13px; text-align:center;">
                 Performance of inference scaling for VLM verifier with InternVL2-8B, Claude3.5 Sonnet, and GPT-4o.
               </figcaption>
             </figure>
           </div>
           <p>
-          As shown by the figure above, VLM verifiers used for guiding generation also benefit from inference scaling, and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
+            As shown by the figure above, VLM verifiers used for guiding generation also benefit from inference scaling, 
+            and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
           </p>
           <p>
-          With that knowledge, we further explore the question of distributing inference compute between generation and verification. We show with the figure below that (1) the distribution of inference compute significantly impacts performance, and that (2) the optimal compute ratio between generation and verification varies with the amount of total compute — more total compute benefits from a higher share of verification.
+            With that knowledge, we further explore the question of distributing inference compute between generation 
+            and verification. We show with the figure below that (1) the distribution of inference compute significantly 
+            impacts performance, and that (2) the optimal compute ratio between generation and verification varies with 
+            the amount of total compute — more total compute benefits from a higher share of verification.
           </p>
-          <figure class="image" style="width: 150%">
-            <img src="./static/images/allocation_all.png"
-                 alt="Allocation of compute figure"
-                 style="width: 180%; height: auto; object-fit: contain;">
-            <figcaption style="font-size: 13px; text-align: center;">
-              The impact of compute allocation on VLM system performance.
-              We set VeriRatio(verification compute over total compute) to 0.33, 0.62, and 0.73. We observe that when more 
-              compute is available, a higher share of verification yields 
-              greater benefits.
-            </figcaption>
-          </figure>
+          <!-- Second Figure (120% width, centered) -->
+          <div style="text-align: center;">
+            <figure style="width:120%; margin:0 auto;">
+              <img src="./static/images/allocation_all.png"
+                   alt="Allocation of compute figure"
+                   style="width:100%; height:auto; object-fit:contain;">
+              <figcaption style="font-size:13px; text-align:center;">
+                The impact of compute allocation on VLM system performance. <br>
+                We set VeriRatio(verification compute over total compute) to 0.33, 0.62, and 0.73. We observe that when 
+                more compute is available, a higher share of verification yields greater benefits.
+              </figcaption>
+            </figure>
+          </div>
         </div>
+      </div>
     </div>
   </div>
   <br>
