@@ -50,49 +50,6 @@
   <script src="./data/results/model_scores.js" defer></script>
 
   <script src="./visualizer/data/data_public.js" defer></script>
-
-  <script>
-    // Keep track of sort directions by column index
-    let sortDirections = {};
-  
-    function sortTableByColumn(tableId, colIndex) {
-      const table = document.getElementById(tableId);
-      // Grab all table rows (HTMLCollection)
-      let rows = table.getElementsByTagName("tr");
-      
-      // Convert to array, but skip the first 2 header rows
-      // (assuming your table uses 2 header rows: the main, and the subheaders)
-      let bodyRows = Array.prototype.slice.call(rows, 2);
-  
-      // Determine the current sort direction for this column
-      const currentDirection = sortDirections[colIndex] || "asc";
-      const nextDirection = currentDirection === "asc" ? "desc" : "asc";
-      sortDirections[colIndex] = nextDirection; // toggle
-  
-      // Sort the bodyRows by the value in colIndex
-      bodyRows.sort(function (a, b) {
-        // get each row’s cell content
-        let cellA = a.getElementsByTagName("td")[colIndex];
-        let cellB = b.getElementsByTagName("td")[colIndex];
-        
-        // extract the numeric value (or fallback to 0 if blank/“--”)
-        let valA = parseFloat(cellA && cellA.textContent.replace(/--/, "0")) || 0;
-        let valB = parseFloat(cellB && cellB.textContent.replace(/--/, "0")) || 0;
-  
-        if (nextDirection === "asc") {
-          return valA - valB;
-        } else {
-          return valB - valA;
-        }
-      });
-  
-      // Re-append sorted rows back to the table
-      for (let i = 0; i < bodyRows.length; i++) {
-        table.tBodies[0].appendChild(bodyRows[i]);
-      }
-    }
-  </script>
-  
 </head>
 <body>
 
@@ -340,9 +297,7 @@
           </tr>
           <tr>
               <!-- Blend Shape -->
-              <td>
-                <button onclick="sortTableByColumn('results', 3)">PL</button>
-              </td>
+              <td><strong>PL</strong></td>
               <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
               <td><strong>CD</strong></td>
       
