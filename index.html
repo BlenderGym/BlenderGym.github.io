@@ -687,40 +687,40 @@
           To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier that guides the generation by selecting desirable edits and pruning suboptimal ones. 
           </p>
 
-<figure>
-  <div class="columns is-centered" style="align-items: center;">
-    <!-- First Image Column -->
-    <div class="column is-half" style="margin-top: 0;">
-      <figure class="image">
-        <img src="./static/images/veri_scaling.png" 
-             alt="Verifier scaling figure"
-             style="width: 100%; height: auto; object-fit: contain;">
-        <figcaption style="font-size: 13px; text-align: center;">
-          Verifier scaling results with InternVL2-8B, Claude3.5 Sonnet, and GPT4o. 
-          Increasing verifier queries brings the selected edit closer to the goal. 
-          VLMs used as verifiers to guide generation could also benefit from 
-          inference scaling.
-        </figcaption>
-      </figure>
-    </div>
-
-    <!-- Second Image Column -->
-    <div class="column is-half" style="margin-top: 0;">
-      <figure class="image">
-        <img src="./static/images/allocation_compute.png"
-             alt="Allocation of compute figure"
-             style="width: 100%; height: auto; object-fit: contain;">
-        <figcaption style="font-size: 13px; text-align: center;">
-          The impact of compute allocation on VLM system performance.
-          We set VeriRatios to 0.33, 0.62, and 0.73. We observe that when more 
-          compute is available, a higher share of verification yields 
-          greater benefits.
-        </figcaption>
-      </figure>
-    </div>
-  </div>
-</figure>
-
+          <figure>
+            <div class="columns is-centered" style="align-items: center;">
+              <!-- First Image Column -->
+              <div class="column is-half" style="margin-top: 0;">
+                <figure class="image">
+                  <img src="./static/images/veri_scaling.png" 
+                       alt="Verifier scaling figure"
+                       style="width: 100%; height: auto; object-fit: contain;">
+                  <figcaption style="font-size: 13px; text-align: center;">
+                    Verifier scaling results with InternVL2-8B, Claude3.5 Sonnet, and GPT4o. 
+                    Increasing verifier queries brings the selected edit closer to the goal. 
+                    VLMs used as verifiers to guide generation could also benefit from 
+                    inference scaling.
+                  </figcaption>
+                </figure>
+              </div>
+          
+              <!-- Second Image Column -->
+              <div class="column is-half" style="margin-top: 0;">
+                <figure class="image">
+                  <img src="./static/images/allocation_compute.png"
+                       alt="Allocation of compute figure"
+                       style="width: 100%; height: auto; object-fit: contain;">
+                  <figcaption style="font-size: 13px; text-align: center;">
+                    The impact of compute allocation on VLM system performance.
+                    We set VeriRatios to 0.33, 0.62, and 0.73. We observe that when more 
+                    compute is available, a higher share of verification yields 
+                    greater benefits.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </figure>
+          
 
           <p>
           We find that similar to generation, VLM verifiers used for guiding generation also benefit from inference scaling, and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
@@ -751,10 +751,13 @@
           </p>
 
           <div class="hero-body">
-            <img src="./static/images/verifier_alignment_.jpg" alt="Verifier alignment Image" style="width:80%;">
+            <img src="./static/images/verifier_alignment_.jpg" 
+                 alt="Verifier alignment Image" 
+                 style="display: block; margin: 0 auto; width: 50%;">
             <h2 class="subtitle has-text-centered" style="font-size: 16px;"> 
               Human-VLM and inter-human verifier alignment rate. All models perform above the random baseline (0.5) yet differ notably, with even the highest-aligned model, Claude-3.5-Sonnet (0.66), falling short of inter-human alignment (0.79).
-          </div> 
+            </h2>
+          </div>          
           <p>
             Results above reveal that human verifiers achieve a significantly higher alignment rate compared to VLMs, highlighting considerable room for improvement in VLM verifier performance.          </p>
         </div>
