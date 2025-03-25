@@ -336,7 +336,7 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Overview</h2>
         <div class="hero-body">
-          <img src="./static/images/overview.png" alt="Overview Image" style="width:100%;">
+          <img src="./static/images/overview.png" alt="Overview Image" style="width:90%;">
           <h2 class="subtitle has-text-centered" style="font-size: 16px;"> 
             Examples of task instances and VLM system output edits. We present start scene, goal scene, human user edit, and VLM system edits side by side with their corresponding metric values.
         </div>  
@@ -876,8 +876,8 @@
           <p>
           To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier that guides the generation by selecting desirable edits and pruning suboptimal ones. 
           </p>
-          <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-            <figure class="image" style="width: 80%; text-align: center;">
+          <div style="display: flex; justify-content: center; align-items: center;">
+            <figure class="image" style="width: 100%; text-align: center;">
               <img src="./static/images/veri_scaling.png" 
                    alt="Verifier scaling figure"
                    style="width: 100%; height: auto; object-fit: contain;">
@@ -886,15 +886,13 @@
               </figcaption>
             </figure>
           </div>
-          
-
           <p>
           As shown by the figure above, VLM verifiers used for guiding generation also benefit from inference scaling, and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
           </p>
           <p>
           With that knowledge, we further explore the question of distributing inference compute between generation and verification. We show with the figure below that (1) the distribution of inference compute significantly impacts performance, and that (2) the optimal compute ratio between generation and verification varies with the amount of total compute — more total compute benefits from a higher share of verification.
           </p>
-          <figure class="image">
+          <figure class="image" style="width: 150%">
             <img src="./static/images/allocation_all.png"
                  alt="Allocation of compute figure"
                  style="width: 180%; height: auto; object-fit: contain;">
