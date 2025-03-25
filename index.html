@@ -876,14 +876,17 @@
           <p>
           To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier that guides the generation by selecting desirable edits and pruning suboptimal ones. 
           </p>
-          <figure class="image" style="width: 80%; margin: 0 auto; text-align: center;">
-            <img src="./static/images/veri_scaling.png" 
-                 alt="Verifier scaling figure"
-                 style="width: 100%; height: auto; object-fit: contain;">
-            <figcaption style="font-size: 13px; text-align: center;">
-              Verifier scaling results with InternVL2-8B, Claude3.5 Sonnet, and GPT-4o.
-            </figcaption>
-          </figure>          
+          <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+            <figure class="image" style="width: 80%; text-align: center;">
+              <img src="./static/images/veri_scaling.png" 
+                   alt="Verifier scaling figure"
+                   style="width: 100%; height: auto; object-fit: contain;">
+              <figcaption style="font-size: 13px; text-align: center;">
+                Verifier scaling results with InternVL2-8B, Claude3.5 Sonnet, and GPT-4o.
+              </figcaption>
+            </figure>
+          </div>
+          
 
           <p>
           As shown by the figure above, VLM verifiers used for guiding generation also benefit from inference scaling, and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
