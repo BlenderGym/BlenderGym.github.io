@@ -62,9 +62,9 @@
             <!-- <img src="static/images/mathvista.png" style="width:1em;vertical-align: middle" alt="Logo"/> -->
             <span class="mathvista" style="vertical-align: middle">BlenderGym</span>
           </h2>
-          <h3>
+          <h2>
             The First VLM System Benchmark for 3D Graphics.
-          </h3>
+          </h2>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://richard-guyunqi.github.io/">Yunqi Gu</a><sup>1</sup>,
@@ -690,7 +690,7 @@
           <figure>
             <div class="columns is-centered" style="align-items: center;">
               <!-- First Image Column, smaller width -->
-              <div class="column" style="flex: 0 40% 40%;">
+              <div class="column" style="flex: 0 0 50%; margin-top:0px">
                 <figure class="image">
                   <img src="./static/images/veri_scaling.png" alt="Verifier scaling figure" style="width: 100%; height: auto; object-fit: contain;">
                   <figcaption style="font-size: 13px; text-align: center;">Verifier scaling results with InternVL2-8B, Claude3.5 Sonnet, and GPT4o. Increasing verifier queries brings the selected edit closer to the goal. VLMs used as verifiers to guide generation could also benefit from inference scaling.</figcaption>
@@ -698,7 +698,7 @@
               </div>
           
               <!-- Second Image Column, larger width but same height -->
-              <div class="column" style="flex: 0 0 60%; margin-top:0px">
+              <div class="column" style="flex: 0 0 50%; margin-top:0px">
                 <figure class="image">
                   <img src="./static/images/allocation_compute.png" alt="Allocation of compute figure" style="width: 100%; height: auto; object-fit: contain;">
                   <figcaption style="font-size: 13px; text-align: center;">The impact of compute allocation on VLM system performance. We set VeriRatios to 0.33, 0.62, and 0.73. We observe that when more compute is available, a higher share of verification yields greater benefits.</figcaption>
@@ -719,6 +719,37 @@
   <br>
 </section>
 
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Human-VLM Verifier Alignment</h2>
+        <div class="content has-text-justified">
+          <p>
+          To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier that guides the generation by selecting desirable edits and pruning suboptimal ones. 
+          </p>
+
+          <div class="hero-body">
+            <img src="./static/images/overview.png" alt="Overview Image" style="width:100%;">
+            <h2 class="subtitle has-text-centered" style="font-size: 16px;"> 
+              Examples of task instances and VLM system output edits. We present start scene, goal scene, human user edit, and VLM system edits side by side with their corresponding metric values.
+          </div> 
+
+          <p>
+          We find that similar to generation, VLM verifiers used for guiding generation also benefit from inference scaling, and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
+          </p>
+          <p>
+          With that knowledge, we further explore the question of distributing inference compute between generation and verification. We find that (1) the distribution of inference compute significantly impacts performance, and that (2) the optimal compute ratio between generation and verification varies with the amount of total compute — more total compute benefits from a higher share of verification.
+          </p>
+        </div>
+    </div>
+  </div>
+  <br>
+</section>
+
+
 <section class="section no-spacing">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
@@ -728,7 +759,8 @@
         <div class="content has-text-justified">
             We acknowledge the support of ARL grant W911NF-21-2-0104 and a Vannevar Bush Faculty Fellowship. Additionally, We would like to thank Yangjun Ruan, Haiwen (Haven) Feng, Jordan Juravsky, and all our reviewers for feedback on paper revisions.    </div>
 </section>
-  <section class="section no-spacing" id="Bibtex">
+
+<section class="section no-spacing" id="Bibtex">
     <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>
