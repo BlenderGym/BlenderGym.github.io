@@ -52,46 +52,61 @@
   <script src="./visualizer/data/data_public.js" defer></script>
 
   <script>
-    // Keep track of sort directions by column index
-    let sortDirections = {};
+    // Track each column’s sort direction by index
+    const sortDirections = {};
   
-    function sortTableByColumn(tableId, colIndex) {
+    function sortTableByColumn(tableId, colIndex, el) {
       const table = document.getElementById(tableId);
-      // Grab all table rows (HTMLCollection)
-      let rows = table.getElementsByTagName("tr");
-      
-      // Convert to array, but skip the first 2 header rows
-      // (assuming your table uses 2 header rows: the main, and the subheaders)
-      let bodyRows = Array.prototype.slice.call(rows, 2);
+      if (!table) return;
   
-      // Determine the current sort direction for this column
-      const currentDirection = sortDirections[colIndex] || "asc";
-      const nextDirection = currentDirection === "asc" ? "desc" : "asc";
-      sortDirections[colIndex] = nextDirection; // toggle
+      // Collect all rows, skipping the top header rows
+      // (adjust '2' if you have more or fewer header rows)
+      const allRows = Array.from(table.querySelectorAll("tr"));
+      const headerRows = allRows.slice(0, 2);
+      const bodyRows   = allRows.slice(2);
   
-      // Sort the bodyRows by the value in colIndex
-      bodyRows.sort(function (a, b) {
-        // get each row’s cell content
-        let cellA = a.getElementsByTagName("td")[colIndex];
-        let cellB = b.getElementsByTagName("td")[colIndex];
-        
-        // extract the numeric value (or fallback to 0 if blank/“--”)
-        let valA = parseFloat(cellA && cellA.textContent.replace(/--/, "0")) || 0;
-        let valB = parseFloat(cellB && cellB.textContent.replace(/--/, "0")) || 0;
+      // Toggle direction for this column
+      const currentDir = sortDirections[colIndex] || "asc";
+      const nextDir    = currentDir === "asc" ? "desc" : "asc";
+      sortDirections[colIndex] = nextDir;
   
-        if (nextDirection === "asc") {
-          return valA - valB;
-        } else {
-          return valB - valA;
-        }
+      // Sort the body rows
+      bodyRows.sort((a, b) => {
+        const cellA = a.getElementsByTagName("td")[colIndex];
+        const cellB = b.getElementsByTagName("td")[colIndex];
+        const valA = parseFloat(cellA?.textContent.replace(/--/, "0")) || 0;
+        const valB = parseFloat(cellB?.textContent.replace(/--/, "0")) || 0;
+  
+        return nextDir === "asc" ? (valA - valB) : (valB - valA);
       });
   
-      // Re-append sorted rows back to the table
-      for (let i = 0; i < bodyRows.length; i++) {
-        table.tBodies[0].appendChild(bodyRows[i]);
+      // Re-append rows in sorted order
+      const tbody = table.tBodies[0];
+      bodyRows.forEach(row => tbody.appendChild(row));
+  
+      // Update the clicked header text to show direction
+      const label = el.dataset.colLabel || ""; 
+      if (nextDir === "asc") {
+        el.textContent = label + " ▴";  // up arrow
+      } else {
+        el.textContent = label + " ▾";  // down arrow
       }
+  
+      // Optional: if you want to reset all other headers back to an unmarked state:
+      headerRows.forEach((hdr) => {
+        const toggles = hdr.querySelectorAll(".sort-toggle");
+        toggles.forEach(span => {
+          if (span !== el) {
+            const colLabel = span.dataset.colLabel || "";
+            // e.g. revert to "PL ▾" or just "PL"
+            // or do nothing if you like
+            span.textContent = colLabel;
+          }
+        });
+      });
     }
   </script>
+  
   
 </head>
 <body>
@@ -340,8 +355,17 @@
           </tr>
           <tr>
               <!-- Blend Shape -->
+              <!-- <td>
+                <button onclick="sortTableByColumn('results', 3)"><strong>PL</strong></button>
+              </td> -->
               <td>
-                <button onclick="sortTableByColumn('results', 3)">PL</button>
+                <span 
+                  class="sort-toggle" 
+                  onclick="sortTableByColumn('results', 3, this)" 
+                  data-col-label="PL"
+                >
+                  PL ▾
+                </span>
               </td>
               <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
               <td><strong>CD</strong></td>
