@@ -278,63 +278,6 @@
               <td><strong>PL</strong></td>
               <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
               <td><strong>CD</strong></td>
-          
-              <!-- Placement -->
-              <td><strong>PL</strong></td>
-              <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
-              <td><strong>CD</strong></td>
-          
-              <!-- Geometry -->
-              <td><strong>PL</strong></td>
-              <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
-              <td><strong>CD</strong></td>
-          
-              <!-- Lighting -->
-              <td><strong>PL</strong></td>
-              <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
-          
-              <!-- Material -->
-              <td><strong>PL</strong></td>
-              <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
-            </tr>     
-            <tr>
-              <td>1</td>
-              <td><b class="best-score-text">InternVL2-Pro 🥇</b></td>
-              <td><a href="https://github.com/OpenGVLab/InternVL" class="ext-link" style="font-size: 16px;">Link</a></td>
-              <td>2024-09-04</td>
-              <td><b class="best-score-text">65.84</b></td>
-              <td>65.0</td>
-              <td>64.0</td>
-              <td>75.4</td>
-              <td>72.4</td>
-              <td>52.3</td>
-              <td>67.4</td>
-              <td>63.1</td>
-              <td>65.0</td>
-              <td>30.4</td>
-              <td>44.5</td>
-              <td>67.0</td>
-              <td>72.5</td>                                
-            </tr>                                               
-        </table>
-
-        <table class="js-sort-table" id="results">
-          <tr>
-              <td rowspan="2"><strong>#</strong></td>
-              <td rowspan="2"><strong>Model</strong></td>
-              <td rowspan="2"><strong>Source</strong></td>
-              <td rowspan="2"><strong>Date</strong></td>
-              <td colspan="3"><strong>Blend Shape</strong></td>
-              <td colspan="3"><strong>Placement</strong></td>
-              <td colspan="3"><strong>Geometry</strong></td>
-              <td colspan="2"><strong>Lighting</strong></td>
-              <td colspan="2"><strong>Material</strong></td>
-          </tr>
-          <tr>
-              <!-- Blend Shape -->
-              <td><strong>PL</strong></td>
-              <td style="white-space: nowrap;"><strong>N-CLIP</strong></td>
-              <td><strong>CD</strong></td>
       
               <!-- Placement -->
               <td><strong>PL</strong></td>
@@ -719,12 +662,10 @@
               <td><b>3.043</b></td>
           </tr>
       </table>
-      
-        
           <br>
           <div>
-          <p>🚨 To submit your results to the leaderboard, please send to <a href="mailto:lupantech@gmail.com">this email</a> with your result json files.</p>
-          <p>🚨 For more submission details, please refer to <a href="https://github.com/lupantech/MathVista?tab=readme-ov-file#-leaderboard-">this link</a> and <a href="https://github.com/lupantech/MathVista?tab=readme-ov-file#-evaluations-on-mathvista">this link</a>.
+          <p>🚨 To submit your results to the leaderboard, please send to <a href="yrichard@stanford.edu">this email</a> with your result json files.</p>
+          <p>🚨 For more submission details, please refer to <a href="https://github.com/lupantech/MathVista?tab=readme-ov-file#-leaderboard-">this link</a>.
           </p>
           </div>
         </div>
@@ -745,6 +686,27 @@
           <p>
           To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier that guides the generation by selecting desirable edits and pruning suboptimal ones. 
           </p>
+
+          <figure>
+            <div class="columns is-centered" style="align-items: center;">
+              <!-- First Image Column, smaller width -->
+              <div class="column" style="flex: 0 40% 40%;">
+                <figure class="image">
+                  <img src="./static/images/veri_scaling.png" alt="Verifier scaling figure" style="width: 100%; height: auto; object-fit: contain;">
+                  <figcaption style="font-size: 13px; text-align: center;">Verifier scaling results with InternVL2-8B, Claude3.5 Sonnet, and GPT4o. Increasing verifier queries brings the selected edit closer to the goal. VLMs used as verifiers to guide generation could also benefit from inference scaling.</figcaption>
+                </figure>
+              </div>
+          
+              <!-- Second Image Column, larger width but same height -->
+              <div class="column" style="flex: 0 0 60%; margin-top:0px">
+                <figure class="image">
+                  <img src="./static/images/allocation_compute.png" alt="Allocation of compute figure" style="width: 100%; height: auto; object-fit: contain;">
+                  <figcaption style="font-size: 13px; text-align: center;">The impact of compute allocation on VLM system performance. We set VeriRatios to 0.33, 0.62, and 0.73. We observe that when more compute is available, a higher share of verification yields greater benefits.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </figure>
+
           <p>
           We find that similar to generation, VLM verifiers used for guiding generation also benefit from inference scaling, and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
           </p>
