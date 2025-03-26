@@ -97,14 +97,19 @@
       });
     }
 
+
     function toggleTaskColumns(task) {
-      const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
+      const tasks = ['blend','placement','geometry','lighting','material'];
       tasks.forEach(t => {
-        const elems = document.querySelectorAll(`.task-${t}`);
-        elems.forEach(el => {
+        document.querySelectorAll('.task-' + t).forEach(el => {
           el.style.display = (t === task) ? 'table-cell' : 'none';
         });
       });
+
+      // Also show/hide the column headers for each task
+      const allHeaders = [
+        document.querySelectorAll('.task-' + task)
+      ];
     }
 
 
@@ -117,19 +122,7 @@
   
 
 <style>
-  .sort-toggle {
-  cursor: pointer;
-  user-select: none;
-  text-decoration: none;
-  border: none;
-  background: none;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-}
-</style>
-
-<style>
+  /* Make sure toggled tasks are hidden by default */
   .task-blend,
   .task-placement,
   .task-geometry,
@@ -137,7 +130,18 @@
   .task-material {
     display: none;
   }
-</style>
+  
+  /* .sort-toggle: remove button look, keep pointer */
+  .sort-toggle {
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    border: none;
+    background: none;
+    font-size: inherit;
+    font-weight: normal;
+  }
+  </style>  
   
   
 </head>
@@ -405,255 +409,205 @@
   </div>
   <br>
 </section>
-
 <section class="section">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-full has-text-centered content">
 
         <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
-        <div class="content">
 
-        <label for="task-select"><strong>Select Task:</strong></label>
-        <select id="task-select" onchange="toggleTaskColumns(this.value)">
-          <option value="blend">Blend Shape</option>
-          <option value="placement">Placement</option>
-          <option value="geometry">Geometry</option>
-          <option value="lighting">Lighting</option>
-          <option value="material">Material</option>
-        </select>
-        <table class="js-sort-table" id="results">
-          <tr>
-              <td rowspan="2"><strong>Model</strong></td>
-              <td rowspan="2"><strong>Date</strong></td>
-              <td colspan="3" class="task-blend"><strong>Blend Shape</strong></td>
-              <td colspan="3" class="task-placement"><strong>Placement</strong></td>
-              <td colspan="3" class="task-geometry"><strong>Geometry</strong></td>
-              <td colspan="2" class="task-lighting"><strong>Lighting</strong></td>
-              <td colspan="2" class="task-material"><strong>Material</strong></td>
-          </tr>
-          <tr>
-            <!-- Blend Shape (columns 2, 3, 4) -->
-          <td class="task-blend">
-            <span
-              class="sort-toggle"
-              data-col-label="PL"
-              onclick="sortTableByColumn('results', 2, this)">
-              PL
-            </span>
-          </td>
-          <td class="task-blend">
-            <span
-              class="sort-toggle"
-              data-col-label="N-CLIP"
-              onclick="sortTableByColumn('results', 3, this)">
-              N-CLIP
-            </span>
-          </td>
-          <td class="task-blend">
-            <span
-              class="sort-toggle"
-              data-col-label="CD"
-              onclick="sortTableByColumn('results', 4, this)">
-              CD
-            </span>
-          </td>
-
-          <!-- Placement (columns 5, 6, 7) -->
-          <td class="task-placement">
-            <span
-              class="sort-toggle"
-              data-col-label="PL"
-              onclick="sortTableByColumn('results', 5, this)">
-              PL
-            </span>
-          </td>
-          <td class="task-placement">
-            <span
-              class="sort-toggle"
-              data-col-label="N-CLIP"
-              onclick="sortTableByColumn('results', 6, this)">
-              N-CLIP
-            </span>
-          </td>
-          <td class="task-placement">
-            <span
-              class="sort-toggle"
-              data-col-label="CD"
-              onclick="sortTableByColumn('results', 7, this)">
-              CD
-            </span>
-          </td>
-
-          <!-- Geometry (columns 8, 9, 10) -->
-          <td class="task-geometry">
-            <span
-              class="sort-toggle"
-              data-col-label="PL"
-              onclick="sortTableByColumn('results', 8, this)">
-              PL
-            </span>
-          </td>
-          <td class="task-geometry">
-            <span
-              class="sort-toggle"
-              data-col-label="N-CLIP"
-              onclick="sortTableByColumn('results', 9, this)">
-              N-CLIP
-            </span>
-          </td>
-          <td class="task-geometry">
-            <span
-              class="sort-toggle"
-              data-col-label="CD"
-              onclick="sortTableByColumn('results', 10, this)">
-              CD
-            </span>
-          </td>
-
-          <!-- Lighting (columns 11, 12) -->
-          <td class="task-lighting">
-            <span
-              class="sort-toggle"
-              data-col-label="PL"
-              onclick="sortTableByColumn('results', 11, this)">
-              PL
-            </span>
-          </td>
-          <td class="task-lighting">
-            <span
-              class="sort-toggle"
-              data-col-label="N-CLIP"
-              onclick="sortTableByColumn('results', 12, this)">
-              N-CLIP
-            </span>
-          </td>
-
-          <!-- Material (columns 13, 14) -->
-          <td class="task-material">
-            <span
-              class="sort-toggle"
-              data-col-label="PL"
-              onclick="sortTableByColumn('results', 13, this)">
-              PL
-            </span>
-          </td>
-          <td class="task-material">
-            <span
-              class="sort-toggle"
-              data-col-label="N-CLIP"
-              onclick="sortTableByColumn('results', 14, this)">
-              N-CLIP
-            </span>
-          </td>
-          </tr>
-          
-      
-          <!-- 1. GPT-4o -->
-          <tr>
-            <!-- col 0: Model -->
-            <td><a href="https://platform.openai.com/docs/models/gpt-4o" target="_blank">GPT-4o</a></td>
-            <!-- col 1: Date -->
-            <td>2024-08-06</td>
-            
-            <!-- Blend Shape (cols 2, 3, 4) -->
-            <td class="task-blend"><b>9.140</b></td>
-            <td class="task-blend"><b>20.47</b></td>
-            <td class="task-blend"><b>0.904</b></td>
-          
-            <!-- Placement (cols 5, 6, 7) -->
-            <td class="task-placement">11.89</td>
-            <td class="task-placement"><b>30.38</b></td>
-            <td class="task-placement">11.22</td>
-          
-            <!-- Geometry (cols 8, 9, 10) -->
-            <td class="task-geometry"><b>6.747</b></td>
-            <td class="task-geometry">8.561</td>
-            <td class="task-geometry">1.192</td>
-          
-            <!-- Lighting (cols 11, 12) -->
-            <td class="task-lighting"><b>2.410</b></td>
-            <td class="task-lighting">2.398</td>
-          
-            <!-- Material (cols 13, 14) -->
-            <td class="task-material"><b>3.653</b></td>
-            <td class="task-material">8.942</td>
-          </tr>          
-      
-          <!-- 2. Claude-3.5-Sonnet -->
-          <tr>
-            <!-- col 0: Model -->
-            <td><a href="https://www.anthropic.com/news/claude-3-5-sonnet" target="_blank">Claude-3.5-Sonnet</a></td>
-            <!-- col 1: Date -->
-            <td>2024-10-22</td>
-            
-            <!-- Blend Shape (cols 2–4) -->
-            <td class="task-blend">12.79</td>
-            <td class="task-blend">27.96</td>
-            <td class="task-blend">1.962</td>
-          
-            <!-- Placement (cols 5–7) -->
-            <td class="task-placement">13.19</td>
-            <td class="task-placement">51.76</td>
-            <td class="task-placement">11.29</td>
-          
-            <!-- Geometry (cols 8–10) -->
-            <td class="task-geometry">10.81</td>
-            <td class="task-geometry">13.04</td>
-            <td class="task-geometry">1.452</td>
-          
-            <!-- Lighting (cols 11–12) -->
-            <td class="task-lighting">2.897</td>
-            <td class="task-lighting">4.049</td>
-          
-            <!-- Material (cols 13–14) -->
-            <td class="task-material">5.769</td>
-            <td class="task-material">11.44</td>
-          </tr>
-          
-          <!-- 3. GPT4-Turbo -->
-          <tr>
-            <!-- col 0: Model -->
-            <td>
-              <a href="https://platform.openai.com/docs/models/gpt-4-turbo" target="_blank">
-                GPT-4-Turbo
-              </a>
-            </td>
-          
-            <!-- col 1: Date -->
-            <td>2024-04-09</td>
-          
-            <!-- Blend Shape (cols 2, 3, 4) -->
-            <td class="task-blend">15.21</td>
-            <td class="task-blend">26.15</td>
-            <td class="task-blend">1.927</td>
-          
-            <!-- Placement (cols 5, 6, 7) -->
-            <td class="task-placement">12.21</td>
-            <td class="task-placement">37.57</td>
-            <td class="task-placement">12.80</td>
-          
-            <!-- Geometry (cols 8, 9, 10) -->
-            <td class="task-geometry">8.160</td>
-            <td class="task-geometry">10.92</td>
-            <td class="task-geometry"><b>1.120</b></td>
-          
-            <!-- Lighting (cols 11, 12) -->
-            <td class="task-lighting">2.723</td>
-            <td class="task-lighting">3.912</td>
-          
-            <!-- Material (cols 13, 14) -->
-            <td class="task-material">5.424</td>
-            <td class="task-material"><b>8.812</b></td>
-          </tr>
-          
-      </table>
+        <!-- Wrap the label + select in a small container -->
+        <div style="display: inline-block; margin-bottom: 1rem;">
+          <label for="task-select" style="font-size: 1rem; font-weight: 600; margin-right: 0.5rem;">
+            Select Task:
+          </label>
+          <select id="task-select" onchange="toggleTaskColumns(this.value)"
+                  style="border: none; outline: none; font-size: 1rem; font-weight: 500;">
+            <option value="blend">Blend Shape</option>
+            <option value="placement">Placement</option>
+            <option value="geometry">Geometry</option>
+            <option value="lighting">Lighting</option>
+            <option value="material">Material</option>
+          </select>
         </div>
+
+        <!-- Table container with narrower width -->
+        <div style="max-width: 800px; margin: 0 auto;">
+          <table class="js-sort-table" id="results" 
+                 style="width: 100%; border-collapse: collapse; margin-top: 2rem;">
+            
+            <!-- Table Head -->
+            <tr>
+              <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
+                Model
+              </th>
+              <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
+                Date
+              </th>
+              <th colspan="3" class="task-blend" style="border-bottom: 1px solid #ccc;">
+                Blend Shape
+              </th>
+              <th colspan="3" class="task-placement" style="border-bottom: 1px solid #ccc;">
+                Placement
+              </th>
+              <th colspan="3" class="task-geometry" style="border-bottom: 1px solid #ccc;">
+                Geometry
+              </th>
+              <th colspan="2" class="task-lighting" style="border-bottom: 1px solid #ccc;">
+                Lighting
+              </th>
+              <th colspan="2" class="task-material" style="border-bottom: 1px solid #ccc;">
+                Material
+              </th>
+            </tr>
+
+            <!-- Second Row of Headers -->
+            <tr>
+              <!-- Blend Shape (cols 2–4) -->
+              <th class="task-blend sort-toggle" data-col-label="PL"
+                  onclick="sortTableByColumn('results', 2, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                PL
+              </th>
+              <th class="task-blend sort-toggle" data-col-label="N-CLIP"
+                  onclick="sortTableByColumn('results', 3, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                N-CLIP
+              </th>
+              <th class="task-blend sort-toggle" data-col-label="CD"
+                  onclick="sortTableByColumn('results', 4, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                CD
+              </th>
+
+              <!-- Placement (cols 5–7) -->
+              <th class="task-placement sort-toggle" data-col-label="PL"
+                  onclick="sortTableByColumn('results', 5, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                PL
+              </th>
+              <th class="task-placement sort-toggle" data-col-label="N-CLIP"
+                  onclick="sortTableByColumn('results', 6, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                N-CLIP
+              </th>
+              <th class="task-placement sort-toggle" data-col-label="CD"
+                  onclick="sortTableByColumn('results', 7, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                CD
+              </th>
+
+              <!-- Geometry (cols 8–10) -->
+              <th class="task-geometry sort-toggle" data-col-label="PL"
+                  onclick="sortTableByColumn('results', 8, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                PL
+              </th>
+              <th class="task-geometry sort-toggle" data-col-label="N-CLIP"
+                  onclick="sortTableByColumn('results', 9, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                N-CLIP
+              </th>
+              <th class="task-geometry sort-toggle" data-col-label="CD"
+                  onclick="sortTableByColumn('results', 10, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                CD
+              </th>
+
+              <!-- Lighting (cols 11–12) -->
+              <th class="task-lighting sort-toggle" data-col-label="PL"
+                  onclick="sortTableByColumn('results', 11, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                PL
+              </th>
+              <th class="task-lighting sort-toggle" data-col-label="N-CLIP"
+                  onclick="sortTableByColumn('results', 12, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                N-CLIP
+              </th>
+
+              <!-- Material (cols 13–14) -->
+              <th class="task-material sort-toggle" data-col-label="PL"
+                  onclick="sortTableByColumn('results', 13, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                PL
+              </th>
+              <th class="task-material sort-toggle" data-col-label="N-CLIP"
+                  onclick="sortTableByColumn('results', 14, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                N-CLIP
+              </th>
+            </tr>
+
+            <!-- Example Row 1 -->
+            <tr>
+              <td style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <a href="https://platform.openai.com/docs/models/gpt-4o" target="_blank">
+                  GPT-4o
+                </a>
+              </td>
+              <td style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                2024-08-06
+              </td>
+
+              <!-- Blend -->
+              <td class="task-blend" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>9.140</b>
+              </td>
+              <td class="task-blend" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>20.47</b>
+              </td>
+              <td class="task-blend" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>0.904</b>
+              </td>
+
+              <!-- Placement -->
+              <td class="task-placement" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                11.89
+              </td>
+              <td class="task-placement" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>30.38</b>
+              </td>
+              <td class="task-placement" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                11.22
+              </td>
+
+              <!-- Geometry -->
+              <td class="task-geometry" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>6.747</b>
+              </td>
+              <td class="task-geometry" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                8.561
+              </td>
+              <td class="task-geometry" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                1.192
+              </td>
+
+              <!-- Lighting -->
+              <td class="task-lighting" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>2.410</b>
+              </td>
+              <td class="task-lighting" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                2.398
+              </td>
+
+              <!-- Material -->
+              <td class="task-material" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>3.653</b>
+              </td>
+              <td class="task-material" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                8.942
+              </td>
+            </tr>
+
+            <!-- Add the rest of your rows the same way... -->
+
+          </table>
+        </div> <!-- end table container -->
       </div>
     </div>
   </div>
 </section>
-
 
 <!-- 
 <section class="section">
