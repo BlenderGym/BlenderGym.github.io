@@ -75,8 +75,8 @@
       sortDirections[colIndex] = nextDir;
 
       bodyRows.sort((a, b) => {
-        const valA = parseFloat(a.cells[colIndex]?.textContent.replace(/--/, "0")) || 0;
-        const valB = parseFloat(b.cells[colIndex]?.textContent.replace(/--/, "0")) || 0;
+        const valA = parseFloat(a.cells[colIndex]?.textContent.replace(/--/, "1000")) || 0;
+        const valB = parseFloat(b.cells[colIndex]?.textContent.replace(/--/, "1000")) || 0;
         return nextDir === "asc" ? valA - valB : valB - valA;
       });
 
