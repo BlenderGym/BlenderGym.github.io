@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Evaluating mathematical reasoning of foundation models in visual contexts">
+  <meta name="keywords" content="MathVista, Math Vista">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> BlenderGym: Benchmarking Foundational Model Systems for Graphics Editing </title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <!-- <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+/Users/panlu/Library/Mobile Documents/com~apple~CloudDocs/ImageMath/visual-mathqa-server/data_final/images
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link rel="icon" href="./static/images/mathvista.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+
+  <script src="./static/js/leaderboard_testmini.js"></script>  
+  <script src="./data/results/output_folders.js" defer></script>
+  <script src="./data/results/model_scores.js" defer></script>
+
+  <script src="./visualizer/data/data_public.js" defer></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9D17MFJB5R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-9D17MFJB5R');
+  </script>
+
+  <script>
+    const sortDirections = {};
+
+    function sortTableByColumn(tableId, colIndex, el) {
+      const table = document.getElementById(tableId);
+      const rows = Array.from(table.querySelectorAll("tr"));
+      const headerRows = rows.slice(0, 2);
+      const bodyRows = rows.slice(2);
+
+      const currentDir = sortDirections[colIndex] || "asc";
+      const nextDir = currentDir === "asc" ? "desc" : "asc";
+      sortDirections[colIndex] = nextDir;
+
+      bodyRows.sort((a, b) => {
+        const valA = parseFloat(a.cells[colIndex]?.textContent.replace(/--/, "0")) || 0;
+        const valB = parseFloat(b.cells[colIndex]?.textContent.replace(/--/, "0")) || 0;
+        return nextDir === "asc" ? valA - valB : valB - valA;
+      });
+
+      const tbody = table.tBodies[0];
+      bodyRows.forEach(row => tbody.appendChild(row));
+
+      const label = el.dataset.colLabel || "";
+      const arrow = nextDir === "asc" ? "▴" : "▾";
+      el.textContent = label + " " + arrow;
+
+      // Remove arrows from other columns
+      headerRows.forEach(hdr => {
+        hdr.querySelectorAll(".sort-toggle").forEach(span => {
+          if (span !== el) {
+            span.textContent = span.dataset.colLabel;
+          }
+        });
+      });
+    }
+
+
+    function toggleTaskColumns(task) {
+      const tasks = ['blend','placement','geometry','lighting','material'];
+      tasks.forEach(t => {
+        document.querySelectorAll('.task-' + t).forEach(el => {
+          el.style.display = (t === task) ? 'table-cell' : 'none';
+        });
+      });
+
+      // Also show/hide the column headers for each task
+      const allHeaders = [
+        document.querySelectorAll('.task-' + task)
+      ];
+    }
+
+
+    // Show Blend Shape by default
+    window.onload = () => {
+      toggleTaskColumns('blend');
+    };
+  </script>
+
+  
+
+<style>
+  /* Make sure toggled tasks are hidden by default */
+  .task-blend,
+  .task-placement,
+  .task-geometry,
+  .task-lighting,
+  .task-material {
+    display: none;
+  }
+  
+  /* .sort-toggle: remove button look, keep pointer */
+  .sort-toggle {
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    border: none;
+    background: none;
+    font-size: inherit;
+    font-weight: normal;
+  }
+  </style>  
+  
+  
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h2 class="title is-1 publication-title is-bold">
+            <!-- <img src="static/images/mathvista.png" style="width:1em;vertical-align: middle" alt="Logo"/> -->
+            <span class="mathvista" style="vertical-align: middle">BlenderGym</span>
+          </h2>
+          <h2 style="font-size: 22px;">
+            Benchmarking Foundational Model Systems for Graphics Editing
+          </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://richard-guyunqi.github.io/">Yunqi Gu</a>,
+            </span>
+              <a href="https://ianhuang.ai/">Ian Huang</a>,
+            </span>     
+              <a href="https://jihyeonje.com/">Jihyeon Je</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.guandaoyang.com/">Guandao Yang</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://geometry.stanford.edu/member/guibas/">Leonidas Guibas</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Stanford University</span><br>
+            <span class="paper-block"><b>CVPR 2025</b></span>
+          </div>
+        
+          <!-- <section> -->
+            <!-- <div class="section" id="org-banners" style="display:fle">
+              <a href="https://www.ucla.edu/" target="_blank" rel="external">
+                  <img class="center-block org-banner" src="static/images/ucla.png" style="height:3em">
+              </a>
+              <a href="https://www.washington.edu/" target="blank" class="ext-link">
+                  <img class="center-block org-banner" src="static/images/uw.png" style="height:3em">
+              </a>
+              <a href="https://www.microsoft.com/en-us/research/" target="_blank" rel="external">
+                  <img class="center-block org-banner" src="static/images/microsoft.png" style="height:3em">
+              </a>
+            </div> -->
+          <!-- </section> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <!-- @PAN TODO: change links -->
+                <a href="https://arxiv.org/pdf/2310.02255.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2310.02255"
+                   class="external-link button is-normal is-rounded is-dark">
+                <!-- <a href="https://lupantech.github.io/papers/arxiv23_mathvista.pdf"
+                   class="external-link button is-normal is-rounded is-dark"> -->
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/lupantech/MathVista"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/AI4Math/MathVista"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <p style="font-size:18px">🤗</p>
+                      <!-- 🔗 -->
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+              <!-- Leaderboard Link. -->
+              <span class="link-block">
+                <a href="https://blendergym.github.io/#leaderboard"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🏆</p>
+                  </span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+              <!-- Twitter Link. -->
+              <span class="link-block">
+                <a href="https://twitter.com/lupantech/status/1717313355780964608"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <!-- 💻🔗 -->
+                      <p style="font-size:18px">🌐</p>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="content has-text-centered">
+      <img src="static/images/tease_scores_gpt4v.png" alt="geometric reasoning" width="99%"/>
+      <p> Accuracy scores of one leading LLM (i.e., PoT GPT-4), four primary LMMs, random chance, and human performance our proposed 
+      <img src="static/images/mathvista.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+      <span class="mathvista">MathVista</span>
+      across mathematical reasoning and visual context types. PoT refers to program-of-thought prompting, and PoT GPT-4 is a textual LLM augmented with the caption and OCR text. GPT-4V is manually evaluated via the playground chatbot.
+      </p>
+    </div>
+  </div>
+</section> -->
+<section>
+  <div style="background: linear-gradient(to right, #9bebf2, #f7cc86);
+              padding: 1rem;
+              border-radius: 5px;
+              margin-bottom: 1em;
+              text-align: center;">
+    <p style="font-weight: bold;
+              font-size: 22px;
+              width: 80%;
+              margin: 0 auto;
+              text-align: center;">
+      TLDR: BlenderGym benchmarks your VLM system's ability to edit 3D graphics.
+    </p>
+  </div>
+</section>
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            3D graphics editing is a crucial component in applications like movie production and game design, yet it remains a time-consuming process that demands highly specialized domain expertise. Automating the process is challenging because graphical editing requires performing a variety of tasks, each requiring distinct skill sets. Recently, vision-language models (VLMs) have emerged as a powerful framework for automating the editing process, but their development and evaluation are bottlenecked by the lack of a comprehensive benchmark that requires human-level perception and presents real-world editing complexity. 
+          </p>
+          <p>
+            In this work, we present <b>BlenderGym</b>, a comprehensive VLM system benchmark for 3D graphics editing. BlenderGym evaluates VLM systems through code-based 3D reconstruction tasks. We evaluate closed- and open-source VLM systems and observe that even the state-of-the-art VLM system struggles with tasks relatively easy for human Blender users. 
+          </p>
+          <p>
+            Enabled by BlenderGym, we study how <b>inference scaling on verification</b> impacts VLM's performance on graphics editing tasks. Notably, our findings reveal that the verifier used to guide the scaling of generation can itself be improved through inference scaling, complementing recent insights on inference scaling of LLM generation in coding and math tasks. We further show that inference compute is not uniformly effective and can be optimized by strategically distributing it between generation and verification. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">What is BlenderGym?</h2>
+        <!-- <div class="hero-body">
+          <img src="./static/images/overview.png" alt="Overview Image" style="width:90%;">
+          <h2 class="subtitle has-text-centered" style="font-size: 16px;"> 
+            Examples of task instances and VLM system output edits. We present start scene, goal scene, human user edit, and VLM system edits side by side with their corresponding metric values.
+        </div>   -->
+        <div class="content has-text-justified">
+          <p>
+            BlenderGym consists of 245 hand-crafted Blender scenes across 5 key graphics editing tasks: procedural geometry editing, lighting adjustments, procedural material design, blend shape manipulation, and object placement. Each instance in BlenderGym presents a reconstruction task from a start scene to a goal scene. Each start-goal instance includes a base Blender file of the scene setup, a pair of Python scripts that generate the start and goal scene, rendered images for both scenes, and language description of the differences between the two scenes. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <figure>
+        <img src="./static/images/tea.png" alt="Teaser Image" style="width: 100%; display: block; margin: 0 auto;">
+        <figcaption class="subtitle" 
+                    style="font-size: 18px; width: 80%; text-align: center; margin: 1rem auto 0 auto; display: block;">
+          Example start-goal scene pairs in BlenderGym for reconstruction.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3"> What can we do with BlenderGym?</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Compare the performance of VLM systems for 3D graphcs.</b> We present the results in our <a href="https://blendergym.github.io/#leaderboard target="_blank">Leaderboard</a>. 
+          </p>
+          <p>
+            <b>Inference Scaling for Verification.</b> We explore the inference scaling of VLM verifier that guides the generation by selecting desirable edits and pruning suboptimal ones.
+          </p>
+          <!-- First Figure (80% width, centered) -->
+          <div style="text-align: center;">
+            <figure style="width:50%; margin:0 auto;">
+              <img src="./static/images/veri_scaling.png" 
+                   alt="Verifier scaling figure"
+                   style="width:100%; height:auto; object-fit:contain;">
+              <figcaption style="font-size:13px; text-align:center;">
+                Performance of inference scaling for VLM verifier with InternVL2-8B, Claude3.5 Sonnet, and GPT-4o.
+              </figcaption>
+            </figure>
+          </div>
+          <p>
+            We show in our paper that, as shown by the figure above, VLM verifiers used for guiding generation also benefit from inference scaling, 
+            and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
+          </p>
+          <p>
+            We further explore the distribution of inference compute between generation and verification. We show with the figure below that (1) the distribution of inference compute significantly 
+            impacts performance, and that (2) the optimal compute ratio between generation and verification varies with 
+            the amount of total compute — more total compute benefits from a higher share of verification.
+          </p>
+          <!-- Second Figure (120% width, centered) -->
+          <div style="text-align: center;">
+            <figure style="width:100%; margin:0 auto;">
+              <img src="./static/images/allocation_all.png"
+                   alt="Allocation of compute figure"
+                   style="width:100%; height:auto; object-fit:contain;">
+              <figcaption style="font-size:13px; text-align:center;">
+                The impact of compute allocation on VLM system performance. We set VeriRatio(verification compute over total compute) to 0.33, 0.62, and 0.73. <br>
+              </figcaption>
+            </figure>
+          </div>
+          <!-- <div class="hero-body">
+            <img src="./static/images/allocation_all.png" alt="Overview Image" style="width:100%;">
+            <h2 class="subtitle has-text-centered" style="font-size: 16px;"> 
+              The impact of compute allocation on VLM system performance. <br>
+              We set VeriRatio(verification compute over total compute) to 0.33, 0.62, and 0.73. We observe that when 
+              more compute is available, a higher share of verification yields greater benefits.
+        </div>   -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered content">
+
+        <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
+
+        <!-- Wrap the label + select in a small container -->
+        <div style="display: inline-block; margin-bottom: 1rem;">
+          <label for="task-select" style="font-size: 1rem; font-weight: 600; margin-right: 0.5rem;">
+            Select Task:
+          </label>
+          <select id="task-select" onchange="toggleTaskColumns(this.value)"
+                  style="border: none; outline: none; font-size: 1rem; font-weight: 500;">
+            <option value="blend">Blend Shape</option>
+            <option value="placement">Placement</option>
+            <option value="geometry">Geometry</option>
+            <option value="lighting">Lighting</option>
+            <option value="material">Material</option>
+          </select>
+        </div>
+
+        <!-- Table container with narrower width -->
+        <div style="max-width: 800px; margin: 0 auto;">
+          <table class="js-sort-table" id="results" 
+                 style="width: 100%; border-collapse: collapse; margin-top: 2rem;">
+            
+            <!-- Table Head -->
+            <tr>
+              <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
+                Model
+              </th>
+              <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
+                Date
+              </th>
+              <th colspan="3" class="task-blend" style="border-bottom: 1px solid #ccc;">
+                Blend Shape
+              </th>
+              <th colspan="3" class="task-placement" style="border-bottom: 1px solid #ccc;">
+                Placement
+              </th>
+              <th colspan="3" class="task-geometry" style="border-bottom: 1px solid #ccc;">
+                Geometry
+              </th>
+              <th colspan="2" class="task-lighting" style="border-bottom: 1px solid #ccc;">
+                Lighting
+              </th>
+              <th colspan="2" class="task-material" style="border-bottom: 1px solid #ccc;">
+                Material
+              </th>
+            </tr>
+
+            <!-- Second Row of Headers -->
+            <tr>
+              <!-- Blend Shape (cols 2–4) -->
+              <th class="task-blend sort-toggle" data-col-label="PL"
+                  onclick="sortTableByColumn('results', 2, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                PL
+              </th>
+              <th class="task-blend sort-toggle" data-col-label="N-CLIP"
+                  onclick="sortTableByColumn('results', 3, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                N-CLIP
+              </th>
+              <th class="task-blend sort-toggle" data-col-label="CD"
+                  onclick="sortTableByColumn('results', 4, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                CD
+              </th>
+
+              <!-- Placement (cols 5–7) -->
+              <th class="task-placement sort-toggle" data-col-label="PL"
+                  onclick="sortTableByColumn('results', 5, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                PL
+              </th>
+              <th class="task-placement sort-toggle" data-col-label="N-CLIP"
+                  onclick="sortTableByColumn('results', 6, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                N-CLIP
+              </th>
+              <th class="task-placement sort-toggle" data-col-label="CD"
+                  onclick="sortTableByColumn('results', 7, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                CD
+              </th>
+
+              <!-- Geometry (cols 8–10) -->
+              <th class="task-geometry sort-toggle" data-col-label="PL"
+                  onclick="sortTableByColumn('results', 8, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                PL
+              </th>
+              <th class="task-geometry sort-toggle" data-col-label="N-CLIP"
+                  onclick="sortTableByColumn('results', 9, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                N-CLIP
+              </th>
+              <th class="task-geometry sort-toggle" data-col-label="CD"
+                  onclick="sortTableByColumn('results', 10, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                CD
+              </th>
+
+              <!-- Lighting (cols 11–12) -->
+              <th class="task-lighting sort-toggle" data-col-label="PL"
+                  onclick="sortTableByColumn('results', 11, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                PL
+              </th>
+              <th class="task-lighting sort-toggle" data-col-label="N-CLIP"
+                  onclick="sortTableByColumn('results', 12, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                N-CLIP
+              </th>
+
+              <!-- Material (cols 13–14) -->
+              <th class="task-material sort-toggle" data-col-label="PL"
+                  onclick="sortTableByColumn('results', 13, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                PL
+              </th>
+              <th class="task-material sort-toggle" data-col-label="N-CLIP"
+                  onclick="sortTableByColumn('results', 14, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                N-CLIP
+              </th>
+            </tr>
+
+            <!-- Example Row 1 -->
+            <tr>
+              <td style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <a href="https://platform.openai.com/docs/models/gpt-4o" target="_blank">
+                  GPT-4o
+                </a>
+              </td>
+              <td style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                2024-08-06
+              </td>
+
+              <!-- Blend -->
+              <td class="task-blend" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>9.140</b>
+              </td>
+              <td class="task-blend" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>20.47</b>
+              </td>
+              <td class="task-blend" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>0.904</b>
+              </td>
+
+              <!-- Placement -->
+              <td class="task-placement" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                11.89
+              </td>
+              <td class="task-placement" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>30.38</b>
+              </td>
+              <td class="task-placement" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                11.22
+              </td>
+
+              <!-- Geometry -->
+              <td class="task-geometry" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>6.747</b>
+              </td>
+              <td class="task-geometry" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                8.561
+              </td>
+              <td class="task-geometry" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                1.192
+              </td>
+
+              <!-- Lighting -->
+              <td class="task-lighting" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>2.410</b>
+              </td>
+              <td class="task-lighting" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                2.398
+              </td>
+
+              <!-- Material -->
+              <td class="task-material" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                <b>3.653</b>
+              </td>
+              <td class="task-material" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                8.942
+              </td>
+            </tr>
+
+            <!-- Add the rest of your rows the same way... -->
+
+          </table>
+        </div> <!-- end table container -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Human-VLM Verifier Alignment</h2>
+        <div class="content has-text-justified">
+          <p>
+            We found that the verifier sometimes fails to distinguish between desirable and suboptimal edits. Certain VLMs, such as Qwen2-vl-7b, consistently favor the second edit candidate in the pair, regardless of how we permute them.
+          </p>
+
+          <p>
+            We measure human-VLM verifier alignment to ground our verifier analysis more quantitatively. For each of the five tasks, we select one instance and collect all the pair-wise selection decisions that the VLM verifier made throughout the inference. We collect 7,950 pair-wise judgments from 50 participants. For each pair-wise selection, VLM and human verifiers are asked to choose the edit render closest to the goal render. We compute the alignment rate between two verifiers by calculating the ratio of the number of aligned pair-wise selections over the total number of pairs.
+          </p>
+
+          <div class="hero-body">
+            <img src="./static/images/verifier_alignment_.jpg" 
+                 alt="Verifier alignment Image" 
+                 style="display: block; margin: 0 auto; width: 65%;">
+            <figcaption class="subtitle has-text-centered" style="font-size: 16px;"> 
+              Human-VLM and inter-human verifier alignment rate. All models perform above the random baseline (0.5) yet differ notably, with even the highest-aligned model, Claude-3.5-Sonnet (0.66), falling short of inter-human alignment (0.79).
+            </figcaption>
+          </div>          
+          <p>
+            Results above reveal that human verifiers achieve a significantly higher alignment rate compared to VLMs, highlighting considerable room for improvement in VLM verifier performance.          </p>
+        </div>
+    </div>
+  </div>
+  <br>
+</section> -->
+
+
+<section class="section no-spacing" id="Bibtex">
+    <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+Our citation address here.
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is website adapted from <a href="https://nerfies.github.io/">Nerfies</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</footer>
+
+</body>
+</html>
