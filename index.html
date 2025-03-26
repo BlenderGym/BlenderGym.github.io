@@ -342,7 +342,7 @@
         </div>  
         <div class="content has-text-justified">
           <p>
-            We aim to enable comprehensive comparison and analysis of VLM systems on 3D graphics editing tasks, which is currently bottlenecked by (1) the incomprehensive coverage of task settings with current evaluation approaches and (2) the absence of robust metrics due to unscalability of human evaluation and unreliability of AI-judge. 
+            We aim to enable comprehensive comparison and analysis of VLM systems on 3D graphics editing tasks, which is currently bottlenecked by the incomprehensive coverage of task settings with current evaluation approaches and the absence of robust metrics due to unscalability of human evaluation and unreliability of AI-judge. 
           </p>
           <p>
             To overcome these two challenges, we introduce <b>BlenderGym</b>—the first VLM system benchmark tailored to 3D graphics. BlenderGym features in (1) the comprehensive coverage of essential graphics editing tasks with support for a wide range of VLM systems, (2) quantitative evaluation with image and 3D metrics, eliminating the need for human or AI-based evaluations and (3) support for inference time scaling experiments on graphics editing tasks.
@@ -368,7 +368,6 @@
 
         <table class="js-sort-table" id="results">
           <tr>
-              <td rowspan="2"><strong>#</strong></td>
               <td rowspan="2"><strong>Model</strong></td>
               <td rowspan="2"><strong>Date</strong></td>
               <td colspan="3"><strong>Blend Shape</strong></td>
@@ -383,7 +382,7 @@
               <span 
                 class="sort-toggle" 
                 data-col-label="PL"
-                onclick="sortTableByColumn('results', 3, this)"
+                onclick="sortTableByColumn('results', 2, this)"
               >
                 PL
               </span>
@@ -392,7 +391,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="N-CLIP"
-                onclick="sortTableByColumn('results', 4, this)"
+                onclick="sortTableByColumn('results', 3, this)"
               >
                 N-CLIP
               </span>
@@ -401,7 +400,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="CD"
-                onclick="sortTableByColumn('results', 5, this)"
+                onclick="sortTableByColumn('results', 4, this)"
               >
                 CD
               </span>
@@ -412,7 +411,7 @@
               <span 
                 class="sort-toggle" 
                 data-col-label="PL"
-                onclick="sortTableByColumn('results', 6, this)"
+                onclick="sortTableByColumn('results', 5, this)"
               >
                 PL
               </span>
@@ -421,7 +420,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="N-CLIP"
-                onclick="sortTableByColumn('results', 7, this)"
+                onclick="sortTableByColumn('results', 6, this)"
               >
                 N-CLIP
               </span>
@@ -430,7 +429,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="CD"
-                onclick="sortTableByColumn('results', 8, this)"
+                onclick="sortTableByColumn('results', 7, this)"
               >
                 CD
               </span>
@@ -441,7 +440,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="PL"
-                onclick="sortTableByColumn('results', 9, this)"
+                onclick="sortTableByColumn('results', 8, this)"
               >
                 PL
               </span>
@@ -450,7 +449,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="N-CLIP"
-                onclick="sortTableByColumn('results', 10, this)"
+                onclick="sortTableByColumn('results', 9, this)"
               >
                 N-CLIP
               </span>
@@ -459,7 +458,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="CD"
-                onclick="sortTableByColumn('results', 11, this)"
+                onclick="sortTableByColumn('results', 10, this)"
               >
                 CD
               </span>
@@ -470,7 +469,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="PL"
-                onclick="sortTableByColumn('results', 12, this)"
+                onclick="sortTableByColumn('results', 11, this)"
               >
                 PL
               </span>
@@ -479,7 +478,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="N-CLIP"
-                onclick="sortTableByColumn('results', 13, this)"
+                onclick="sortTableByColumn('results', 12, this)"
               >
                 N-CLIP
               </span>
@@ -490,7 +489,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="PL"
-                onclick="sortTableByColumn('results', 14, this)"
+                onclick="sortTableByColumn('results', 13, this)"
               >
                 PL
               </span>
@@ -499,7 +498,7 @@
               <span
                 class="sort-toggle"
                 data-col-label="N-CLIP"
-                onclick="sortTableByColumn('results', 15, this)"
+                onclick="sortTableByColumn('results', 14, this)"
               >
                 N-CLIP
               </span>
@@ -509,7 +508,6 @@
       
           <!-- 1. GPT-4o -->
           <tr>
-              <td>1</td>
               <td><a href="https://platform.openai.com/docs/models/gpt-4o" target="_blank">GPT-4o</a></td>
               <td>2024-08-06</td>
               <!-- Blend Shape -->
@@ -534,7 +532,6 @@
       
           <!-- 2. Claude-3.5-Sonnet -->
           <tr>
-              <td>2</td>
               <td><a href="https://www.anthropic.com/news/claude-3-5-sonnet" target="_blank">Claude-3.5-Sonnet</a></td>
               <td>2024-10-22</td>
               <!-- Blend Shape -->
@@ -559,7 +556,6 @@
       
           <!-- 3. GPT-4-Turbo -->
           <tr>
-              <td>3</td>
               <td><a href="https://platform.openai.com/docs/models/gpt-4-turbo" target="_blank">GPT-4-Turbo</a></td>
               <td>2024-04-09</td>
               <!-- Blend Shape -->
@@ -584,7 +580,6 @@
       
           <!-- 4. Claude-3-Haiku -->
           <tr>
-              <td>4</td>
               <td><a href="https://www.anthropic.com/news/claude-3-haiku" target="_blank">Claude-3-Haiku</a></td>
               <td>2024-03-07</td>
               <!-- Blend Shape -->
@@ -609,7 +604,6 @@
       
           <!-- 5. Gemini-1.5-flash -->
           <tr>
-              <td>5</td>
               <td><a href="https://ai.google.dev/gemini-api/docs/models#gemini-1.5-flash" target="_blank">Gemini-1.5-flash</a></td>
               <td>2024-9</td>
               <!-- Blend Shape -->
@@ -634,7 +628,6 @@
       
           <!-- 6. Qwen2-vl-7b -->
           <tr>
-              <td>6</td>
               <td><a href="https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct-AWQ" target="_blank">Qwen2-VL-7b-Instruct</a></td>
               <td>2024-09-25</td>
               <!-- Blend Shape -->
@@ -659,7 +652,6 @@
       
           <!-- 7. Qwen-Llama -->
           <tr>
-              <td>7</td>
               <td>Qwen-Llama</td>
               <td>N/A</td>
               <!-- Blend Shape -->
@@ -684,7 +676,6 @@
       
           <!-- 8. Phi-3.5-vision -->
           <tr>
-              <td>8</td>
               <td><a href="https://huggingface.co/microsoft/Phi-3.5-vision-instruct" target="_blank">Phi-3.5-vision</a></td>
               <td>2024-08-20</td>
               <!-- Blend Shape -->
@@ -709,7 +700,6 @@
       
           <!-- 9. Phi-Llama -->
           <tr>
-              <td>9</td>
               <td>Phi-Llama</td>
               <td>N/A</td>
               <!-- Blend Shape -->
@@ -734,7 +724,6 @@
       
           <!-- 10. MiniCPM-V-2.6 -->
           <tr>
-              <td>10</td>
               <td><a href="https://huggingface.co/openbmb/MiniCPM-V-2_6" target="_blank">MiniCPM-V-2.6</a></td>
               <td>2024-08-06</td>
               <!-- Blend Shape -->
@@ -759,7 +748,6 @@
       
           <!-- 11. MiniCPM-Llama -->
           <tr>
-              <td>11</td>
               <td>MiniCPM-Llama</td>
               <td>N/A</td>
               <!-- Blend Shape -->
@@ -784,7 +772,6 @@
       
           <!-- 12. InternVL2-8b -->
           <tr>
-              <td>12</td>
               <td><a href="https://huggingface.co/OpenGVLab/InternVL2-8B" target="_blank">InternVL2-8b</a></td>
               <td>2024-07-04</td>
               <!-- Blend Shape -->
@@ -809,7 +796,6 @@
       
           <!-- 13. Intern-Llama -->
           <tr>
-              <td>13</td>
               <td>Intern-Llama</td>
               <td>N/A</td>
               <!-- Blend Shape -->
@@ -834,7 +820,6 @@
       
           <!-- 14. Human -->
           <tr>
-              <td> </td>
               <td><b>Human</b></td>
               <td>2025-1-15</td>
               <!-- Blend Shape -->
