@@ -61,57 +61,58 @@
     gtag('config', 'G-9D17MFJB5R');
   </script>
 
-<script>
-  const sortDirections = {};
+  <script>
+    const sortDirections = {};
 
-  function sortTableByColumn(tableId, colIndex, el) {
-    const table = document.getElementById(tableId);
-    const rows = Array.from(table.querySelectorAll("tr"));
-    const headerRows = rows.slice(0, 2);
-    const bodyRows = rows.slice(2);
+    function sortTableByColumn(tableId, colIndex, el) {
+      const table = document.getElementById(tableId);
+      const rows = Array.from(table.querySelectorAll("tr"));
+      const headerRows = rows.slice(0, 2);
+      const bodyRows = rows.slice(2);
 
-    const currentDir = sortDirections[colIndex] || "asc";
-    const nextDir = currentDir === "asc" ? "desc" : "asc";
-    sortDirections[colIndex] = nextDir;
+      const currentDir = sortDirections[colIndex] || "asc";
+      const nextDir = currentDir === "asc" ? "desc" : "asc";
+      sortDirections[colIndex] = nextDir;
 
-    bodyRows.sort((a, b) => {
-      const valA = parseFloat(a.cells[colIndex]?.textContent.replace(/--/, "0")) || 0;
-      const valB = parseFloat(b.cells[colIndex]?.textContent.replace(/--/, "0")) || 0;
-      return nextDir === "asc" ? valA - valB : valB - valA;
-    });
-
-    const tbody = table.tBodies[0];
-    bodyRows.forEach(row => tbody.appendChild(row));
-
-    const label = el.dataset.colLabel || "";
-    const arrow = nextDir === "asc" ? "▴" : "▾";
-    el.textContent = label + " " + arrow;
-
-    // Remove arrows from other columns
-    headerRows.forEach(hdr => {
-      hdr.querySelectorAll(".sort-toggle").forEach(span => {
-        if (span !== el) {
-          span.textContent = span.dataset.colLabel;
-        }
+      bodyRows.sort((a, b) => {
+        const valA = parseFloat(a.cells[colIndex]?.textContent.replace(/--/, "0")) || 0;
+        const valB = parseFloat(b.cells[colIndex]?.textContent.replace(/--/, "0")) || 0;
+        return nextDir === "asc" ? valA - valB : valB - valA;
       });
-    });
-  }
 
-  function toggleTaskColumns(task) {
-    const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
-    tasks.forEach(t => {
-      const elems = document.querySelectorAll(`.task-${t}`);
-      elems.forEach(el => {
-        el.style.display = (t === task) ? 'table-cell' : 'none';
+      const tbody = table.tBodies[0];
+      bodyRows.forEach(row => tbody.appendChild(row));
+
+      const label = el.dataset.colLabel || "";
+      const arrow = nextDir === "asc" ? "▴" : "▾";
+      el.textContent = label + " " + arrow;
+
+      // Remove arrows from other columns
+      headerRows.forEach(hdr => {
+        hdr.querySelectorAll(".sort-toggle").forEach(span => {
+          if (span !== el) {
+            span.textContent = span.dataset.colLabel;
+          }
+        });
       });
-    });
-  }
+    }
 
-  // Show Blend Shape by default
-  window.onload = () => {
-    toggleTaskColumns('blend');
-  };
-</script>
+    function toggleTaskColumns(task) {
+      const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
+      tasks.forEach(t => {
+        const elems = document.querySelectorAll(`.task-${t}`);
+        elems.forEach(el => {
+          el.style.display = (t === task) ? 'table-cell' : 'none';
+        });
+      });
+    }
+
+
+    // Show Blend Shape by default
+    window.onload = () => {
+      toggleTaskColumns('blend');
+    };
+  </script>
 
   
 
@@ -619,277 +620,10 @@
               <td>5.424</td>
               <td><b>8.812</b></td>
           </tr>
-      
-          <!-- 4. Claude-3-Haiku -->
-          <tr>
-              <td><a href="https://www.anthropic.com/news/claude-3-haiku" target="_blank">Claude-3-Haiku</a></td>
-              <td>2024-03-07</td>
-              <!-- Blend Shape -->
-              <td>13.62</td>
-              <td>29.72</td>
-              <td>2.563</td>
-              <!-- Placement -->
-              <td>14.78</td>
-              <td>44.10</td>
-              <td>12.13</td>
-              <!-- Geometry -->
-              <td>10.15</td>
-              <td>12.51</td>
-              <td>1.362</td>
-              <!-- Lighting -->
-              <td>3.712</td>
-              <td>4.824</td>
-              <!-- Material -->
-              <td>5.960</td>
-              <td>11.61</td>
-          </tr>
-      
-          <!-- 5. Gemini-1.5-flash -->
-          <tr>
-              <td><a href="https://ai.google.dev/gemini-api/docs/models#gemini-1.5-flash" target="_blank">Gemini-1.5-flash</a></td>
-              <td>2024-9</td>
-              <!-- Blend Shape -->
-              <td>23.18</td>
-              <td>30.47</td>
-              <td>2.412</td>
-              <!-- Placement -->
-              <td><b>10.94</b></td>
-              <td>45.34</td>
-              <td><b>8.324</b></td>
-              <!-- Geometry -->
-              <td>9.443</td>
-              <td>10.49</td>
-              <td>1.323</td>
-              <!-- Lighting -->
-              <td>3.514</td>
-              <td>5.688</td>
-              <!-- Material -->
-              <td>6.364</td>
-              <td>10.42</td>
-          </tr>
-      
-          <!-- 6. Qwen2-vl-7b -->
-          <tr>
-              <td><a href="https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct-AWQ" target="_blank">Qwen2-VL-7b-Instruct</a></td>
-              <td>2024-09-25</td>
-              <!-- Blend Shape -->
-              <td>16.78</td>
-              <td>29.22</td>
-              <td>2.123</td>
-              <!-- Placement -->
-              <td>15.31</td>
-              <td>41.12</td>
-              <td>14.21</td>
-              <!-- Geometry -->
-              <td>--</td>
-              <td>--</td>
-              <td>--</td>
-              <!-- Lighting -->
-              <td>2.985</td>
-              <td><b>2.225</b></td>
-              <!-- Material -->
-              <td>--</td>
-              <td>--</td>
-          </tr>
-      
-          <!-- 7. Qwen-Llama -->
-          <tr>
-              <td>Qwen-Llama</td>
-              <td>N/A</td>
-              <!-- Blend Shape -->
-              <td>14.32</td>
-              <td>28.23</td>
-              <td>2.012</td>
-              <!-- Placement -->
-              <td>14.65</td>
-              <td>34.93</td>
-              <td>12.41</td>
-              <!-- Geometry -->
-              <td>13.97</td>
-              <td>14.13</td>
-              <td>1.673</td>
-              <!-- Lighting -->
-              <td>3.173</td>
-              <td>3.998</td>
-              <!-- Material -->
-              <td>--</td>
-              <td>--</td>
-          </tr>
-      
-          <!-- 8. Phi-3.5-vision -->
-          <tr>
-              <td><a href="https://huggingface.co/microsoft/Phi-3.5-vision-instruct" target="_blank">Phi-3.5-vision</a></td>
-              <td>2024-08-20</td>
-              <!-- Blend Shape -->
-              <td>12.51</td>
-              <td>24.14</td>
-              <td>2.012</td>
-              <!-- Placement -->
-              <td>--</td>
-              <td>--</td>
-              <td>--</td>
-              <!-- Geometry -->
-              <td>--</td>
-              <td>--</td>
-              <td>--</td>
-              <!-- Lighting -->
-              <td>3.127</td>
-              <td>6.012</td>
-              <!-- Material -->
-              <td>--</td>
-              <td>--</td>
-          </tr>
-      
-          <!-- 9. Phi-Llama -->
-          <tr>
-              <td>Phi-Llama</td>
-              <td>N/A</td>
-              <!-- Blend Shape -->
-              <td>12.13</td>
-              <td>24.77</td>
-              <td>1.826</td>
-              <!-- Placement -->
-              <td>14.61</td>
-              <td>35.61</td>
-              <td>12.61</td>
-              <!-- Geometry -->
-              <td>9.818</td>
-              <td>11.92</td>
-              <td>1.471</td>
-              <!-- Lighting -->
-              <td>3.621</td>
-              <td>6.895</td>
-              <!-- Material -->
-              <td>--</td>
-              <td>--</td>
-          </tr>
-      
-          <!-- 10. MiniCPM-V-2.6 -->
-          <tr>
-              <td><a href="https://huggingface.co/openbmb/MiniCPM-V-2_6" target="_blank">MiniCPM-V-2.6</a></td>
-              <td>2024-08-06</td>
-              <!-- Blend Shape -->
-              <td>13.86</td>
-              <td>29.92</td>
-              <td>1.997</td>
-              <!-- Placement -->
-              <td>11.99</td>
-              <td>31.69</td>
-              <td>12.62</td>
-              <!-- Geometry -->
-              <td>7.127</td>
-              <td><b>8.542</b></td>
-              <td>1.229</td>
-              <!-- Lighting -->
-              <td>3.829</td>
-              <td>6.124</td>
-              <!-- Material -->
-              <td>--</td>
-              <td>--</td>
-          </tr>
-      
-          <!-- 11. MiniCPM-Llama -->
-          <tr>
-              <td>MiniCPM-Llama</td>
-              <td>N/A</td>
-              <!-- Blend Shape -->
-              <td>13.76</td>
-              <td>27.21</td>
-              <td>1.882</td>
-              <!-- Placement -->
-              <td>12.74</td>
-              <td>31.72</td>
-              <td>15.81</td>
-              <!-- Geometry -->
-              <td>9.561</td>
-              <td>11.47</td>
-              <td>1.569</td>
-              <!-- Lighting -->
-              <td>3.725</td>
-              <td>6.090</td>
-              <!-- Material -->
-              <td>7.152</td>
-              <td>12.14</td>
-          </tr>
-      
-          <!-- 12. InternVL2-8b -->
-          <tr>
-              <td><a href="https://huggingface.co/OpenGVLab/InternVL2-8B" target="_blank">InternVL2-8b</a></td>
-              <td>2024-07-04</td>
-              <!-- Blend Shape -->
-              <td>12.69</td>
-              <td>29.09</td>
-              <td>1.920</td>
-              <!-- Placement -->
-              <td>14.71</td>
-              <td>35.92</td>
-              <td>17.22</td>
-              <!-- Geometry -->
-              <td>--</td>
-              <td>--</td>
-              <td>--</td>
-              <!-- Lighting -->
-              <td>3.920</td>
-              <td>6.825</td>
-              <!-- Material -->
-              <td>--</td>
-              <td>--</td>
-          </tr>
-      
-          <!-- 13. Intern-Llama -->
-          <tr>
-              <td>Intern-Llama</td>
-              <td>N/A</td>
-              <!-- Blend Shape -->
-              <td>11.80</td>
-              <td>23.83</td>
-              <td>1.861</td>
-              <!-- Placement -->
-              <td>16.15</td>
-              <td>37.23</td>
-              <td>18.22</td>
-              <!-- Geometry -->
-              <td>13.70</td>
-              <td>14.44</td>
-              <td>1.578</td>
-              <!-- Lighting -->
-              <td>3.825</td>
-              <td>6.152</td>
-              <!-- Material -->
-              <td>--</td>
-              <td>--</td>
-          </tr>
-      
-          <!-- 14. Human -->
-          <tr>
-              <td><b>Human</b></td>
-              <td>2025-1-15</td>
-              <!-- Blend Shape -->
-              <td><b>0.934</b></td>
-              <td><b>9.12</b></td>
-              <td><b>0.399</b></td>
-              <!-- Placement -->
-              <td><b>0.423</b></td>
-              <td><b>13.34</b></td>
-              <td><b>1.532</b></td>
-              <!-- Geometry -->
-              <td><b>1.269</b></td>
-              <td><b>2.434</b></td>
-              <td><b>0.334</b></td>
-              <!-- Lighting -->
-              <td><b>1.239</b></td>
-              <td><b>1.632</b></td>
-              <!-- Material -->
-              <td><b>0.629</b></td>
-              <td><b>3.043</b></td>
-          </tr>
       </table>
-          
         </div>
-
       </div>
     </div>
-
   </div>
 </section>
 
