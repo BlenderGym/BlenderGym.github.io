@@ -51,6 +51,16 @@
 
   <script src="./visualizer/data/data_public.js" defer></script>
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9D17MFJB5R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-9D17MFJB5R');
+  </script>
+
   <script>
     // Keep track of sort directions by column index
     const sortDirections = {};
@@ -284,7 +294,7 @@
               width: 80%;
               margin: 0 auto;
               text-align: center;">
-      TLDR: We present <strong>BlenderGym</strong>, the first VLM system benchmark for 3D graphics that tasks VLMs with code-based 3D scene reconstruction.
+      TLDR: BlenderGym benchmarks your VLM system's ability to edit 3D graphics.
     </p>
   </div>
 </section>
@@ -342,13 +352,7 @@
         </div>  
         <div class="content has-text-justified">
           <p>
-            We aim to enable comprehensive comparison and analysis of VLM systems on 3D graphics editing tasks, which is currently bottlenecked by the incomprehensive coverage of task settings with current evaluation approaches and the absence of robust metrics due to unscalability of human evaluation and unreliability of AI-judge. 
-          </p>
-          <p>
-            To overcome these two challenges, we introduce <b>BlenderGym</b>—the first VLM system benchmark tailored to 3D graphics. BlenderGym features in (1) the comprehensive coverage of essential graphics editing tasks with support for a wide range of VLM systems, (2) quantitative evaluation with image and 3D metrics, eliminating the need for human or AI-based evaluations and (3) support for inference time scaling experiments on graphics editing tasks.
-          </p>
-          <p>
-            BlenderGym consists of 245 hand-crafted Blender scenes across 5 key graphics editing tasks: procedural geometry editing, lighting adjustments, procedural material design, blend shape manipulation, and object placement (45/30/30/65/30 instances respectively). Each instance in BlenderGym presents a reconstruction task from a start scene to a goal scene, where the start scene serves as the original input for the VLM system, and the goal scene represents the desired output state that the VLM system is tasked with reconstructing. Each start-goal instance includes a base Blender file of the scene setup, a pair of Python scripts that generate the start and goal scene, rendered images for both scenes, and language description of the differences between the two scenes. 
+            BlenderGym consists of 245 hand-crafted Blender scenes across 5 key graphics editing tasks: procedural geometry editing, lighting adjustments, procedural material design, blend shape manipulation, and object placement. Each instance in BlenderGym presents a reconstruction task from a start scene to a goal scene. Each start-goal instance includes a base Blender file of the scene setup, a pair of Python scripts that generate the start and goal scene, rendered images for both scenes, and language description of the differences between the two scenes. 
           </p>
         </div>
       </div>
@@ -357,9 +361,67 @@
 </div>
 </section>
 
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Inference Scaling for Verifier</h2>
+        <div class="content has-text-justified">
+          <p>
+            To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier 
+            that guides the generation by selecting desirable edits and pruning suboptimal ones.
+          </p>
+          <!-- First Figure (80% width, centered) -->
+          <div style="text-align: center;">
+            <figure style="width:50%; margin:0 auto;">
+              <img src="./static/images/veri_scaling.png" 
+                   alt="Verifier scaling figure"
+                   style="width:100%; height:auto; object-fit:contain;">
+              <figcaption style="font-size:13px; text-align:center;">
+                Performance of inference scaling for VLM verifier with InternVL2-8B, Claude3.5 Sonnet, and GPT-4o.
+              </figcaption>
+            </figure>
+          </div>
+          <p>
+            As shown by the figure above, VLM verifiers used for guiding generation also benefit from inference scaling, 
+            and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
+          </p>
+          <p>
+            With that knowledge, we further explore the question of distributing inference compute between generation 
+            and verification. We show with the figure below that (1) the distribution of inference compute significantly 
+            impacts performance, and that (2) the optimal compute ratio between generation and verification varies with 
+            the amount of total compute — more total compute benefits from a higher share of verification.
+          </p>
+          <!-- Second Figure (120% width, centered) -->
+          <div style="text-align: center;">
+            <figure style="width:100%; margin:0 auto;">
+              <img src="./static/images/allocation_all.png"
+                   alt="Allocation of compute figure"
+                   style="width:100%; height:auto; object-fit:contain;">
+              <figcaption style="font-size:13px; text-align:center;">
+                The impact of compute allocation on VLM system performance. We set VeriRatio(verification compute over total compute) to 0.33, 0.62, and 0.73. <br>
+                We observe that when more compute is available, a higher share of verification yields greater benefits.
+              </figcaption>
+            </figure>
+          </div>
+          <!-- <div class="hero-body">
+            <img src="./static/images/allocation_all.png" alt="Overview Image" style="width:100%;">
+            <h2 class="subtitle has-text-centered" style="font-size: 16px;"> 
+              The impact of compute allocation on VLM system performance. <br>
+              We set VeriRatio(verification compute over total compute) to 0.33, 0.62, and 0.73. We observe that when 
+              more compute is available, a higher share of verification yields greater benefits.
+        </div>   -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</section>
+
 <section class="section">
   <div class="container">
-    
     <div class="columns is-centered">
       <div class="column is-full has-text-centered content">
 
@@ -851,68 +913,10 @@
   </div>
 </section>
 
+
+<!-- 
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full">
-        <h2 class="title is-3">Inference Scaling for Verifier</h2>
-        <div class="content has-text-justified">
-          <p>
-            To complement recent findings on inference scaling of VLM/LLM generation, we explore improving the verifier 
-            that guides the generation by selecting desirable edits and pruning suboptimal ones.
-          </p>
-          <!-- First Figure (80% width, centered) -->
-          <div style="text-align: center;">
-            <figure style="width:50%; margin:0 auto;">
-              <img src="./static/images/veri_scaling.png" 
-                   alt="Verifier scaling figure"
-                   style="width:100%; height:auto; object-fit:contain;">
-              <figcaption style="font-size:13px; text-align:center;">
-                Performance of inference scaling for VLM verifier with InternVL2-8B, Claude3.5 Sonnet, and GPT-4o.
-              </figcaption>
-            </figure>
-          </div>
-          <p>
-            As shown by the figure above, VLM verifiers used for guiding generation also benefit from inference scaling, 
-            and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
-          </p>
-          <p>
-            With that knowledge, we further explore the question of distributing inference compute between generation 
-            and verification. We show with the figure below that (1) the distribution of inference compute significantly 
-            impacts performance, and that (2) the optimal compute ratio between generation and verification varies with 
-            the amount of total compute — more total compute benefits from a higher share of verification.
-          </p>
-          <!-- Second Figure (120% width, centered) -->
-          <div style="text-align: center;">
-            <figure style="width:100%; margin:0 auto;">
-              <img src="./static/images/allocation_all.png"
-                   alt="Allocation of compute figure"
-                   style="width:100%; height:auto; object-fit:contain;">
-              <figcaption style="font-size:13px; text-align:center;">
-                The impact of compute allocation on VLM system performance. We set VeriRatio(verification compute over total compute) to 0.33, 0.62, and 0.73. <br>
-                We observe that when more compute is available, a higher share of verification yields greater benefits.
-              </figcaption>
-            </figure>
-          </div>
-          <!-- <div class="hero-body">
-            <img src="./static/images/allocation_all.png" alt="Overview Image" style="width:100%;">
-            <h2 class="subtitle has-text-centered" style="font-size: 16px;"> 
-              The impact of compute allocation on VLM system performance. <br>
-              We set VeriRatio(verification compute over total compute) to 0.33, 0.62, and 0.73. We observe that when 
-              more compute is available, a higher share of verification yields greater benefits.
-        </div>   -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <br>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-full">
         <h2 class="title is-3">Human-VLM Verifier Alignment</h2>
@@ -939,18 +943,8 @@
     </div>
   </div>
   <br>
-</section>
+</section> -->
 
-
-<section class="section no-spacing">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full">
-        <h2 class="title is-6">Acknowledgements</h2>
-        <div class="content has-text-justified">
-            We acknowledge the support of ARL grant W911NF-21-2-0104 and a Vannevar Bush Faculty Fellowship. Additionally, We would like to thank Yangjun Ruan, Haiwen (Haven) Feng, Jordan Juravsky, and all our reviewers for feedback on paper revisions.    </div>
-</section>
 
 <section class="section no-spacing" id="Bibtex">
     <div class="container is-max-desktop content">
