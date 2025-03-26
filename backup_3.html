@@ -61,58 +61,71 @@
     gtag('config', 'G-9D17MFJB5R');
   </script>
 
-<script>
-  const sortDirections = {};
-
-  function sortTableByColumn(tableId, colIndex, el) {
-    const table = document.getElementById(tableId);
-    const rows = Array.from(table.querySelectorAll("tr"));
-    const headerRows = rows.slice(0, 2);
-    const bodyRows = rows.slice(2);
-
-    const currentDir = sortDirections[colIndex] || "asc";
-    const nextDir = currentDir === "asc" ? "desc" : "asc";
-    sortDirections[colIndex] = nextDir;
-
-    bodyRows.sort((a, b) => {
-      const valA = parseFloat(a.cells[colIndex]?.textContent.replace(/--/, "0")) || 0;
-      const valB = parseFloat(b.cells[colIndex]?.textContent.replace(/--/, "0")) || 0;
-      return nextDir === "asc" ? valA - valB : valB - valA;
-    });
-
-    const tbody = table.tBodies[0];
-    bodyRows.forEach(row => tbody.appendChild(row));
-
-    const label = el.dataset.colLabel || "";
-    const arrow = nextDir === "asc" ? "▴" : "▾";
-    el.textContent = label + " " + arrow;
-
-    // Remove arrows from other columns
-    headerRows.forEach(hdr => {
-      hdr.querySelectorAll(".sort-toggle").forEach(span => {
-        if (span !== el) {
-          span.textContent = span.dataset.colLabel;
+  <script>
+    // Keep track of sort directions by column index
+    const sortDirections = {};
+  
+    /**
+     * Sort the table by the given column index.
+     * @param {string} tableId    - The ID of the table (e.g. "results").
+     * @param {number} colIndex   - Zero-based index of the column to sort by.
+     * @param {Element} el        - The span element that was clicked.
+     */
+    function sortTableByColumn(tableId, colIndex, el) {
+      const table = document.getElementById(tableId);
+      if (!table) return;
+  
+      // Convert NodeList to Array
+      const allRows = Array.from(table.querySelectorAll("tr"));
+      
+      // We have 2 header rows in this example:
+      const headerRows = allRows.slice(0, 2); // first 2 = header
+      const bodyRows   = allRows.slice(2);    // rest = data
+  
+      // Toggle the sort direction for this column
+      const currentDir = sortDirections[colIndex] || "asc";
+      const nextDir    = currentDir === "asc" ? "desc" : "asc";
+      sortDirections[colIndex] = nextDir;
+  
+      // Sort the body rows
+      bodyRows.sort((a, b) => {
+        const cellA = a.getElementsByTagName("td")[colIndex];
+        const cellB = b.getElementsByTagName("td")[colIndex];
+  
+        // For empty or "--" cells, treat them as 0
+        const valA = parseFloat(cellA?.textContent.replace(/--/, "1000")) || 0;
+        const valB = parseFloat(cellB?.textContent.replace(/--/, "1000")) || 0;
+  
+        if (nextDir === "asc") {
+          return valA - valB;
+        } else {
+          return valB - valA;
         }
       });
-    });
-  }
-
-  function toggleTaskColumns(task) {
-    const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
-    tasks.forEach(t => {
-      const elems = document.querySelectorAll(`.task-${t}`);
-      elems.forEach(el => {
-        el.style.display = (t === task) ? 'table-cell' : 'none';
+  
+      // Re-attach sorted rows
+      const tbody = table.tBodies[0];
+      bodyRows.forEach(row => tbody.appendChild(row));
+  
+      // Now update the clicked column’s label text with an up/down arrow
+      //  - up arrow can be "▴" or "▲"
+      //  - down arrow can be "▾" or "▼"
+      const label = el.dataset.colLabel || "";
+      const arrow = nextDir === "asc" ? "▴" : "▾";
+      el.textContent = label + " " + arrow;  // e.g. "PL ▴" or "PL ▾"
+  
+      // For all other columns in the header, revert to plain label (no arrow)
+      headerRows.forEach((hdr) => {
+        hdr.querySelectorAll(".sort-toggle").forEach(span => {
+          if (span !== el) {
+            // remove arrow from others
+            const colLabel = span.dataset.colLabel || "";
+            span.textContent = colLabel;
+          }
+        });
       });
-    });
-  }
-
-  // Show Blend Shape by default
-  window.onload = () => {
-    toggleTaskColumns('blend');
-  };
-</script>
-
+    }
+  </script>
   
 
 <style>
@@ -126,16 +139,6 @@
   margin: 0;
   font: inherit;
 }
-</style>
-
-<style>
-  .task-blend,
-  .task-placement,
-  .task-geometry,
-  .task-lighting,
-  .task-material {
-    display: none;
-  }
 </style>
   
   
@@ -413,14 +416,6 @@
         <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
         <div class="content">
 
-        <label for="task-select"><strong>Select Task:</strong></label>
-        <select id="task-select" onchange="toggleTaskColumns(this.value)">
-          <option value="blend">Blend Shape</option>
-          <option value="placement">Placement</option>
-          <option value="geometry">Geometry</option>
-          <option value="lighting">Lighting</option>
-          <option value="material">Material</option>
-        </select>
         <table class="js-sort-table" id="results">
           <tr>
               <td rowspan="2"><strong>Model</strong></td>
@@ -432,119 +427,132 @@
               <td colspan="2"><strong>Material</strong></td>
           </tr>
           <tr>
-            <!-- Blend Shape (columns 2, 3, 4) -->
-          <td class="task-blend">
-            <span
-              class="sort-toggle"
-              data-col-label="PL"
-              onclick="sortTableByColumn('results', 2, this)">
-              PL
-            </span>
-          </td>
-          <td class="task-blend">
-            <span
-              class="sort-toggle"
-              data-col-label="N-CLIP"
-              onclick="sortTableByColumn('results', 3, this)">
-              N-CLIP
-            </span>
-          </td>
-          <td class="task-blend">
-            <span
-              class="sort-toggle"
-              data-col-label="CD"
-              onclick="sortTableByColumn('results', 4, this)">
-              CD
-            </span>
-          </td>
-
-          <!-- Placement (columns 5, 6, 7) -->
-          <td class="task-placement">
-            <span
-              class="sort-toggle"
-              data-col-label="PL"
-              onclick="sortTableByColumn('results', 5, this)">
-              PL
-            </span>
-          </td>
-          <td class="task-placement">
-            <span
-              class="sort-toggle"
-              data-col-label="N-CLIP"
-              onclick="sortTableByColumn('results', 6, this)">
-              N-CLIP
-            </span>
-          </td>
-          <td class="task-placement">
-            <span
-              class="sort-toggle"
-              data-col-label="CD"
-              onclick="sortTableByColumn('results', 7, this)">
-              CD
-            </span>
-          </td>
-
-          <!-- Geometry (columns 8, 9, 10) -->
-          <td class="task-geometry">
-            <span
-              class="sort-toggle"
-              data-col-label="PL"
-              onclick="sortTableByColumn('results', 8, this)">
-              PL
-            </span>
-          </td>
-          <td class="task-geometry">
-            <span
-              class="sort-toggle"
-              data-col-label="N-CLIP"
-              onclick="sortTableByColumn('results', 9, this)">
-              N-CLIP
-            </span>
-          </td>
-          <td class="task-geometry">
-            <span
-              class="sort-toggle"
-              data-col-label="CD"
-              onclick="sortTableByColumn('results', 10, this)">
-              CD
-            </span>
-          </td>
-
-          <!-- Lighting (columns 11, 12) -->
-          <td class="task-lighting">
-            <span
-              class="sort-toggle"
-              data-col-label="PL"
-              onclick="sortTableByColumn('results', 11, this)">
-              PL
-            </span>
-          </td>
-          <td class="task-lighting">
-            <span
-              class="sort-toggle"
-              data-col-label="N-CLIP"
-              onclick="sortTableByColumn('results', 12, this)">
-              N-CLIP
-            </span>
-          </td>
-
-          <!-- Material (columns 13, 14) -->
-          <td class="task-material">
-            <span
-              class="sort-toggle"
-              data-col-label="PL"
-              onclick="sortTableByColumn('results', 13, this)">
-              PL
-            </span>
-          </td>
-          <td class="task-material">
-            <span
-              class="sort-toggle"
-              data-col-label="N-CLIP"
-              onclick="sortTableByColumn('results', 14, this)">
-              N-CLIP
-            </span>
-          </td>
+            <!-- Blend Shape: PL (column 3), N-CLIP (4), CD (5) -->
+            <td>
+              <span 
+                class="sort-toggle" 
+                data-col-label="PL"
+                onclick="sortTableByColumn('results', 2, this)"
+              >
+                PL
+              </span>
+            </td>
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="N-CLIP"
+                onclick="sortTableByColumn('results', 3, this)"
+              >
+                N-CLIP
+              </span>
+            </td>
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="CD"
+                onclick="sortTableByColumn('results', 4, this)"
+              >
+                CD
+              </span>
+            </td>
+          
+            <!-- Placement: PL (6), N-CLIP (7), CD (8) -->
+            <td>
+              <span 
+                class="sort-toggle" 
+                data-col-label="PL"
+                onclick="sortTableByColumn('results', 5, this)"
+              >
+                PL
+              </span>
+            </td>
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="N-CLIP"
+                onclick="sortTableByColumn('results', 6, this)"
+              >
+                N-CLIP
+              </span>
+            </td>
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="CD"
+                onclick="sortTableByColumn('results', 7, this)"
+              >
+                CD
+              </span>
+            </td>
+          
+            <!-- Geometry: PL (9), N-CLIP (10), CD (11) -->
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="PL"
+                onclick="sortTableByColumn('results', 8, this)"
+              >
+                PL
+              </span>
+            </td>
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="N-CLIP"
+                onclick="sortTableByColumn('results', 9, this)"
+              >
+                N-CLIP
+              </span>
+            </td>
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="CD"
+                onclick="sortTableByColumn('results', 10, this)"
+              >
+                CD
+              </span>
+            </td>
+          
+            <!-- Lighting: PL (12), N-CLIP (13) -->
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="PL"
+                onclick="sortTableByColumn('results', 11, this)"
+              >
+                PL
+              </span>
+            </td>
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="N-CLIP"
+                onclick="sortTableByColumn('results', 12, this)"
+              >
+                N-CLIP
+              </span>
+            </td>
+          
+            <!-- Material: PL (14), N-CLIP (15) -->
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="PL"
+                onclick="sortTableByColumn('results', 13, this)"
+              >
+                PL
+              </span>
+            </td>
+            <td>
+              <span
+                class="sort-toggle"
+                data-col-label="N-CLIP"
+                onclick="sortTableByColumn('results', 14, this)"
+              >
+                N-CLIP
+              </span>
+            </td>
           </tr>
           
       
