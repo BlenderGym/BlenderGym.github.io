@@ -374,7 +374,7 @@
         <h2 class="title is-3"> What can we do with BlenderGym?</h2>
         <div class="content has-text-justified">
           <p>
-            <b>Compare the performance of VLM systems for 3D graphcs.</b> We present the results in our <a href="https://blendergym.github.io/#leaderboard target="_blank">Leaderboard</a>. 
+            <b>Compare the performance of VLM systems for 3D graphcs.</b> Check out the performance of VLMs in <a href="https://blendergym.github.io/#leaderboard target="_blank">Leaderboard</a>!. 
           </p>
           <p>
             <b>Inference Scaling for Verification.</b> We explore the inference scaling of VLM verifier that guides the generation by selecting desirable edits and pruning suboptimal ones.
@@ -386,17 +386,16 @@
                    alt="Verifier scaling figure"
                    style="width:100%; height:auto; object-fit:contain;">
               <figcaption style="font-size:13px; text-align:center;">
-                Performance of inference scaling for VLM verifier with InternVL2-8B, Claude3.5 Sonnet, and GPT-4o.
+                Performance of inference scaling for VLM verifier with InternVL2-8B, Claude3.5 Sonnet, and GPT-4o. With more verifiercation queries, the output is closer to the goal.
               </figcaption>
             </figure>
           </div>
           <p>
-            We show in our paper that, as shown by the figure above, VLM verifiers used for guiding generation also benefit from inference scaling, 
-            and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers.
+            We show in our paper that, VLM verifiers used for guiding generation also benefit from inference scaling, 
+            and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers, as shown by the figure above.
           </p>
           <p>
-            We further explore the distribution of inference compute between generation and verification. We show with the figure below that (1) the distribution of inference compute significantly 
-            impacts performance, and that (2) the optimal compute ratio between generation and verification varies with 
+            We further explore the distribution of inference compute between generation and verification. We show with the figure below that the optimal compute ratio between generation and verification varies with 
             the amount of total compute — more total compute benefits from a higher share of verification.
           </p>
           <!-- Second Figure (120% width, centered) -->
