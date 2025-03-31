@@ -67,22 +67,28 @@
     function sortTableByColumn(tableId, colIndex, el) {
       const table = document.getElementById(tableId);
       const rows = Array.from(table.querySelectorAll("tr"));
+      // First 2 rows are headers; remaining are data rows
       const headerRows = rows.slice(0, 2);
-      const bodyRows = rows.slice(2);
+      const bodyRows   = rows.slice(2);
 
+      // Toggle the sort direction for this column (asc <-> desc)
       const currentDir = sortDirections[colIndex] || "asc";
-      const nextDir = currentDir === "asc" ? "desc" : "asc";
+      const nextDir    = currentDir === "asc" ? "desc" : "asc";
       sortDirections[colIndex] = nextDir;
 
+      // Sort the body rows
       bodyRows.sort((a, b) => {
+        // Convert "--" to a large number to push them to the bottom in ascending
         const valA = parseFloat(a.cells[colIndex]?.textContent.replace(/--/, "1000")) || 0;
         const valB = parseFloat(b.cells[colIndex]?.textContent.replace(/--/, "1000")) || 0;
         return nextDir === "asc" ? valA - valB : valB - valA;
       });
 
+      // Re-append sorted rows to <tbody>
       const tbody = table.tBodies[0];
       bodyRows.forEach(row => tbody.appendChild(row));
 
+      // Update the clicked column label with an arrow
       const label = el.dataset.colLabel || "";
       const arrow = nextDir === "asc" ? "▴" : "▾";
       el.textContent = label + " " + arrow;
@@ -95,8 +101,45 @@
           }
         });
       });
-    }
 
+      // ==============================
+      //  Remove old medals from model cells,
+      //  then if ascending, add new medals
+      // ==============================
+
+      // 1) Remove medals from Model column in all rows
+      bodyRows.forEach(row => {
+        const modelCell = row.cells[0];
+        if (modelCell) {
+          // Strip any existing medals
+          modelCell.innerHTML = modelCell.innerHTML.replace(/[🥇🥈🥉]/g, '');
+        }
+      });
+
+      // 2) If newly sorted direction is ascending:
+      //    - find all non-"Human" VLM rows,
+      //    - add gold to the first, silver to second, bronze to the last
+      if (nextDir === "asc") {
+        const vlmRows = bodyRows.filter(r => {
+          const modelName = r.cells[0]?.innerText || "";
+          return !modelName.includes("Human");
+        });
+
+        // gold to first
+        if (vlmRows.length > 0) {
+          vlmRows[0].cells[0].innerHTML += " 🥇";
+        }
+        // silver to second
+        if (vlmRows.length > 1) {
+          vlmRows[1].cells[0].innerHTML += " 🥈";
+        }
+        // bronze to last (could be same as the first if only 1 row)
+        if (vlmRows.length > 0) {
+          vlmRows[vlmRows.length - 1].cells[0].innerHTML += " 🥉";
+        }
+      }
+      // If descending, do nothing else (i.e. no medals).
+    }
 
     function toggleTaskColumns(task) {
       const tasks = ['blend','placement','geometry','lighting','material'];
@@ -106,42 +149,38 @@
         });
       });
 
-      // Also show/hide the column headers for each task
-      const allHeaders = [
-        document.querySelectorAll('.task-' + task)
-      ];
+      // Also show/hide column headers for each task if needed:
+      const allHeaders = [ document.querySelectorAll('.task-' + task) ];
     }
 
-
-    // Show Blend Shape by default
+    // Show the Blend Shape columns by default
     window.onload = () => {
       toggleTaskColumns('blend');
     };
   </script>
 
-  
+  <style>
+    /* Make sure toggled tasks are hidden by default */
+    .task-blend,
+    .task-placement,
+    .task-geometry,
+    .task-lighting,
+    .task-material {
+      display: none;
+    }
+    
+    /* .sort-toggle: remove button look, keep pointer */
+    .sort-toggle {
+      cursor: pointer;
+      user-select: none;
+      text-decoration: none;
+      border: none;
+      background: none;
+      font-size: inherit;
+      font-weight: normal;
+    }
+  </style>
 
-<style>
-  /* Make sure toggled tasks are hidden by default */
-  .task-blend,
-  .task-placement,
-  .task-geometry,
-  .task-lighting,
-  .task-material {
-    display: none;
-  }
-  
-  /* .sort-toggle: remove button look, keep pointer */
-  .sort-toggle {
-    cursor: pointer;
-    user-select: none;
-    text-decoration: none;
-    border: none;
-    background: none;
-    font-size: inherit;
-    font-weight: normal;
-  }
-  </style>  
   
   
 </head>
@@ -360,7 +399,7 @@
         <img src="./static/images/tea.png" alt="Teaser Image" style="width: 100%; display: block; margin: 0 auto;">
         <figcaption class="subtitle" 
                     style="font-size: 18px; width: 80%; text-align: center; margin: 1rem auto 0 auto; display: block;">
-          Example start-goal scene pairs in BlenderGym for reconstruction.
+          Example start-goal scene pairs and workflow in BlenderGym.
         </figcaption>
       </figure>
     </div>
