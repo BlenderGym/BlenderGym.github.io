@@ -3,26 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Evaluating mathematical reasoning of foundation models in visual contexts">
-  <meta name="keywords" content="MathVista, Math Vista">
+        content="Benchmarking Foundational Model Systems for Graphics Editing">
+  <meta name="keywords" content="BlenderGym">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title> BlenderGym: Benchmarking Foundational Model Systems for Graphics Editing </title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
-  <!-- <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-/Users/panlu/Library/Mobile Documents/com~apple~CloudDocs/ImageMath/visual-mathqa-server/data_final/images
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script> -->
-
-  <link rel="icon" href="./static/images/mathvista.png">
+  <link rel="icon" href="./static/images/logo.png">
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
@@ -192,8 +178,7 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h2 class="title is-1 publication-title is-bold">
-            <!-- <img src="static/images/mathvista.png" style="width:1em;vertical-align: middle" alt="Logo"/> -->
-            <span class="mathvista" style="vertical-align: middle">BlenderGym</span>
+            <span class="blendergym" style="vertical-align: middle">BlenderGym</span>
           </h2>
           <h2 style="font-size: 22px;">
             Benchmarking Foundational Model Systems for Graphics Editing
@@ -216,7 +201,7 @@
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">Stanford University</span><br>
-            <span class="paper-block"><b>CVPR 2025</b></span>
+            <span class="paper-block"><b>CVPR 2025 High</b></span>
           </div>
         
           <!-- <section> -->
@@ -238,7 +223,7 @@
               <!-- PDF Link. -->
               <span class="link-block">
                 <!-- @PAN TODO: change links -->
-                <a href="https://arxiv.org/pdf/2310.02255.pdf"
+                <a href="https://arxiv.org/pdf/2504.01786"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -247,10 +232,8 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2310.02255"
+                <a href="https://arxiv.org/abs/2504.01786"
                    class="external-link button is-normal is-rounded is-dark">
-                <!-- <a href="https://lupantech.github.io/papers/arxiv23_mathvista.pdf"
-                   class="external-link button is-normal is-rounded is-dark"> -->
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
                   </span>
@@ -259,7 +242,7 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/lupantech/MathVista"
+                <a href="https://github.com/richard-guyunqi/BlenderGym-Open.git"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -269,7 +252,7 @@
               </span>
               <!-- Dataset Link. -->
               <span class="link-block">
-                <a href="https://huggingface.co/datasets/AI4Math/MathVista"
+                <a href="https://huggingface.co/datasets/richard-guyunqi/BG_bench_data"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <!-- <i class="far fa-images"></i> -->
@@ -308,18 +291,6 @@
     </div>
   </div>
 </section>
-<!-- <section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="content has-text-centered">
-      <img src="static/images/tease_scores_gpt4v.png" alt="geometric reasoning" width="99%"/>
-      <p> Accuracy scores of one leading LLM (i.e., PoT GPT-4), four primary LMMs, random chance, and human performance our proposed 
-      <img src="static/images/mathvista.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
-      <span class="mathvista">MathVista</span>
-      across mathematical reasoning and visual context types. PoT refers to program-of-thought prompting, and PoT GPT-4 is a textual LLM augmented with the caption and OCR text. GPT-4V is manually evaluated via the playground chatbot.
-      </p>
-    </div>
-  </div>
-</section> -->
 <section>
   <div style="background: linear-gradient(to right, #9bebf2, #f7cc86);
               padding: 1rem;
@@ -399,7 +370,7 @@
         <img src="./static/images/tea.png" alt="Teaser Image" style="width: 100%; display: block; margin: 0 auto;">
         <figcaption class="subtitle" 
                     style="font-size: 18px; width: 80%; text-align: center; margin: 1rem auto 0 auto; display: block;">
-          Example start-goal scene pairs and workflow in BlenderGym.
+          Example start-goal scene pairs and flow of data in BlenderGym.
         </figcaption>
       </figure>
     </div>
@@ -416,7 +387,7 @@
             <b>Compare the performance of VLM systems for 3D graphcs.</b> Check out the performance of VLMs in <a href="https://blendergym.github.io/#leaderboard target="_blank">Leaderboard</a>!. 
           </p>
           <p>
-            <b>Inference Scaling for Verification.</b> We explore the inference scaling of VLM verifier that guides the generation by selecting desirable edits and pruning suboptimal ones.
+            <b>Inference Scaling for Verification.</b> We explore the inference scaling of the <b>VLM verifier </b> that guides the generation by selecting desirable edits and pruning suboptimal ones.
           </p>
           <!-- First Figure (80% width, centered) -->
           <div style="text-align: center;">
@@ -1497,7 +1468,15 @@
     <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>
-Our citation address here.
+    @misc{gu2025blendergymbenchmarkingfoundationalmodel,
+      title={BlenderGym: Benchmarking Foundational Model Systems for Graphics Editing}, 
+      author={Yunqi Gu and Ian Huang and Jihyeon Je and Guandao Yang and Leonidas Guibas},
+      year={2025},
+      eprint={2504.01786},
+      archivePrefix={arXiv},
+      primaryClass={cs.GR},
+      url={https://arxiv.org/abs/2504.01786}, 
+    }
     </code></pre>
   </div>
 </section>
