@@ -603,154 +603,154 @@
     };
 </script> -->
   
-  <section class="section">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-full has-text-centered content">
-  
-          <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
-  
-          <!-- Horizontal task navigation -->
-          <div class="task-nav">
-            <span id="task-label-blend" class="task-nav-item active" onclick="toggleTaskColumns('blend')">Blend Shape</span>
-            <span id="task-label-placement" class="task-nav-item" onclick="toggleTaskColumns('placement')">Placement</span>
-            <span id="task-label-geometry" class="task-nav-item" onclick="toggleTaskColumns('geometry')">Geometry</span>
-            <span id="task-label-lighting" class="task-nav-item" onclick="toggleTaskColumns('lighting')">Lighting</span>
-            <span id="task-label-material" class="task-nav-item" onclick="toggleTaskColumns('material')">Material</span>
-          </div>
-  
-          <!-- Table container with narrower width -->
-          <div style="max-width: 800px; margin: 0 auto;">
-            <table class="js-sort-table" id="results" 
-            style="width: 100%; border-collapse: collapse; margin-top: 2rem; border-top: 2px solid #ccc;">
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered content">
+
+        <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
+
+        <!-- Horizontal task navigation -->
+        <div class="task-nav">
+          <span id="task-label-blend" class="task-nav-item active" onclick="toggleTaskColumns('blend')">Blend Shape</span>
+          <span id="task-label-placement" class="task-nav-item" onclick="toggleTaskColumns('placement')">Placement</span>
+          <span id="task-label-geometry" class="task-nav-item" onclick="toggleTaskColumns('geometry')">Geometry</span>
+          <span id="task-label-lighting" class="task-nav-item" onclick="toggleTaskColumns('lighting')">Lighting</span>
+          <span id="task-label-material" class="task-nav-item" onclick="toggleTaskColumns('material')">Material</span>
+        </div>
+
+        <!-- Table container with narrower width -->
+        <div style="max-width: 800px; margin: 0 auto;">
+          <table class="js-sort-table" id="results" 
+          style="width: 100%; border-collapse: collapse; margin-top: 2rem; border-top: 2px solid #ccc;">
+          
+            <!-- Table Head -->
+            <tr>
+              <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
+                Model
+              </th>
+              <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
+                Date
+              </th>
+              <th colspan="3" class="task-blend" style="border-bottom: 1px solid #ccc;">
+                Blend Shape
+              </th>
+              <th colspan="3" class="task-placement" style="border-bottom: 1px solid #ccc;">
+                Placement
+              </th>
+              <th colspan="3" class="task-geometry" style="border-bottom: 1px solid #ccc;">
+                Geometry
+              </th>
+              <th colspan="2" class="task-lighting" style="border-bottom: 1px solid #ccc;">
+                Lighting
+              </th>
+              <th colspan="2" class="task-material" style="border-bottom: 1px solid #ccc;">
+                Material
+              </th>
+            </tr>
+
+            <tr>
+              <!-- Blend Shape -->
+              <th class="task-blend sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 2, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  PLLL↓
+                  <span class="tooltiptext">Photometric Loss ↓</span>
+                </div>
+              </th>
+              <th class="task-blend sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 3, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  N-CLIP↓
+                  <span class="tooltiptext">1-CLIP similarity ↓</span>
+                </div>
+              </th>
+              <th class="task-blend sort-toggle" data-col-label="CD" onclick="sortTableByColumn('results', 4, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  CD↓
+                  <span class="tooltiptext">Chamfer Distance ↓</span>
+                </div>
+              </th>
             
-              <!-- Table Head -->
-              <tr>
-                <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
-                  Model
-                </th>
-                <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
-                  Date
-                </th>
-                <th colspan="3" class="task-blend" style="border-bottom: 1px solid #ccc;">
-                  Blend Shape
-                </th>
-                <th colspan="3" class="task-placement" style="border-bottom: 1px solid #ccc;">
-                  Placement
-                </th>
-                <th colspan="3" class="task-geometry" style="border-bottom: 1px solid #ccc;">
-                  Geometry
-                </th>
-                <th colspan="2" class="task-lighting" style="border-bottom: 1px solid #ccc;">
-                  Lighting
-                </th>
-                <th colspan="2" class="task-material" style="border-bottom: 1px solid #ccc;">
-                  Material
-                </th>
-              </tr>
-  
-              <tr>
-                <!-- Blend Shape -->
-                <th class="task-blend sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 2, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    PLLL↓
-                    <span class="tooltiptext">Photometric Loss ↓</span>
-                  </div>
-                </th>
-                <th class="task-blend sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 3, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    N-CLIP↓
-                    <span class="tooltiptext">1-CLIP similarity ↓</span>
-                  </div>
-                </th>
-                <th class="task-blend sort-toggle" data-col-label="CD" onclick="sortTableByColumn('results', 4, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    CD↓
-                    <span class="tooltiptext">Chamfer Distance ↓</span>
-                  </div>
-                </th>
-              
-                <!-- Placement -->
-                <th class="task-placement sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 5, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    PL↓
-                    <span class="tooltiptext">Photometric Loss ↓</span>
-                  </div>
-                </th>
-                <th class="task-placement sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 6, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    N-CLIP↓
-                    <span class="tooltiptext">1-CLIP similarity ↓</span>
-                  </div>
-                </th>
-                <th class="task-placement sort-toggle" data-col-label="CD" onclick="sortTableByColumn('results', 7, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    CD↓
-                    <span class="tooltiptext">Chamfer Distance ↓</span>
-                  </div>
-                </th>
-              
-                <!-- Geometry -->
-                <th class="task-geometry sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 8, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    PL↓
-                    <span class="tooltiptext">Photometric Loss ↓</span>
-                  </div>
-                </th>
-                <th class="task-geometry sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 9, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    N-CLIP↓
-                    <span class="tooltiptext">1-CLIP similarity ↓</span>
-                  </div>
-                </th>
-                <th class="task-geometry sort-toggle" data-col-label="CD" onclick="sortTableByColumn('results', 10, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    CD↓
-                    <span class="tooltiptext">Chamfer Distance ↓</span>
-                  </div>
-                </th>
-              
-                <!-- Lighting -->
-                <th class="task-lighting sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 11, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    PL↓
-                    <span class="tooltiptext">Photometric Loss ↓</span>
-                  </div>
-                </th>
-                <th class="task-lighting sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 12, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    N-CLIP↓
-                    <span class="tooltiptext">1-CLIP similarity ↓</span>
-                  </div>
-                </th>
-              
-                <!-- Material -->
-                <th class="task-material sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 13, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    PL↓
-                    <span class="tooltiptext">Photometric Loss ↓</span>
-                  </div>
-                </th>
-                <th class="task-material sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 14, this)"
-                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                  <div class="tooltip">
-                    N-CLIP↓
-                    <span class="tooltiptext">1-CLIP similarity ↓</span>
-                  </div>
-                </th>
-              </tr>                 
+              <!-- Placement -->
+              <th class="task-placement sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 5, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  PL↓
+                  <span class="tooltiptext">Photometric Loss ↓</span>
+                </div>
+              </th>
+              <th class="task-placement sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 6, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  N-CLIP↓
+                  <span class="tooltiptext">1-CLIP similarity ↓</span>
+                </div>
+              </th>
+              <th class="task-placement sort-toggle" data-col-label="CD" onclick="sortTableByColumn('results', 7, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  CD↓
+                  <span class="tooltiptext">Chamfer Distance ↓</span>
+                </div>
+              </th>
+            
+              <!-- Geometry -->
+              <th class="task-geometry sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 8, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  PL↓
+                  <span class="tooltiptext">Photometric Loss ↓</span>
+                </div>
+              </th>
+              <th class="task-geometry sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 9, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  N-CLIP↓
+                  <span class="tooltiptext">1-CLIP similarity ↓</span>
+                </div>
+              </th>
+              <th class="task-geometry sort-toggle" data-col-label="CD" onclick="sortTableByColumn('results', 10, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  CD↓
+                  <span class="tooltiptext">Chamfer Distance ↓</span>
+                </div>
+              </th>
+            
+              <!-- Lighting -->
+              <th class="task-lighting sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 11, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  PL↓
+                  <span class="tooltiptext">Photometric Loss ↓</span>
+                </div>
+              </th>
+              <th class="task-lighting sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 12, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  N-CLIP↓
+                  <span class="tooltiptext">1-CLIP similarity ↓</span>
+                </div>
+              </th>
+            
+              <!-- Material -->
+              <th class="task-material sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 13, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  PL↓
+                  <span class="tooltiptext">Photometric Loss ↓</span>
+                </div>
+              </th>
+              <th class="task-material sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 14, this)"
+                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                <div class="tooltip">
+                  N-CLIP↓
+                  <span class="tooltiptext">1-CLIP similarity ↓</span>
+                </div>
+              </th>
+            </tr>                 
 
             <!-- 1. GPT-4o -->
             <tr>
