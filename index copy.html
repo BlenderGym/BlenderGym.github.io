@@ -209,25 +209,14 @@
       container.style.textAlign = 'center';
       container.style.marginBottom = '1rem';
 
-      const prefix = document.createElement('span');
-      prefix.textContent = 'Selected task: ';
-      prefix.style.fontWeight = '600';
-      container.appendChild(prefix);
-
-      ['blend', 'placement', 'geometry', 'lighting', 'material'].forEach((task, idx) => {
+      ['blend', 'placement', 'geometry', 'lighting', 'material'].forEach(task => {
         const label = document.createElement('span');
         label.id = 'task-label-' + task;
         label.textContent = task.charAt(0).toUpperCase() + task.slice(1);
-        label.style.margin = '0 5px';
+        label.style.margin = '0 10px';
         label.style.cursor = 'pointer';
         label.onclick = () => toggleTaskColumns(task);
         container.appendChild(label);
-
-        if (idx < 4) {
-          const comma = document.createElement('span');
-          comma.textContent = ',';
-          container.appendChild(comma);
-        }
       });
 
       document.body.insertBefore(container, document.body.firstChild);
@@ -235,7 +224,6 @@
       // Initially show Blend task columns
       toggleTaskColumns('blend');
     };
-
 
 
     // Show the Blend Shape columns by default
@@ -646,7 +634,7 @@
               <th class="task-blend sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 2, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓↓
+                PL↓
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-blend sort-toggle tooltip" data-col-label="N-CLIP"
