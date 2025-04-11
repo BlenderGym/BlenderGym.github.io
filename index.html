@@ -168,6 +168,41 @@
     //   }
     // }
 
+    // function toggleTaskColumns(task) {
+    //   const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
+
+    //   // Update task labels style
+    //   tasks.forEach(t => {
+    //     const label = document.getElementById('task-label-' + t);
+    //     if (label) {
+    //       label.style.fontWeight = (t === task) ? 'bold' : 'normal';
+    //     }
+
+    //     document.querySelectorAll('.task-' + t).forEach(el => {
+    //       el.style.display = (t === task) ? 'table-cell' : 'none';
+    //     });
+    //   });
+
+    //   // Determine the column index for sorting based on task
+    //   const taskToColumnIndex = {
+    //     'blend': 2,
+    //     'placement': 5,
+    //     'geometry': 8,
+    //     'lighting': 11,
+    //     'material': 13
+    //   };
+
+    //   // Trigger ascending sort by PL for the selected task
+    //   const columnIndex = taskToColumnIndex[task];
+    //   const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label=\"PL\"]`);
+
+    //   if (plHeader) {
+    //     // First sort descending to ensure the next click sorts ascending
+    //     sortDirections[columnIndex] = 'desc';
+    //     sortTableByColumn('results', columnIndex, plHeader);
+    //   }
+    // }
+
     function toggleTaskColumns(task) {
       const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
 
@@ -175,7 +210,13 @@
       tasks.forEach(t => {
         const label = document.getElementById('task-label-' + t);
         if (label) {
-          label.style.fontWeight = (t === task) ? 'bold' : 'normal';
+          if (t === task) {
+            label.classList.add('active');
+            label.style.fontWeight = 'bold';
+          } else {
+            label.classList.remove('active');
+            label.style.fontWeight = 'normal';
+          }
         }
 
         document.querySelectorAll('.task-' + t).forEach(el => {
@@ -194,7 +235,7 @@
 
       // Trigger ascending sort by PL for the selected task
       const columnIndex = taskToColumnIndex[task];
-      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label=\"PL\"]`);
+      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
 
       if (plHeader) {
         // First sort descending to ensure the next click sorts ascending
@@ -203,38 +244,38 @@
       }
     }
 
-    // Create clickable labels for tasks
-    window.onload = () => {
-      const container = document.createElement('div');
-      container.style.textAlign = 'center';
-      container.style.marginBottom = '1rem';
+    // // Create clickable labels for tasks
+    // window.onload = () => {
+    //   const container = document.createElement('div');
+    //   container.style.textAlign = 'center';
+    //   container.style.marginBottom = '1rem';
 
-      const prefix = document.createElement('span');
-      prefix.textContent = 'Selected task: ';
-      prefix.style.fontWeight = '600';
-      container.appendChild(prefix);
+    //   const prefix = document.createElement('span');
+    //   prefix.textContent = 'Selected task: ';
+    //   prefix.style.fontWeight = '600';
+    //   container.appendChild(prefix);
 
-      ['blend', 'placement', 'geometry', 'lighting', 'material'].forEach((task, idx) => {
-        const label = document.createElement('span');
-        label.id = 'task-label-' + task;
-        label.textContent = task.charAt(0).toUpperCase() + task.slice(1);
-        label.style.margin = '0 5px';
-        label.style.cursor = 'pointer';
-        label.onclick = () => toggleTaskColumns(task);
-        container.appendChild(label);
+    //   ['blend', 'placement', 'geometry', 'lighting', 'material'].forEach((task, idx) => {
+    //     const label = document.createElement('span');
+    //     label.id = 'task-label-' + task;
+    //     label.textContent = task.charAt(0).toUpperCase() + task.slice(1);
+    //     label.style.margin = '0 5px';
+    //     label.style.cursor = 'pointer';
+    //     label.onclick = () => toggleTaskColumns(task);
+    //     container.appendChild(label);
 
-        if (idx < 4) {
-          const comma = document.createElement('span');
-          comma.textContent = ',';
-          container.appendChild(comma);
-        }
-      });
+    //     if (idx < 4) {
+    //       const comma = document.createElement('span');
+    //       comma.textContent = ',';
+    //       container.appendChild(comma);
+    //     }
+    //   });
 
-      document.body.insertBefore(container, document.body.firstChild);
+    //   document.body.insertBefore(container, document.body.firstChild);
 
-      // Initially show Blend task columns
-      toggleTaskColumns('blend');
-    };
+    //   // Initially show Blend task columns
+    //   toggleTaskColumns('blend');
+    // };
 
 
 
@@ -596,7 +637,7 @@
         <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
 
         <!-- Wrap the label + select in a small container -->
-        <div style="display: inline-block; margin-bottom: 1rem;">
+        <!-- <div style="display: inline-block; margin-bottom: 1rem;">
           <label for="task-select" style="font-size: 1rem; font-weight: 600; margin-right: 0.5rem;">
             Select Task:
           </label>
@@ -608,6 +649,15 @@
             <option value="lighting">Lighting</option>
             <option value="material">Material</option>
           </select>
+        </div> -->
+
+        <!-- Horizontal task navigation -->
+        <div class="task-nav">
+          <span id="task-label-blend" class="task-nav-item active" onclick="toggleTaskColumns('blend')">Blend Shape</span>
+          <span id="task-label-placement" class="task-nav-item" onclick="toggleTaskColumns('placement')">Placement</span>
+          <span id="task-label-geometry" class="task-nav-item" onclick="toggleTaskColumns('geometry')">Geometry</span>
+          <span id="task-label-lighting" class="task-nav-item" onclick="toggleTaskColumns('lighting')">Lighting</span>
+          <span id="task-label-material" class="task-nav-item" onclick="toggleTaskColumns('material')">Material</span>
         </div>
 
         <!-- Table container with narrower width -->
