@@ -127,6 +127,41 @@
       // If descending, do nothing else (i.e. no medals).
     }
 
+    // function toggleTaskColumns(task) {
+    //   const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
+
+    //   // Update task labels style
+    //   tasks.forEach(t => {
+    //     const label = document.getElementById('task-label-' + t);
+    //     if (label) {
+    //       label.style.fontWeight = (t === task) ? 'bold' : 'normal';
+    //     }
+
+    //     document.querySelectorAll('.task-' + t).forEach(el => {
+    //       el.style.display = (t === task) ? 'table-cell' : 'none';
+    //     });
+    //   });
+
+    //   // Determine the column index for sorting based on task
+    //   const taskToColumnIndex = {
+    //     'blend': 2,
+    //     'placement': 5,
+    //     'geometry': 8,
+    //     'lighting': 11,
+    //     'material': 13
+    //   };
+
+    //   // Trigger ascending sort by PL for the selected task
+    //   const columnIndex = taskToColumnIndex[task];
+    //   const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label=\"PL\"]`);
+
+    //   if (plHeader) {
+    //     // First sort descending to ensure the next click sorts ascending
+    //     sortDirections[columnIndex] = 'desc';
+    //     sortTableByColumn('results', columnIndex, plHeader);
+    //   }
+    // }
+
     function toggleTaskColumns(task) {
       const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
 
@@ -134,7 +169,13 @@
       tasks.forEach(t => {
         const label = document.getElementById('task-label-' + t);
         if (label) {
-          label.style.fontWeight = (t === task) ? 'bold' : 'normal';
+          if (t === task) {
+            label.classList.add('active');
+            label.style.fontWeight = 'bold';
+          } else {
+            label.classList.remove('active');
+            label.style.fontWeight = 'normal';
+          }
         }
 
         document.querySelectorAll('.task-' + t).forEach(el => {
@@ -153,7 +194,7 @@
 
       // Trigger ascending sort by PL for the selected task
       const columnIndex = taskToColumnIndex[task];
-      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label=\"PL\"]`);
+      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
 
       if (plHeader) {
         // First sort descending to ensure the next click sorts ascending
@@ -161,6 +202,7 @@
         sortTableByColumn('results', columnIndex, plHeader);
       }
     }
+
 
   </script>
 
