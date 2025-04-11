@@ -653,92 +653,96 @@
                     gap: 40px;
                     margin-bottom: 20px;
                   }
-                
-                  .task-section > div {
+
+                  .task-section > .text-block {
+                    order: 1;
                     flex: 1;
                   }
-                
+
+                  .task-section > .image-block {
+                    order: 2;
+                    flex: 1;
+                  }
+
                   @media screen and (max-width: 768px) {
                     .task-section {
                       flex-direction: column;
                       text-align: center;
                     }
-                
-                    .task-section img {
+
+                    .task-section > .text-block,
+                    .task-section > .image-block {
                       width: 100%;
-                      height: auto;
-                    }
-                
-                    .text-left, .text-right {
-                      text-align: center !important;
+                      order: unset; /* maintain top-down order */
                     }
                   }
+
                 </style>
                 
                 <div class="text-justify" style="display: flex; flex-direction: column; gap: 20px;">
                   <div class="task-section">
-                    <div style="flex: 1;">
-                            <p class="text-left"><span class="circle-number">1</span> 
-                                <b>Procedural Geometry</b> 
-                            </p>
-                            <p class="text-left">
-                              Handling variations in spatial and geometrical attributes like shape, scale, and spatial distribution.    
-                            </p>
-                        </div>
-                        <div style="flex: 1;">
-                            <img src="static/images/geometry.gif" class="img-responsive" alt="Placeholder image 1">
-                        </div>
+                    <div class="text-block">
+                      <p class="text-left"><span class="circle-number">1</span> 
+                          <b>Procedural Geometry</b> 
+                      </p>
+                      <p class="text-left">
+                        Handling variations in spatial and geometrical attributes like shape, scale, and spatial distribution.    
+                      </p>
                     </div>
-                    <div class="task-section">
-                        <div style="flex: 1;">
-                            <p class="text-right"><span class="circle-number">2</span> 
-                                <b> Lighting Adjustments</b> 
-                            </p>
-                            <p class="text-left">
-                              Manipulating the color, intensity, location, and orientation of the light sources.
-                            </p>
-                        </div>
-                        <div style="flex: 1;">
-                          <img src="static/images/lighting.gif" class="img-responsive" alt="Placeholder image 2">
+                    <div class="image-block">
+                      <img src="static/images/geometry.gif" class="img-responsive" alt="Placeholder image 1">
+                    </div>
+                  </div>
+                  <div class="task-section">
+                    <div class="image-block">
+                      <img src="static/images/lighting.gif" class="img-responsive" alt="Placeholder image 2">
+                    </div>
+                    <div class="text-block">
+                      <p class="text-right"><span class="circle-number">2</span> 
+                        <b> Lighting Adjustments</b> 
+                      </p>
+                      <p class="text-left">
+                        Manipulating the color, intensity, location, and orientation of the light sources.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="task-section">
+                    <div class="text-block">
+                      <p class="text-left"><span class="circle-number">3</span> 
+                          <b> Procedural Material</b>
+                      </p>
+                      <p class="text-left">
+                        Editing color, texture, displacement, and patterns of a surface material.
+                      </p>
+                    </div>
+                    <div class="image-block">
+                      <img src="static/images/material.gif" class="img-responsive" alt="Placeholder image 3">
+                    </div>
+                  </div>
+                  <div class="task-section">
+                    <div class="image-block">
+                      <img src="static/images/blendshape.gif" class="img-responsive" alt="Placeholder image 2">
+                    </div>
+                    <div class="text-block">
+                      <p class="text-right"><span class="circle-number">4</span> 
+                        <b> Blend Shape manipulation  </b> 
+                      </p>
+                      <p class="text-left">
+                        Adjusting blend shapes, continuous variables that control some features of an object, such as the facial expression
+                      </p>
+                    </div>
+                  </div>
+                  <div class="task-section">
+                      <div class="text-block">
+                        <p class="text-left"><span class="circle-number">5</span> 
+                          <b> Object Placement </b>
+                        </p>
+                        <p class="text-left">
+                          Perceiving and adjusting the location of the objects in the scene
+                        </p>
                       </div>
-                    </div>
-                    <div class="task-section">
-                      <div style="flex: 1;">
-                            <p class="text-left"><span class="circle-number">3</span> 
-                                <b> Procedural Material</b>
-                            </p>
-                            <p class="text-left">
-                              Editing color, texture, displacement, and patterns of a surface material.
-                            </p>
-                        </div>
-                        <div style="flex: 1;">
-                            <img src="static/images/material.gif" class="img-responsive" alt="Placeholder image 3">
-                        </div>
-                    </div>
-                    <div class="task-section">
-                      <div style="flex: 1;">
-                          <p class="text-right"><span class="circle-number">4</span> 
-                              <b> Blend Shape manipulation  </b> 
-                          </p>
-                          <p class="text-left">
-                            Adjusting blend shapes, continuous variables that control some features of an object, such as the facial expression
-                          </p>
-                      </div>
-                      <div style="flex: 1;">
-                        <img src="static/images/blendshape.gif" class="img-responsive" alt="Placeholder image 2">
-                    </div>
-                    </div>
-                    <div class="task-section">
-                      <div style="flex: 1;">
-                          <p class="text-left"><span class="circle-number">5</span> 
-                              <b> Object Placement </b>
-                          </p>
-                          <p class="text-left">
-                            Perceiving and adjusting the location of the objects in the scene
-                          </p>
-                      </div>
-                      <div style="flex: 1;">
-                          <img src="static/images/placement.gif" class="img-responsive" alt="Placeholder image 3">
+                      <div class="image-block">
+                        <img src="static/images/placement.gif" class="img-responsive" alt="Placeholder image 3">
                       </div>
                   </div>
                 </div>
