@@ -634,21 +634,50 @@
                 </h3>  -->
 
                 <style>
-                    .circle-number {
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 24px;
-                        height: 24px;
-                        border-radius: 50%;
-                        background-color: #000;
-                        color: #fff;
-                        margin-right: 10px;
+                  .circle-number {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    background-color: #000;
+                    color: #fff;
+                    margin-right: 10px;
+                  }
+                
+                  .task-section {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 40px;
+                    margin-bottom: 20px;
+                  }
+                
+                  .task-section > div {
+                    flex: 1;
+                  }
+                
+                  @media screen and (max-width: 768px) {
+                    .task-section {
+                      flex-direction: column;
+                      text-align: center;
                     }
+                
+                    .task-section img {
+                      width: 100%;
+                      height: auto;
+                    }
+                
+                    .text-left, .text-right {
+                      text-align: center !important;
+                    }
+                  }
                 </style>
+                
                 <div class="text-justify" style="display: flex; flex-direction: column; gap: 20px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 40px;">
-                        <div style="flex: 1;">
+                  <div class="task-section">
+                    <div style="flex: 1;">
                             <p class="text-left"><span class="circle-number">1</span> 
                                 <b>Procedural Geometry</b> 
                             </p>
@@ -660,8 +689,8 @@
                             <img src="static/images/geometry.gif" class="img-responsive" alt="Placeholder image 1">
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 40px;">
-                        <div style="flex: 1;">
+                    <div class="task-section">
+                      <div style="flex: 1;">
                             <img src="static/images/lighting.gif" class="img-responsive" alt="Placeholder image 2">
                         </div>
                         <div style="flex: 1;">
@@ -673,8 +702,8 @@
                             </p>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 40px;">
-                        <div style="flex: 1;">
+                    <div class="task-section">
+                      <div style="flex: 1;">
                             <p class="text-left"><span class="circle-number">3</span> 
                                 <b> Procedural Material</b>
                             </p>
@@ -686,7 +715,7 @@
                             <img src="static/images/material.gif" class="img-responsive" alt="Placeholder image 3">
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 40px;">
+                    <div class="task-section">
                       <div style="flex: 1;">
                           <img src="static/images/blendshape.gif" class="img-responsive" alt="Placeholder image 2">
                       </div>
@@ -699,7 +728,7 @@
                           </p>
                       </div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 40px;">
+                    <div class="task-section">
                       <div style="flex: 1;">
                           <p class="text-left"><span class="circle-number">5</span> 
                               <b> Object Placement </b>
