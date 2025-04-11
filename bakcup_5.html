@@ -176,47 +176,6 @@
       font-size: inherit;
       font-weight: normal;
     }
-
-    .tooltip {
-      position: relative;
-      display: inline-block;
-    }
-
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: max-content;
-      background-color: #333;
-      color: #fff;
-      font-size: 0.8rem;
-      text-align: center;
-      padding: 5px;
-      border-radius: 5px;
-      position: absolute;
-      z-index: 10;
-      bottom: 125%;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-    }
-
-    .tooltip .tooltiptext::after {
-      content: "";
-      position: absolute;
-      top: 100%; /* Arrow at bottom of tooltip */
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 5px;
-      border-style: solid;
-      border-color: #333 transparent transparent transparent;
-    }
-
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }
-
   </style>
 
   
@@ -538,95 +497,83 @@
               </th>
             </tr>
 
+            <!-- Second Row of Headers -->
             <tr>
-              <!-- Blend Shape -->
-              <th class="task-blend sort-toggle tooltip" data-col-label="PL"
+              <!-- Blend Shape (cols 2–4) -->
+              <th class="task-blend sort-toggle" data-col-label="PL"
                   onclick="sortTableByColumn('results', 2, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 PL
-                <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
-              <th class="task-blend sort-toggle tooltip" data-col-label="N-CLIP"
+              <th class="task-blend sort-toggle" data-col-label="N-CLIP"
                   onclick="sortTableByColumn('results', 3, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 N-CLIP
-                <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
-              <th class="task-blend sort-toggle tooltip" data-col-label="CD"
+              <th class="task-blend sort-toggle" data-col-label="CD"
                   onclick="sortTableByColumn('results', 4, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 CD
-                <span class="tooltiptext">Chamfer Distance ↓</span>
               </th>
-            
-              <!-- Placement -->
-              <th class="task-placement sort-toggle tooltip" data-col-label="PL"
+
+              <!-- Placement (cols 5–7) -->
+              <th class="task-placement sort-toggle" data-col-label="PL"
                   onclick="sortTableByColumn('results', 5, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 PL
-                <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
-              <th class="task-placement sort-toggle tooltip" data-col-label="N-CLIP"
+              <th class="task-placement sort-toggle" data-col-label="N-CLIP"
                   onclick="sortTableByColumn('results', 6, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 N-CLIP
-                <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
-              <th class="task-placement sort-toggle tooltip" data-col-label="CD"
+              <th class="task-placement sort-toggle" data-col-label="CD"
                   onclick="sortTableByColumn('results', 7, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 CD
-                <span class="tooltiptext">Chamfer Distance ↓</span>
               </th>
-            
-              <!-- Geometry -->
-              <th class="task-geometry sort-toggle tooltip" data-col-label="PL"
+
+              <!-- Geometry (cols 8–10) -->
+              <th class="task-geometry sort-toggle" data-col-label="PL"
                   onclick="sortTableByColumn('results', 8, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 PL
-                <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
-              <th class="task-geometry sort-toggle tooltip" data-col-label="N-CLIP"
+              <th class="task-geometry sort-toggle" data-col-label="N-CLIP"
                   onclick="sortTableByColumn('results', 9, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 N-CLIP
-                <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
-              <th class="task-geometry sort-toggle tooltip" data-col-label="CD"
+              <th class="task-geometry sort-toggle" data-col-label="CD"
                   onclick="sortTableByColumn('results', 10, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 CD
-                <span class="tooltiptext">Chamfer Distance ↓</span>
               </th>
-            
-              <!-- Lighting -->
-              <th class="task-lighting sort-toggle tooltip" data-col-label="PL"
+
+              <!-- Lighting (cols 11–12) -->
+              <th class="task-lighting sort-toggle" data-col-label="PL"
                   onclick="sortTableByColumn('results', 11, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 PL
-                <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
-              <th class="task-lighting sort-toggle tooltip" data-col-label="N-CLIP"
+              <th class="task-lighting sort-toggle" data-col-label="N-CLIP"
                   onclick="sortTableByColumn('results', 12, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 N-CLIP
-                <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
-            
-              <!-- Material -->
-              <th class="task-material sort-toggle tooltip" data-col-label="PL"
+
+              <!-- Material (cols 13–14) -->
+              <th class="task-material sort-toggle" data-col-label="PL"
                   onclick="sortTableByColumn('results', 13, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 PL
-                <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
-              <th class="task-material sort-toggle tooltip" data-col-label="N-CLIP"
+              <th class="task-material sort-toggle" data-col-label="N-CLIP"
                   onclick="sortTableByColumn('results', 14, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
                 N-CLIP
-                <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
-            </tr>            
+            </tr>
 
             <!-- 1. GPT-4o -->
             <tr>
