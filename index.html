@@ -651,36 +651,34 @@
                     justify-content: space-between;
                     align-items: center;
                     gap: 40px;
-                    margin-bottom: 20px;
+                    margin-bottom: 40px;
                   }
-
-                  .task-section > .text-block {
-                    order: 1;
+                
+                  .text-block,
+                  .image-block {
                     flex: 1;
                   }
-
-                  .task-section > .image-block {
-                    order: 2;
-                    flex: 1;
+                
+                  /* Alternate sections: reverse order only on desktop */
+                  .reverse {
+                    flex-direction: row-reverse;
                   }
-
+                
                   @media screen and (max-width: 768px) {
                     .task-section {
-                      flex-direction: column;
+                      flex-direction: column !important;
                       text-align: center;
                     }
-
-                    .task-section > .text-block,
-                    .task-section > .image-block {
-                      width: 100%;
-                      order: unset; /* maintain top-down order */
+                
+                    .text-left, .text-right {
+                      text-align: center !important;
                     }
                   }
-
                 </style>
                 
+                
                 <div class="text-justify" style="display: flex; flex-direction: column; gap: 20px;">
-                  <div class="task-section">
+                  <!-- <div class="task-section">
                     <div class="text-block">
                       <p class="text-left"><span class="circle-number">1</span> 
                           <b>Procedural Geometry</b> 
@@ -744,7 +742,57 @@
                       <div class="image-block">
                         <img src="static/images/placement.gif" class="img-responsive" alt="Placeholder image 3">
                       </div>
+                  </div> -->
+                  <div class="task-section">
+                    <div class="text-block">
+                      <p class="text-left"><span class="circle-number">1</span><b>Procedural Geometry</b></p>
+                      <p class="text-left">Handling variations in spatial and geometrical attributes like shape, scale, and spatial distribution.</p>
+                    </div>
+                    <div class="image-block">
+                      <img src="static/images/geometry.gif" class="img-responsive" alt="Geometry task">
+                    </div>
                   </div>
+                  
+                  <div class="task-section reverse">
+                    <div class="text-block">
+                      <p class="text-left"><span class="circle-number">2</span><b>Lighting Adjustments</b></p>
+                      <p class="text-left">Manipulating the color, intensity, location, and orientation of the light sources.</p>
+                    </div>
+                    <div class="image-block">
+                      <img src="static/images/lighting.gif" class="img-responsive" alt="Lighting task">
+                    </div>
+                  </div>
+                  
+                  <div class="task-section">
+                    <div class="text-block">
+                      <p class="text-left"><span class="circle-number">3</span><b>Procedural Material</b></p>
+                      <p class="text-left">Editing color, texture, displacement, and patterns of a surface material.</p>
+                    </div>
+                    <div class="image-block">
+                      <img src="static/images/material.gif" class="img-responsive" alt="Material task">
+                    </div>
+                  </div>
+                  
+                  <div class="task-section reverse">
+                    <div class="text-block">
+                      <p class="text-left"><span class="circle-number">4</span><b>Blend Shape manipulation</b></p>
+                      <p class="text-left">Adjusting blend shapes, continuous variables that control some features of an object, such as facial expressions.</p>
+                    </div>
+                    <div class="image-block">
+                      <img src="static/images/blendshape.gif" class="img-responsive" alt="Blend shape task">
+                    </div>
+                  </div>
+                  
+                  <div class="task-section">
+                    <div class="text-block">
+                      <p class="text-left"><span class="circle-number">5</span><b>Object Placement</b></p>
+                      <p class="text-left">Perceiving and adjusting the location of the objects in the scene.</p>
+                    </div>
+                    <div class="image-block">
+                      <img src="static/images/placement.gif" class="img-responsive" alt="Object placement task">
+                    </div>
+                  </div>
+                  
                 </div>
             </div>
           </div>
