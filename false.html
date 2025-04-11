@@ -88,11 +88,6 @@
         });
       });
 
-      // ==============================
-      //  Remove old medals from model cells,
-      //  then if ascending, add new medals
-      // ==============================
-
       // 1) Remove medals from Model column in all rows
       bodyRows.forEach(row => {
         const modelCell = row.cells[0];
@@ -128,21 +123,15 @@
     }
 
     // function toggleTaskColumns(task) {
-    //   const tasks = ['blend','placement','geometry','lighting','material'];
-    //   tasks.forEach(t => {
-    //     document.querySelectorAll('.task-' + t).forEach(el => {
-    //       el.style.display = (t === task) ? 'table-cell' : 'none';
-    //     });
-    //   });
-
-    //   const allHeaders = [ document.querySelectorAll('.task-' + task) ];
-    // }
-
-    // function toggleTaskColumns(task) {
     //   const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
 
-    //   // Show selected task columns, hide others
+    //   // Update task labels style
     //   tasks.forEach(t => {
+    //     const label = document.getElementById('task-label-' + t);
+    //     if (label) {
+    //       label.style.fontWeight = (t === task) ? 'bold' : 'normal';
+    //     }
+
     //     document.querySelectorAll('.task-' + t).forEach(el => {
     //       el.style.display = (t === task) ? 'table-cell' : 'none';
     //     });
@@ -159,7 +148,7 @@
 
     //   // Trigger ascending sort by PL for the selected task
     //   const columnIndex = taskToColumnIndex[task];
-    //   const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
+    //   const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label=\"PL\"]`);
 
     //   if (plHeader) {
     //     // First sort descending to ensure the next click sorts ascending
@@ -175,7 +164,13 @@
       tasks.forEach(t => {
         const label = document.getElementById('task-label-' + t);
         if (label) {
-          label.style.fontWeight = (t === task) ? 'bold' : 'normal';
+          if (t === task) {
+            label.classList.add('active');
+            label.style.fontWeight = 'bold';
+          } else {
+            label.classList.remove('active');
+            label.style.fontWeight = 'normal';
+          }
         }
 
         document.querySelectorAll('.task-' + t).forEach(el => {
@@ -194,7 +189,7 @@
 
       // Trigger ascending sort by PL for the selected task
       const columnIndex = taskToColumnIndex[task];
-      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label=\"PL\"]`);
+      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
 
       if (plHeader) {
         // First sort descending to ensure the next click sorts ascending
@@ -203,57 +198,10 @@
       }
     }
 
-    // Create clickable labels for tasks
-    window.onload = () => {
-      const container = document.createElement('div');
-      container.style.textAlign = 'center';
-      container.style.marginBottom = '1rem';
 
-      const prefix = document.createElement('span');
-      prefix.textContent = 'Selected task: ';
-      prefix.style.fontWeight = '600';
-      container.appendChild(prefix);
-
-      ['blend', 'placement', 'geometry', 'lighting', 'material'].forEach((task, idx) => {
-        const label = document.createElement('span');
-        label.id = 'task-label-' + task;
-        label.textContent = task.charAt(0).toUpperCase() + task.slice(1);
-        label.style.margin = '0 5px';
-        label.style.cursor = 'pointer';
-        label.onclick = () => toggleTaskColumns(task);
-        container.appendChild(label);
-
-        if (idx < 4) {
-          const comma = document.createElement('span');
-          comma.textContent = ',';
-          container.appendChild(comma);
-        }
-      });
-
-      document.body.insertBefore(container, document.body.firstChild);
-
-      // Initially show Blend task columns
-      toggleTaskColumns('blend');
-    };
-
-
-
-    // Show the Blend Shape columns by default
-    // window.onload = () => {
-    //   toggleTaskColumns('blend');
-    // };
-    // window.onload = () => {
-    //   // First, show Blend Shape columns
-    //   toggleTaskColumns('blend');
-
-    //   // Then, simulate clicking on "PL" header of Blend Shape to trigger sorting
-    //   const blendPLHeader = document.querySelector('.task-blend.sort-toggle[data-col-label="PL"]');
-    //   if (blendPLHeader) {
-    //     sortTableByColumn('results', 2, blendPLHeader);
-    //     sortTableByColumn('results', 2, blendPLHeader);
-    //   }
-    // };
   </script>
+
+
 
   <style>
     /* Make sure toggled tasks are hidden by default */
@@ -274,53 +222,85 @@
       background: none;
       font-size: inherit;
       font-weight: normal;
+      position: relative; /* Added position relative here */
     }
 
+    /* Task navigation styles */
+    .task-nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .task-nav-item {
+      cursor: pointer;
+      padding: 5px 10px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .task-nav-item:hover {
+      color: #555;
+    }
+
+    .task-nav-item.active {
+      font-weight: bold;
+      border-bottom-color: #333;
+    }
+
+    /* Fixed tooltip implementation */
     .tooltip {
       position: relative;
-      cursor: pointer;
+      display: inline-block; /* Ensure proper display */
     }
 
     .tooltip .tooltiptext {
       visibility: hidden;
+      width: auto;
+      min-width: 120px;
       background-color: #333;
       color: #fff;
       font-size: 0.8rem;
       text-align: center;
-      padding: 5px;
+      padding: 5px 10px;
       border-radius: 5px;
-
-      /* Adjust tooltip positioning */
+      
+      /* Position the tooltip */
       position: absolute;
-      z-index: 10;
-      top: 110%; /* below the header */
+      z-index: 1000; /* Higher z-index to ensure visibility */
+      bottom: -30px; /* Position below the text */
       left: 50%;
       transform: translateX(-50%);
       white-space: nowrap;
-
+      
+      /* Animation */
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s, visibility 0.3s;
       pointer-events: none;
     }
 
+    /* Create tooltip arrow */
     .tooltip .tooltiptext::after {
       content: "";
       position: absolute;
-      bottom: 100%; /* arrow at top of tooltip */
+      bottom: 100%;
       left: 50%;
-      transform: translateX(-50%);
+      margin-left: -5px;
       border-width: 5px;
       border-style: solid;
       border-color: transparent transparent #333 transparent;
     }
 
+    /* Show tooltip on hover */
     .tooltip:hover .tooltiptext {
       visibility: visible;
       opacity: 1;
     }
-    
-    .tooltip {
-      display: inline-block;
+
+    /* Fix for table layouts */
+    th.sort-toggle {
+      position: relative;
     }
   </style>
 
@@ -587,150 +567,190 @@
     </div>
   </div>
   <br>
-</section>
-<section class="section">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-full has-text-centered content">
 
-        <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
+<!-- <script>
+  // Create clickable labels for tasks
+  window.onload = () => {
+      const container = document.createElement('div');
+      container.style.textAlign = 'center';
+      container.style.marginBottom = '1rem';
 
-        <!-- Wrap the label + select in a small container -->
-        <div style="display: inline-block; margin-bottom: 1rem;">
-          <label for="task-select" style="font-size: 1rem; font-weight: 600; margin-right: 0.5rem;">
-            Select Task:
-          </label>
-          <select id="task-select" onchange="toggleTaskColumns(this.value)"
-                  style="border: none; outline: none; font-size: 1rem; font-weight: 500;">
-            <option value="blend">Blend Shape</option>
-            <option value="placement">Placement</option>
-            <option value="geometry">Geometry</option>
-            <option value="lighting">Lighting</option>
-            <option value="material">Material</option>
-          </select>
-        </div>
+      const prefix = document.createElement('span');
+      prefix.textContent = 'Selected task: ';
+      prefix.style.fontWeight = '600';
+      container.appendChild(prefix);
 
-        <!-- Table container with narrower width -->
-        <div style="max-width: 800px; margin: 0 auto;">
-          <!-- <table class="js-sort-table" id="results" 
-                 style="width: 100%; border-collapse: collapse; margin-top: 2rem;"> -->
-          <table class="js-sort-table" id="results" 
-          style="width: 100%; border-collapse: collapse; margin-top: 2rem; border-top: 2px solid #ccc;">
-          
-            <!-- Table Head -->
-            <tr>
-              <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
-                Model
-              </th>
-              <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
-                Date
-              </th>
-              <th colspan="3" class="task-blend" style="border-bottom: 1px solid #ccc;">
-                Blend Shape
-              </th>
-              <th colspan="3" class="task-placement" style="border-bottom: 1px solid #ccc;">
-                Placement
-              </th>
-              <th colspan="3" class="task-geometry" style="border-bottom: 1px solid #ccc;">
-                Geometry
-              </th>
-              <th colspan="2" class="task-lighting" style="border-bottom: 1px solid #ccc;">
-                Lighting
-              </th>
-              <th colspan="2" class="task-material" style="border-bottom: 1px solid #ccc;">
-                Material
-              </th>
-            </tr>
+      ['blend', 'placement', 'geometry', 'lighting', 'material'].forEach((task, idx) => {
+        const label = document.createElement('span');
+        label.id = 'task-label-' + task;
+        label.textContent = task.charAt(0).toUpperCase() + task.slice(1);
+        label.style.margin = '0 5px';
+        label.style.cursor = 'pointer';
+        label.onclick = () => toggleTaskColumns(task);
+        container.appendChild(label);
 
-            <tr>
-              <!-- Blend Shape -->
-              <th class="task-blend sort-toggle tooltip" data-col-label="PL"
-                  onclick="sortTableByColumn('results', 2, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PLLL↓
-                <span class="tooltiptext">Photometric Loss ↓</span>
-              </th>
-              <th class="task-blend sort-toggle tooltip" data-col-label="N-CLIP"
-                  onclick="sortTableByColumn('results', 3, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP↓
-                <span class="tooltiptext">1-CLIP similarity ↓</span>
-              </th>
-              <th class="task-blend sort-toggle tooltip" data-col-label="CD"
-                  onclick="sortTableByColumn('results', 4, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                CD↓
-                <span class="tooltiptext">Chamfer Distance ↓</span>
-              </th>
+        if (idx < 4) {
+          const comma = document.createElement('span');
+          comma.textContent = ',';
+          container.appendChild(comma);
+        }
+      });
+
+      document.body.insertBefore(container, document.body.firstChild);
+
+      // Initially show Blend task columns
+      toggleTaskColumns('blend');
+    };
+</script> -->
+  
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-full has-text-centered content">
+  
+          <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
+  
+          <!-- Horizontal task navigation -->
+          <div class="task-nav">
+            <span id="task-label-blend" class="task-nav-item active" onclick="toggleTaskColumns('blend')">Blend Shape</span>
+            <span id="task-label-placement" class="task-nav-item" onclick="toggleTaskColumns('placement')">Placement</span>
+            <span id="task-label-geometry" class="task-nav-item" onclick="toggleTaskColumns('geometry')">Geometry</span>
+            <span id="task-label-lighting" class="task-nav-item" onclick="toggleTaskColumns('lighting')">Lighting</span>
+            <span id="task-label-material" class="task-nav-item" onclick="toggleTaskColumns('material')">Material</span>
+          </div>
+  
+          <!-- Table container with narrower width -->
+          <div style="max-width: 800px; margin: 0 auto;">
+            <table class="js-sort-table" id="results" 
+            style="width: 100%; border-collapse: collapse; margin-top: 2rem; border-top: 2px solid #ccc;">
             
-              <!-- Placement -->
-              <th class="task-placement sort-toggle tooltip" data-col-label="PL"
-                  onclick="sortTableByColumn('results', 5, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
-                <span class="tooltiptext">Photometric Loss ↓</span>
-              </th>
-              <th class="task-placement sort-toggle tooltip" data-col-label="N-CLIP"
-                  onclick="sortTableByColumn('results', 6, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP↓
-                <span class="tooltiptext">1-CLIP similarity ↓</span>
-              </th>
-              <th class="task-placement sort-toggle tooltip" data-col-label="CD"
-                  onclick="sortTableByColumn('results', 7, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                CD↓
-                <span class="tooltiptext">Chamfer Distance ↓</span>
-              </th>
-            
-              <!-- Geometry -->
-              <th class="task-geometry sort-toggle tooltip" data-col-label="PL"
-                  onclick="sortTableByColumn('results', 8, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
-                <span class="tooltiptext">Photometric Loss ↓</span>
-              </th>
-              <th class="task-geometry sort-toggle tooltip" data-col-label="N-CLIP"
-                  onclick="sortTableByColumn('results', 9, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP↓
-                <span class="tooltiptext">1-CLIP similarity ↓</span>
-              </th>
-              <th class="task-geometry sort-toggle tooltip" data-col-label="CD"
-                  onclick="sortTableByColumn('results', 10, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                CD↓
-                <span class="tooltiptext">Chamfer Distance ↓</span>
-              </th>
-            
-              <!-- Lighting -->
-              <th class="task-lighting sort-toggle tooltip" data-col-label="PL"
-                  onclick="sortTableByColumn('results', 11, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
-                <span class="tooltiptext">Photometric Loss ↓</span>
-              </th>
-              <th class="task-lighting sort-toggle tooltip" data-col-label="N-CLIP"
-                  onclick="sortTableByColumn('results', 12, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP↓
-                <span class="tooltiptext">1-CLIP similarity ↓</span>
-              </th>
-            
-              <!-- Material -->
-              <th class="task-material sort-toggle tooltip" data-col-label="PL"
-                  onclick="sortTableByColumn('results', 13, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
-                <span class="tooltiptext">Photometric Loss ↓</span>
-              </th>
-              <th class="task-material sort-toggle tooltip" data-col-label="N-CLIP"
-                  onclick="sortTableByColumn('results', 14, this)"
-                  style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP↓
-                <span class="tooltiptext">1-CLIP similarity ↓</span>
-              </th>
-            </tr>            
+              <!-- Table Head -->
+              <tr>
+                <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
+                  Model
+                </th>
+                <th rowspan="2" style="padding: 0.5rem; border-bottom: 1px solid #ccc;">
+                  Date
+                </th>
+                <th colspan="3" class="task-blend" style="border-bottom: 1px solid #ccc;">
+                  Blend Shape
+                </th>
+                <th colspan="3" class="task-placement" style="border-bottom: 1px solid #ccc;">
+                  Placement
+                </th>
+                <th colspan="3" class="task-geometry" style="border-bottom: 1px solid #ccc;">
+                  Geometry
+                </th>
+                <th colspan="2" class="task-lighting" style="border-bottom: 1px solid #ccc;">
+                  Lighting
+                </th>
+                <th colspan="2" class="task-material" style="border-bottom: 1px solid #ccc;">
+                  Material
+                </th>
+              </tr>
+  
+              <tr>
+                <!-- Blend Shape -->
+                <th class="task-blend sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 2, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    PLLL↓
+                    <span class="tooltiptext">Photometric Loss ↓</span>
+                  </div>
+                </th>
+                <th class="task-blend sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 3, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    N-CLIP↓
+                    <span class="tooltiptext">1-CLIP similarity ↓</span>
+                  </div>
+                </th>
+                <th class="task-blend sort-toggle" data-col-label="CD" onclick="sortTableByColumn('results', 4, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    CD↓
+                    <span class="tooltiptext">Chamfer Distance ↓</span>
+                  </div>
+                </th>
+              
+                <!-- Placement -->
+                <th class="task-placement sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 5, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    PL↓
+                    <span class="tooltiptext">Photometric Loss ↓</span>
+                  </div>
+                </th>
+                <th class="task-placement sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 6, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    N-CLIP↓
+                    <span class="tooltiptext">1-CLIP similarity ↓</span>
+                  </div>
+                </th>
+                <th class="task-placement sort-toggle" data-col-label="CD" onclick="sortTableByColumn('results', 7, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    CD↓
+                    <span class="tooltiptext">Chamfer Distance ↓</span>
+                  </div>
+                </th>
+              
+                <!-- Geometry -->
+                <th class="task-geometry sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 8, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    PL↓
+                    <span class="tooltiptext">Photometric Loss ↓</span>
+                  </div>
+                </th>
+                <th class="task-geometry sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 9, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    N-CLIP↓
+                    <span class="tooltiptext">1-CLIP similarity ↓</span>
+                  </div>
+                </th>
+                <th class="task-geometry sort-toggle" data-col-label="CD" onclick="sortTableByColumn('results', 10, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    CD↓
+                    <span class="tooltiptext">Chamfer Distance ↓</span>
+                  </div>
+                </th>
+              
+                <!-- Lighting -->
+                <th class="task-lighting sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 11, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    PL↓
+                    <span class="tooltiptext">Photometric Loss ↓</span>
+                  </div>
+                </th>
+                <th class="task-lighting sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 12, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    N-CLIP↓
+                    <span class="tooltiptext">1-CLIP similarity ↓</span>
+                  </div>
+                </th>
+              
+                <!-- Material -->
+                <th class="task-material sort-toggle" data-col-label="PL" onclick="sortTableByColumn('results', 13, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    PL↓
+                    <span class="tooltiptext">Photometric Loss ↓</span>
+                  </div>
+                </th>
+                <th class="task-material sort-toggle" data-col-label="N-CLIP" onclick="sortTableByColumn('results', 14, this)"
+                    style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
+                  <div class="tooltip">
+                    N-CLIP↓
+                    <span class="tooltiptext">1-CLIP similarity ↓</span>
+                  </div>
+                </th>
+              </tr>                 
 
             <!-- 1. GPT-4o -->
             <tr>
