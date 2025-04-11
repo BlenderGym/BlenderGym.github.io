@@ -76,7 +76,7 @@
 
       // Update the clicked column label with an arrow
       const label = el.dataset.colLabel || "";
-      const arrow = nextDir === "asc" ? "▴" : "▾";
+      const arrow = nextDir === "asc" ? "▾" : "▴";
       el.textContent = label + " " + arrow;
 
       // Remove arrows from other columns
@@ -318,12 +318,9 @@
       visibility: visible;
       opacity: 1;
     }
-
-
   </style>
 
-  
-  
+
 </head>
 <body>
 
@@ -646,7 +643,7 @@
               <th class="task-blend sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 2, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓↓
+                PLLL↓
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-blend sort-toggle tooltip" data-col-label="N-CLIP"
