@@ -47,6 +47,128 @@
     gtag('config', 'G-9D17MFJB5R');
   </script>
 
+  <!-- <script>
+    const sortDirections = {};
+
+    function sortTableByColumn(tableId, colIndex, el) {
+      const table = document.getElementById(tableId);
+      const rows = Array.from(table.querySelectorAll("tr"));
+      // First 2 rows are headers; remaining are data rows
+      const headerRows = rows.slice(0, 2);
+      const bodyRows   = rows.slice(2);
+
+      // Toggle the sort direction for this column (asc <-> desc)
+      const currentDir = sortDirections[colIndex] || "asc";
+      const nextDir    = currentDir === "asc" ? "desc" : "asc";
+      sortDirections[colIndex] = nextDir;
+
+      // Sort the body rows
+      bodyRows.sort((a, b) => {
+        // Convert "--" to a large number to push them to the bottom in ascending
+        const valA = parseFloat(a.cells[colIndex]?.textContent.replace(/--/, "1000")) || 0;
+        const valB = parseFloat(b.cells[colIndex]?.textContent.replace(/--/, "1000")) || 0;
+        return nextDir === "asc" ? valA - valB : valB - valA;
+      });
+
+      // Re-append sorted rows to <tbody>
+      const tbody = table.tBodies[0];
+      bodyRows.forEach(row => tbody.appendChild(row));
+
+      // Update the clicked column label with an arrow
+      const label = el.dataset.colLabel || "";
+      const arrow = nextDir === "asc" ? "▾" : "▴";
+      el.textContent = label + " " + arrow;
+
+      // Remove arrows from other columns
+      headerRows.forEach(hdr => {
+        hdr.querySelectorAll(".sort-toggle").forEach(span => {
+          if (span !== el) {
+            span.textContent = span.dataset.colLabel;
+          }
+        });
+      });
+
+      // ==============================
+      //  Remove old medals from model cells,
+      //  then if ascending, add new medals
+      // ==============================
+
+      // 1) Remove medals from Model column in all rows
+      bodyRows.forEach(row => {
+        const modelCell = row.cells[0];
+        if (modelCell) {
+          // Strip any existing medals
+          modelCell.innerHTML = modelCell.innerHTML.replace(/[🥇🥈🥉]/g, '');
+        }
+      });
+
+      // 2) If newly sorted direction is ascending:
+      //    - find all non-"Human" VLM rows,
+      //    - add gold to the first, silver to second, bronze to the last
+      if (nextDir === "asc") {
+        const vlmRows = bodyRows.filter(r => {
+          const modelName = r.cells[0]?.innerText || "";
+          return !modelName.includes("Human");
+        });
+
+        // gold to first
+        if (vlmRows.length > 0) {
+          vlmRows[0].cells[0].innerHTML += " 🥇";
+        }
+        // silver to second
+        if (vlmRows.length > 1) {
+          vlmRows[1].cells[0].innerHTML += " 🥈";
+        }
+        // bronze to last (could be same as the first if only 1 row)
+        if (vlmRows.length > 2) {
+          vlmRows[2].cells[0].innerHTML += " 🥉";
+        }
+      }
+      // If descending, do nothing else (i.e. no medals).
+    }
+
+    function toggleTaskColumns(task) {
+      const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
+
+      // Update task labels style
+      tasks.forEach(t => {
+        const label = document.getElementById('task-label-' + t);
+        if (label) {
+          if (t === task) {
+            label.classList.add('active');
+            label.style.fontWeight = 'bold';
+          } else {
+            label.classList.remove('active');
+            label.style.fontWeight = 'normal';
+          }
+        }
+
+        document.querySelectorAll('.task-' + t).forEach(el => {
+          el.style.display = (t === task) ? 'table-cell' : 'none';
+        });
+      });
+
+      // Determine the column index for sorting based on task
+      const taskToColumnIndex = {
+        'blend': 2,
+        'placement': 5,
+        'geometry': 8,
+        'lighting': 11,
+        'material': 13
+      };
+
+      // Trigger ascending sort by PL for the selected task
+      const columnIndex = taskToColumnIndex[task];
+      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
+
+      if (plHeader) {
+        // First sort descending to ensure the next click sorts ascending
+        sortDirections[columnIndex] = 'desc';
+        sortTableByColumn('results', columnIndex, plHeader);
+      }
+    }
+  </script> -->
+
   <script>
     const sortDirections = {};
 
@@ -168,59 +290,24 @@
       }
     }
 
-
-    // Create clickable labels for tasks
-    window.onload = () => {
-      const container = document.createElement('div');
-      container.style.textAlign = 'center';
-      container.style.marginBottom = '1rem';
-
-      const prefix = document.createElement('span');
-      prefix.textContent = 'Selected task: ';
-      prefix.style.fontWeight = '600';
-      container.appendChild(prefix);
-
-      ['blend', 'placement', 'geometry', 'lighting', 'material'].forEach((task, idx) => {
-        const label = document.createElement('span');
-        label.id = 'task-label-' + task;
-        label.textContent = task.charAt(0).toUpperCase() + task.slice(1);
-        label.style.margin = '0 5px';
-        label.style.cursor = 'pointer';
-        label.onclick = () => toggleTaskColumns(task);
-        container.appendChild(label);
-
-        if (idx < 4) {
-          const comma = document.createElement('span');
-          comma.textContent = ',';
-          container.appendChild(comma);
-        }
-      });
-
-      document.body.insertBefore(container, document.body.firstChild);
-    };
-
-    // // Show the Blend Shape columns by default
-    // window.onload = () => {
-    //   // First, show Blend Shape columns
-    //   toggleTaskColumns('blend');
-
-    //   // Then, simulate clicking on "PL" header of Blend Shape to trigger sorting
-    //   const blendPLHeader = document.querySelector('.task-blend.sort-toggle[data-col-label="PL"]');
-    //   if (blendPLHeader) {
-    //     sortTableByColumn('results', 2, blendPLHeader);
-    //     sortTableByColumn('results', 2, blendPLHeader);
-    //   }
-    // };
+    // Run on page load to initialize Blend Shape task and sort by PL
+    document.addEventListener('DOMContentLoaded', function() {
+      toggleTaskColumns('blend');
+    });
   </script>
 
 <style>
   /* Make sure toggled tasks are hidden by default */
-  .task-blend,
   .task-placement,
   .task-geometry,
   .task-lighting,
   .task-material {
     display: none;
+  }
+  
+  /* Show Blend Shape by default */
+  .task-blend {
+    display: table-cell;
   }
   
   /* .sort-toggle: remove button look, keep pointer */
@@ -585,21 +672,6 @@
 
         <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
 
-        <!-- Wrap the label + select in a small container -->
-        <!-- <div style="display: inline-block; margin-bottom: 1rem;">
-          <label for="task-select" style="font-size: 1rem; font-weight: 600; margin-right: 0.5rem;">
-            Select Task:
-          </label>
-          <select id="task-select" onchange="toggleTaskColumns(this.value)"
-                  style="border: none; outline: none; font-size: 1rem; font-weight: 500;">
-            <option value="blend">Blend Shape</option>
-            <option value="placement">Placement</option>
-            <option value="geometry">Geometry</option>
-            <option value="lighting">Lighting</option>
-            <option value="material">Material</option>
-          </select>
-        </div> -->
-
         <!-- Horizontal task navigation -->
         <div class="task-nav">
           <span id="task-label-blend" class="task-nav-item active" onclick="toggleTaskColumns('blend')">Blend Shape</span>
@@ -611,8 +683,6 @@
 
         <!-- Table container with narrower width -->
         <div style="max-width: 800px; margin: 0 auto;">
-          <!-- <table class="js-sort-table" id="results" 
-                 style="width: 100%; border-collapse: collapse; margin-top: 2rem;"> -->
           <table class="js-sort-table" id="results" 
           style="width: 100%; border-collapse: collapse; margin-top: 2rem; border-top: 2px solid #ccc;">
           
@@ -646,19 +716,19 @@
               <th class="task-blend sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 2, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PLLL↓
+                PL ▾
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-blend sort-toggle tooltip" data-col-label="N-CLIP"
                   onclick="sortTableByColumn('results', 3, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP↓
+                N-CLIP
                 <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
               <th class="task-blend sort-toggle tooltip" data-col-label="CD"
                   onclick="sortTableByColumn('results', 4, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                CD↓
+                CD
                 <span class="tooltiptext">Chamfer Distance ↓</span>
               </th>
             
@@ -666,19 +736,19 @@
               <th class="task-placement sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 5, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
+                PL
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-placement sort-toggle tooltip" data-col-label="N-CLIP"
                   onclick="sortTableByColumn('results', 6, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP↓
+                N-CLIP
                 <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
               <th class="task-placement sort-toggle tooltip" data-col-label="CD"
                   onclick="sortTableByColumn('results', 7, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                CD↓
+                CD
                 <span class="tooltiptext">Chamfer Distance ↓</span>
               </th>
             
@@ -686,19 +756,19 @@
               <th class="task-geometry sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 8, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
+                PL
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-geometry sort-toggle tooltip" data-col-label="N-CLIP"
                   onclick="sortTableByColumn('results', 9, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP↓
+                N-CLIP
                 <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
               <th class="task-geometry sort-toggle tooltip" data-col-label="CD"
                   onclick="sortTableByColumn('results', 10, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                CD↓
+                CD
                 <span class="tooltiptext">Chamfer Distance ↓</span>
               </th>
             
@@ -706,13 +776,13 @@
               <th class="task-lighting sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 11, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
+                PL
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-lighting sort-toggle tooltip" data-col-label="N-CLIP"
                   onclick="sortTableByColumn('results', 12, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP↓
+                N-CLIP
                 <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
             
@@ -720,16 +790,16 @@
               <th class="task-material sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 13, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
+                PL
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-material sort-toggle tooltip" data-col-label="N-CLIP"
                   onclick="sortTableByColumn('results', 14, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP↓
+                N-CLIP
                 <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
-            </tr>            
+            </tr>        
 
             <!-- 1. GPT-4o -->
             <tr>
