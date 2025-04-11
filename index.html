@@ -399,6 +399,40 @@
   th.sort-toggle {
     position: relative;
   }
+
+  @media (max-width: 768px) {
+      .task-nav {
+        gap: 8px; /* Reduced gap for mobile devices */
+      }
+      
+      .task-nav-item {
+        padding: 5px 4px; /* Smaller padding for mobile */
+        font-size: 0.9rem; /* Slightly smaller font */
+      }
+    }
+    
+    /* Even smaller screens like small phones */
+    @media (max-width: 375px) {
+      .task-nav {
+        gap: 4px; /* Minimal gap for very small screens */
+      }
+      
+      .task-nav-item {
+        padding: 5px 2px;
+        font-size: 0.8rem;
+      }
+    }
+    
+    /* Make table responsive */
+    @media (max-width: 768px) {
+      table {
+        font-size: 0.9rem;
+      }
+      
+      th, td {
+        padding: 0.3rem !important;
+      }
+    }
 </style>
 
 
@@ -617,7 +651,7 @@
         <h2 class="title is-3"> What can we do with BlenderGym?</h2>
         <div class="content has-text-justified">
           <p>
-            <b>Compare the performance of VLM systems for 3D graphcs.</b> Check out the performance of VLMs in our <a href="https://blendergym.github.io/#leaderboard target="_blank">Leaderboard</a>!. 
+            <b>Compare the performance of VLM systems for 3D graphcs.</b> Check out the performance of VLMs in our <a href="https://blendergym.github.io/#leaderboard">Leaderboard</a>!. 
           </p>
           <p>
             <b>Inference Scaling for Verification.</b> We explore the inference scaling of the <b>VLM verifier </b> that guides the generation by selecting desirable edits and pruning suboptimal ones.

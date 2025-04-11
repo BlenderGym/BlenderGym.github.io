@@ -157,9 +157,9 @@
         'material': 13
       };
 
-      // Trigger ascending sort by PL for the selected task
+      // Trigger ascending sort by PL↓ for the selected task
       const columnIndex = taskToColumnIndex[task];
-      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
+      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL↓"]`);
 
       if (plHeader) {
         // First sort descending to ensure the next click sorts ascending
@@ -279,9 +279,9 @@
         'material': 13
       };
 
-      // Trigger ascending sort by PL for the selected task
+      // Trigger ascending sort by PL↓ for the selected task
       const columnIndex = taskToColumnIndex[task];
-      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
+      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL↓"]`);
 
       if (plHeader) {
         // First sort descending to ensure the next click sorts ascending
@@ -290,7 +290,7 @@
       }
     }
 
-    // Run on page load to initialize Blend Shape task and sort by PL
+    // Run on page load to initialize Blend Shape task and sort by PL↓
     document.addEventListener('DOMContentLoaded', function() {
       toggleTaskColumns('blend');
     });
@@ -567,7 +567,7 @@
             In this work, we present <b>BlenderGym</b>, a comprehensive VLM system benchmark for 3D graphics editing. BlenderGym evaluates VLM systems through code-based 3D reconstruction tasks. We evaluate closed- and open-source VLM systems and observe that even the state-of-the-art VLM system struggles with tasks relatively easy for human Blender users. 
           </p>
           <p>
-            Enabled by BlenderGym, we study how <b>inference scaling on verification</b> impacts VLM's performance on graphics editing tasks. Notably, our findings reveal that the verifier used to guide the scaling of generation can itself be improved through inference scaling, complementing recent insights on inference scaling of LLM generation in coding and math tasks. We further show that inference compute is not uniformly effective and can be optimized by strategically distributing it between generation and verification. 
+            Enabled by BlenderGym, we study how <b>inference scaling on verification</b> impacts VLMs' performance on graphics editing tasks. Notably, our findings reveal that the verifier used to guide the scaling of generation can itself be improved through inference scaling, complementing recent insights on inference scaling of LLM generation in coding and math tasks. We further show that inference compute is not uniformly effective and can be optimized by strategically distributing it between generation and verification. 
           </p>
         </div>
       </div>
@@ -617,7 +617,7 @@
         <h2 class="title is-3"> What can we do with BlenderGym?</h2>
         <div class="content has-text-justified">
           <p>
-            <b>Compare the performance of VLM systems for 3D graphcs.</b> Check out the performance of VLMs in <a href="https://blendergym.github.io/#leaderboard target="_blank">Leaderboard</a>!. 
+            <b>Compare the performance of VLM systems for 3D graphcs.</b> Check out the performance of VLMs in our <a href="https://blendergym.github.io/#leaderboard target="_blank">Leaderboard</a>!. 
           </p>
           <p>
             <b>Inference Scaling for Verification.</b> We explore the inference scaling of the <b>VLM verifier </b> that guides the generation by selecting desirable edits and pruning suboptimal ones.
@@ -634,12 +634,11 @@
             </figure>
           </div>
           <p>
-            We show in our paper that, VLM verifiers used for guiding generation also benefit from inference scaling, 
+            We show in our paper that VLM verifiers used for guiding generation also benefit from inference scaling 
             and that scaled open-source VLM verifiers can exceed the performance of closed-source VLM verifiers, as shown by the figure above.
           </p>
           <p>
-            We further explore the distribution of inference compute between generation and verification. We show with the figure below that the optimal compute ratio between generation and verification varies with 
-            the amount of total compute — more total compute benefits from a higher share of verification.
+            How do we allocate total compute on generation and verification? The figure below shows that there exists a Goldilocks ratio of allocation.
           </p>
           <!-- Second Figure (120% width, centered) -->
           <div style="text-align: center;">
@@ -713,90 +712,90 @@
 
             <tr>
               <!-- Blend Shape -->
-              <th class="task-blend sort-toggle tooltip" data-col-label="PL"
+              <th class="task-blend sort-toggle tooltip" data-col-label="PL↓"
                   onclick="sortTableByColumn('results', 2, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL
+                PL↓ 
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
-              <th class="task-blend sort-toggle tooltip" data-col-label="N-CLIP"
+              <th class="task-blend sort-toggle tooltip" data-col-label="N-CLIP↓"
                   onclick="sortTableByColumn('results', 3, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP
+                N-CLIP↓
                 <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
-              <th class="task-blend sort-toggle tooltip" data-col-label="CD"
+              <th class="task-blend sort-toggle tooltip" data-col-label="CD↓"
                   onclick="sortTableByColumn('results', 4, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                CD
+                CD↓
                 <span class="tooltiptext">Chamfer Distance ↓</span>
               </th>
             
               <!-- Placement -->
-              <th class="task-placement sort-toggle tooltip" data-col-label="PL"
+              <th class="task-placement sort-toggle tooltip" data-col-label="PL↓"
                   onclick="sortTableByColumn('results', 5, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL
+                PL↓
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
-              <th class="task-placement sort-toggle tooltip" data-col-label="N-CLIP"
+              <th class="task-placement sort-toggle tooltip" data-col-label="N-CLIP↓"
                   onclick="sortTableByColumn('results', 6, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP
+                N-CLIP↓
                 <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
-              <th class="task-placement sort-toggle tooltip" data-col-label="CD"
+              <th class="task-placement sort-toggle tooltip" data-col-label="CD↓"
                   onclick="sortTableByColumn('results', 7, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                CD
+                CD↓
                 <span class="tooltiptext">Chamfer Distance ↓</span>
               </th>
             
               <!-- Geometry -->
-              <th class="task-geometry sort-toggle tooltip" data-col-label="PL"
+              <th class="task-geometry sort-toggle tooltip" data-col-label="PL↓"
                   onclick="sortTableByColumn('results', 8, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL
+                PL↓
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
-              <th class="task-geometry sort-toggle tooltip" data-col-label="N-CLIP"
+              <th class="task-geometry sort-toggle tooltip" data-col-label="N-CLIP↓"
                   onclick="sortTableByColumn('results', 9, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP
+                N-CLIP↓
                 <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
-              <th class="task-geometry sort-toggle tooltip" data-col-label="CD"
+              <th class="task-geometry sort-toggle tooltip" data-col-label="CD↓"
                   onclick="sortTableByColumn('results', 10, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                CD
+                CD↓
                 <span class="tooltiptext">Chamfer Distance ↓</span>
               </th>
             
               <!-- Lighting -->
-              <th class="task-lighting sort-toggle tooltip" data-col-label="PL"
+              <th class="task-lighting sort-toggle tooltip" data-col-label="PL↓"
                   onclick="sortTableByColumn('results', 11, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL
+                PL↓
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
-              <th class="task-lighting sort-toggle tooltip" data-col-label="N-CLIP"
+              <th class="task-lighting sort-toggle tooltip" data-col-label="N-CLIP↓"
                   onclick="sortTableByColumn('results', 12, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP
+                N-CLIP↓
                 <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
             
               <!-- Material -->
-              <th class="task-material sort-toggle tooltip" data-col-label="PL"
+              <th class="task-material sort-toggle tooltip" data-col-label="PL↓"
                   onclick="sortTableByColumn('results', 13, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL
+                PL↓
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
-              <th class="task-material sort-toggle tooltip" data-col-label="N-CLIP"
+              <th class="task-material sort-toggle tooltip" data-col-label="N-CLIP↓"
                   onclick="sortTableByColumn('results', 14, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                N-CLIP
+                N-CLIP↓
                 <span class="tooltiptext">1-CLIP similarity ↓</span>
               </th>
             </tr>        
