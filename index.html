@@ -127,17 +127,47 @@
       // If descending, do nothing else (i.e. no medals).
     }
 
+    // function toggleTaskColumns(task) {
+    //   const tasks = ['blend','placement','geometry','lighting','material'];
+    //   tasks.forEach(t => {
+    //     document.querySelectorAll('.task-' + t).forEach(el => {
+    //       el.style.display = (t === task) ? 'table-cell' : 'none';
+    //     });
+    //   });
+
+    //   const allHeaders = [ document.querySelectorAll('.task-' + task) ];
+    // }
+
     function toggleTaskColumns(task) {
-      const tasks = ['blend','placement','geometry','lighting','material'];
+      const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
+
+      // Show selected task columns, hide others
       tasks.forEach(t => {
         document.querySelectorAll('.task-' + t).forEach(el => {
           el.style.display = (t === task) ? 'table-cell' : 'none';
         });
       });
 
-      // Also show/hide column headers for each task if needed:
-      const allHeaders = [ document.querySelectorAll('.task-' + task) ];
+      // Determine the column index for sorting based on task
+      const taskToColumnIndex = {
+        'blend': 2,
+        'placement': 5,
+        'geometry': 8,
+        'lighting': 11,
+        'material': 13
+      };
+
+      // Trigger ascending sort by PL for the selected task
+      const columnIndex = taskToColumnIndex[task];
+      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
+
+      if (plHeader) {
+        // First sort descending to ensure the next click sorts ascending
+        sortDirections[columnIndex] = 'desc';
+        sortTableByColumn('results', columnIndex, plHeader);
+      }
     }
+
 
     // Show the Blend Shape columns by default
     // window.onload = () => {
