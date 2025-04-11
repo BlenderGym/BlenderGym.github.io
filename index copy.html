@@ -157,9 +157,9 @@
         'material': 13
       };
 
-      // Trigger ascending sort by PL↓ for the selected task
+      // Trigger ascending sort by PL for the selected task
       const columnIndex = taskToColumnIndex[task];
-      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL↓"]`);
+      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
 
       if (plHeader) {
         // First sort descending to ensure the next click sorts ascending
@@ -279,9 +279,9 @@
         'material': 13
       };
 
-      // Trigger ascending sort by PL↓ for the selected task
+      // Trigger ascending sort by PL for the selected task
       const columnIndex = taskToColumnIndex[task];
-      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL↓"]`);
+      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
 
       if (plHeader) {
         // First sort descending to ensure the next click sorts ascending
@@ -290,7 +290,7 @@
       }
     }
 
-    // Run on page load to initialize Blend Shape task and sort by PL↓
+    // Run on page load to initialize Blend Shape task and sort by PL
     document.addEventListener('DOMContentLoaded', function() {
       toggleTaskColumns('blend');
     });
@@ -713,10 +713,10 @@
 
             <tr>
               <!-- Blend Shape -->
-              <th class="task-blend sort-toggle tooltip" data-col-label="PL↓"
+              <th class="task-blend sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 2, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓ ▾
+                PL
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-blend sort-toggle tooltip" data-col-label="N-CLIP"
@@ -733,10 +733,10 @@
               </th>
             
               <!-- Placement -->
-              <th class="task-placement sort-toggle tooltip" data-col-label="PL↓"
+              <th class="task-placement sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 5, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
+                PL
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-placement sort-toggle tooltip" data-col-label="N-CLIP"
@@ -753,10 +753,10 @@
               </th>
             
               <!-- Geometry -->
-              <th class="task-geometry sort-toggle tooltip" data-col-label="PL↓"
+              <th class="task-geometry sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 8, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
+                PL
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-geometry sort-toggle tooltip" data-col-label="N-CLIP"
@@ -773,10 +773,10 @@
               </th>
             
               <!-- Lighting -->
-              <th class="task-lighting sort-toggle tooltip" data-col-label="PL↓"
+              <th class="task-lighting sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 11, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
+                PL
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-lighting sort-toggle tooltip" data-col-label="N-CLIP"
@@ -787,10 +787,10 @@
               </th>
             
               <!-- Material -->
-              <th class="task-material sort-toggle tooltip" data-col-label="PL↓"
+              <th class="task-material sort-toggle tooltip" data-col-label="PL"
                   onclick="sortTableByColumn('results', 13, this)"
                   style="padding: 0.5rem; border-bottom: 2px solid #ccc;">
-                PL↓
+                PL
                 <span class="tooltiptext">Photometric Loss ↓</span>
               </th>
               <th class="task-material sort-toggle tooltip" data-col-label="N-CLIP"
