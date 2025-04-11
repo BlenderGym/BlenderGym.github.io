@@ -57,9 +57,9 @@
       const headerRows = rows.slice(0, 2);
       const bodyRows   = rows.slice(2);
 
-      // Toggle the sort direction for this column (desc <-> asc)
-      const currentDir = sortDirections[colIndex] || "desc";
-      const nextDir    = currentDir === "desc" ? "asc" : "desc";
+      // Toggle the sort direction for this column (asc <-> desc)
+      const currentDir = sortDirections[colIndex] || "asc";
+      const nextDir    = currentDir === "asc" ? "desc" : "asc";
       sortDirections[colIndex] = nextDir;
 
       // Sort the body rows
@@ -67,7 +67,7 @@
         // Convert "--" to a large number to push them to the bottom in ascending
         const valA = parseFloat(a.cells[colIndex]?.textContent.replace(/--/, "1000")) || 0;
         const valB = parseFloat(b.cells[colIndex]?.textContent.replace(/--/, "1000")) || 0;
-        return nextDir === "desc" ? valA - valB : valB - valA;
+        return nextDir === "asc" ? valA - valB : valB - valA;
       });
 
       // Re-append sorted rows to <tbody>
@@ -76,7 +76,7 @@
 
       // Update the clicked column label with an arrow
       const label = el.dataset.colLabel || "";
-      const arrow = nextDir === "desc" ? "▾" : "▴";
+      const arrow = nextDir === "asc" ? "▾" : "▴";
       el.textContent = label + " " + arrow;
 
       // Remove arrows from other columns
@@ -105,7 +105,7 @@
       // 2) If newly sorted direction is ascending:
       //    - find all non-"Human" VLM rows,
       //    - add gold to the first, silver to second, bronze to the last
-      if (nextDir === "desc") {
+      if (nextDir === "asc") {
         const vlmRows = bodyRows.filter(r => {
           const modelName = r.cells[0]?.innerText || "";
           return !modelName.includes("Human");
@@ -157,7 +157,7 @@
 
     //   if (plHeader) {
     //     // First sort descending to ensure the next click sorts ascending
-    //     sortDirections[columnIndex] = 'asc';
+    //     sortDirections[columnIndex] = 'desc';
     //     sortTableByColumn('results', columnIndex, plHeader);
     //   }
     // }
@@ -198,7 +198,7 @@
 
       if (plHeader) {
         // First sort descending to ensure the next click sorts ascending
-        sortDirections[columnIndex] = 'asc';
+        sortDirections[columnIndex] = 'desc';
         sortTableByColumn('results', columnIndex, plHeader);
       }
     }
