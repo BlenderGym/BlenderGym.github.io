@@ -127,47 +127,6 @@
       // If descending, do nothing else (i.e. no medals).
     }
 
-    // function toggleTaskColumns(task) {
-    //   const tasks = ['blend','placement','geometry','lighting','material'];
-    //   tasks.forEach(t => {
-    //     document.querySelectorAll('.task-' + t).forEach(el => {
-    //       el.style.display = (t === task) ? 'table-cell' : 'none';
-    //     });
-    //   });
-
-    //   const allHeaders = [ document.querySelectorAll('.task-' + task) ];
-    // }
-
-    // function toggleTaskColumns(task) {
-    //   const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
-
-    //   // Show selected task columns, hide others
-    //   tasks.forEach(t => {
-    //     document.querySelectorAll('.task-' + t).forEach(el => {
-    //       el.style.display = (t === task) ? 'table-cell' : 'none';
-    //     });
-    //   });
-
-    //   // Determine the column index for sorting based on task
-    //   const taskToColumnIndex = {
-    //     'blend': 2,
-    //     'placement': 5,
-    //     'geometry': 8,
-    //     'lighting': 11,
-    //     'material': 13
-    //   };
-
-    //   // Trigger ascending sort by PL for the selected task
-    //   const columnIndex = taskToColumnIndex[task];
-    //   const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
-
-    //   if (plHeader) {
-    //     // First sort descending to ensure the next click sorts ascending
-    //     sortDirections[columnIndex] = 'desc';
-    //     sortTableByColumn('results', columnIndex, plHeader);
-    //   }
-    // }
-
     function toggleTaskColumns(task) {
       const tasks = ['blend', 'placement', 'geometry', 'lighting', 'material'];
 
@@ -175,7 +134,13 @@
       tasks.forEach(t => {
         const label = document.getElementById('task-label-' + t);
         if (label) {
-          label.style.fontWeight = (t === task) ? 'bold' : 'normal';
+          if (t === task) {
+            label.classList.add('active');
+            label.style.fontWeight = 'bold';
+          } else {
+            label.classList.remove('active');
+            label.style.fontWeight = 'normal';
+          }
         }
 
         document.querySelectorAll('.task-' + t).forEach(el => {
@@ -194,7 +159,7 @@
 
       // Trigger ascending sort by PL for the selected task
       const columnIndex = taskToColumnIndex[task];
-      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label=\"PL\"]`);
+      const plHeader = document.querySelector(`.task-${task}.sort-toggle[data-col-label="PL"]`);
 
       if (plHeader) {
         // First sort descending to ensure the next click sorts ascending
@@ -202,6 +167,7 @@
         sortTableByColumn('results', columnIndex, plHeader);
       }
     }
+
 
     // Create clickable labels for tasks
     window.onload = () => {
@@ -231,28 +197,20 @@
       });
 
       document.body.insertBefore(container, document.body.firstChild);
-
-      // Initially show Blend task columns
-      toggleTaskColumns('blend');
     };
 
-
-
     // Show the Blend Shape columns by default
-    // window.onload = () => {
-    //   toggleTaskColumns('blend');
-    // };
-    // window.onload = () => {
-    //   // First, show Blend Shape columns
-    //   toggleTaskColumns('blend');
+    window.onload = () => {
+      // First, show Blend Shape columns
+      toggleTaskColumns('blend');
 
-    //   // Then, simulate clicking on "PL" header of Blend Shape to trigger sorting
-    //   const blendPLHeader = document.querySelector('.task-blend.sort-toggle[data-col-label="PL"]');
-    //   if (blendPLHeader) {
-    //     sortTableByColumn('results', 2, blendPLHeader);
-    //     sortTableByColumn('results', 2, blendPLHeader);
-    //   }
-    // };
+      // Then, simulate clicking on "PL" header of Blend Shape to trigger sorting
+      const blendPLHeader = document.querySelector('.task-blend.sort-toggle[data-col-label="PL"]');
+      if (blendPLHeader) {
+        sortTableByColumn('results', 2, blendPLHeader);
+        sortTableByColumn('results', 2, blendPLHeader);
+      }
+    };
   </script>
 
   <style>
@@ -596,7 +554,7 @@
         <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
 
         <!-- Wrap the label + select in a small container -->
-        <div style="display: inline-block; margin-bottom: 1rem;">
+        <!-- <div style="display: inline-block; margin-bottom: 1rem;">
           <label for="task-select" style="font-size: 1rem; font-weight: 600; margin-right: 0.5rem;">
             Select Task:
           </label>
@@ -608,6 +566,15 @@
             <option value="lighting">Lighting</option>
             <option value="material">Material</option>
           </select>
+        </div> -->
+
+        <!-- Horizontal task navigation -->
+        <div class="task-nav">
+          <span id="task-label-blend" class="task-nav-item active" onclick="toggleTaskColumns('blend')">Blend Shape</span>
+          <span id="task-label-placement" class="task-nav-item" onclick="toggleTaskColumns('placement')">Placement</span>
+          <span id="task-label-geometry" class="task-nav-item" onclick="toggleTaskColumns('geometry')">Geometry</span>
+          <span id="task-label-lighting" class="task-nav-item" onclick="toggleTaskColumns('lighting')">Lighting</span>
+          <span id="task-label-material" class="task-nav-item" onclick="toggleTaskColumns('material')">Material</span>
         </div>
 
         <!-- Table container with narrower width -->
