@@ -179,23 +179,26 @@
 
     .tooltip {
       position: relative;
-      display: inline-block;
+      cursor: pointer;
     }
 
     .tooltip .tooltiptext {
       visibility: hidden;
-      width: max-content;
       background-color: #333;
       color: #fff;
       font-size: 0.8rem;
       text-align: center;
       padding: 5px;
       border-radius: 5px;
+
+      /* Adjust tooltip positioning */
       position: absolute;
       z-index: 10;
-      bottom: 125%;
+      top: 110%; /* below the header */
       left: 50%;
       transform: translateX(-50%);
+      white-space: nowrap;
+
       opacity: 0;
       transition: opacity 0.3s;
       pointer-events: none;
@@ -204,18 +207,19 @@
     .tooltip .tooltiptext::after {
       content: "";
       position: absolute;
-      top: 100%; /* Arrow at bottom of tooltip */
+      bottom: 100%; /* arrow at top of tooltip */
       left: 50%;
       transform: translateX(-50%);
       border-width: 5px;
       border-style: solid;
-      border-color: #333 transparent transparent transparent;
+      border-color: transparent transparent #333 transparent;
     }
 
     .tooltip:hover .tooltiptext {
       visibility: visible;
       opacity: 1;
     }
+
 
   </style>
 
