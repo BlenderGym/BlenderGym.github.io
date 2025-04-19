@@ -4,13 +4,15 @@ This is the repository that contains source code for the [BlenderGym: Benchmarki
 
 If you find BlenderGym useful for your work please cite:
 ```
-@inproceedings{je2024robust,
-  title={Robust Symmetry Detection via Riemannian Langevin Dynamics},
-  author={Je, Jihyeon and Liu, Jiayi and Yang, Guandao and Deng, Boyang and Cai, Shengqu and Wetzstein, Gordon and Litany, Or and Guibas, Leonidas},
-  booktitle={SIGGRAPH Asia 2024 Conference Papers},
-  pages={1--11},
-  year={2024}
-}
+  @misc{gu2025blendergymbenchmarkingfoundationalmodel,
+    title={BlenderGym: Benchmarking Foundational Model Systems for Graphics Editing}, 
+    author={Yunqi Gu and Ian Huang and Jihyeon Je and Guandao Yang and Leonidas Guibas},
+    year={2025},
+    eprint={2504.01786},
+    archivePrefix={arXiv},
+    primaryClass={cs.GR},
+    url={https://arxiv.org/abs/2504.01786}, 
+  }
 ```
 
 # Website License
